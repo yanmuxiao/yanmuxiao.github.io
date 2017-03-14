@@ -6,6 +6,7 @@ body {
 	margin: 0;
 }
 .entry {
+	width: 85%;
 	margin-top: 0;
 	margin-bottom: 0;
 	margin-left: 0;
@@ -619,6 +620,9 @@ a:hover {
 	}
 }*/
 @media (max-width:600px) {
+	.entry {
+		width: 98%;
+	}
 	.main {
 		padding-top: 48px;
 	}

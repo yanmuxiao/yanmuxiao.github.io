@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta name="Keywords" content="blog"/>
     <meta name="Description" content="blog"/>
-    <title>Simple</title>
+    <title>yanmuxiao</title>
     <link rel="shortcut icon" href="/static/favicon.png"/>
     <link rel="stylesheet" type="text/css" href="/main.css" />
 </head>
@@ -34,12 +34,12 @@ HTML结构：<br>
 　　该视觉差特效的基本HTML结构使用的是一个无序列表，每一个列表项给它们一个class layer和一个data-depth属性来指定该层的深度。深度为0的层将是固定不动的，深度为1的层运动效果最激烈的层。0-1之间的层会根据值来相对移动。
 ```javascript
 <ul id="scene">
-     <li class="layer" data-depth="0.00"><img src="layer1.png"></li>
-     <li class="layer" data-depth="0.20"><img src="layer2.png"></li>
-     <li class="layer" data-depth="0.40"><img src="layer3.png"></li>
-     <li class="layer" data-depth="0.60"><img src="layer4.png"></li>
-     <li class="layer" data-depth="0.80"><img src="layer5.png"></li>
-     <li class="layer" data-depth="1.00"><img src="layer6.png"></li>
+     <li class="layer" data-depth="0.00"><imgsrc="layer1.png"></li>
+     <li class="layer" data-depth="0.20"><imgsrc="layer2.png"></li>
+     <li class="layer" data-depth="0.40"><imgsrc="layer3.png"></li>
+     <li class="layer" data-depth="0.60"><imgsrc="layer4.png"></li>
+     <li class="layer" data-depth="0.80"><imgsrc="layer5.png"></li>
+     <li class="layer" data-depth="1.00"><imgsrc="layer6.png"></li>
 </ul>   
 <!-- 在html中设置属性 -->
 <ul id="scene"
@@ -53,12 +53,12 @@ HTML结构：<br>
   data-scalar-y="8"
   data-friction-x="0.2"
   data-friction-y="0.8">
-     <li class="layer" data-depth="0.00"><img src="graphics/layer6.png"></li>
-     <li class="layer" data-depth="0.20"><img src="graphics/layer5.png"></li>
-     <li class="layer" data-depth="0.40"><img src="graphics/layer4.png"></li>
-     <li class="layer" data-depth="0.60"><img src="graphics/layer3.png"></li>
-     <li class="layer" data-depth="0.80"><img src="graphics/layer2.png"></li>
-     <li class="layer" data-depth="1.00"><img src="graphics/layer1.png"></li>
+     <li class="layer" data-depth="0.00"><imgsrc="graphics/layer6.png"></li>
+     <li class="layer" data-depth="0.20"><imgsrc="graphics/layer5.png"></li>
+     <li class="layer" data-depth="0.40"><imgsrc="graphics/layer4.png"></li>
+     <li class="layer" data-depth="0.60"><imgsrc="graphics/layer3.png"></li>
+     <li class="layer" data-depth="0.80"><imgsrc="graphics/layer2.png"></li>
+     <li class="layer" data-depth="1.00"><imgsrc="graphics/layer1.png"></li>
 </ul>
 ```
 初始化插件：
@@ -236,8 +236,9 @@ var parallax = new Parallax(scene, {
 <p>　　UIWebView不会再自动接收deviceorientation事件，所以你的项目必须拦截gyroscope和reroute发出的事件。</p>
 
 <p>　　引入CoreMotion框架，#import ，并创建一个UIWebView的引用 @property(nonatomic, strong) IBOutlet UIWebView *parallaxWebView;。
-　　在app delegate中添加一个属性@property(nonatomic, strong) CMMotionManager *motionManager;。
+　　在app delegate中添加一个属性@property(nonatomic, strong) CMMotionManager *motionManager;<br>
 　　最后使用下面的代码来调用：</p>
+
 
 <h2 id="">六、例子下载</h2>
 
