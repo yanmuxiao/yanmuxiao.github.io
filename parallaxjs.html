@@ -25,6 +25,7 @@
 	</div>
 <div id="md" style="display: none;">
 <!-- markdown -->
+
 ##一、Parallax.js
 Parallax.js是一款功能非常强大的javascript视觉差特效引擎插件。通过这个视觉差插件可以制作出非常炫酷的视觉差特效。它可以检测智能设备的方向。你可以将它作为jQuery插件来使用，也可以以纯JS的方式来使用。
 
@@ -78,35 +79,35 @@ var parallax = new Parallax(scene, {
 });
 ```
 ##三、层运动的计算规则
-每一个层的运动量依赖于3个因素：
-* scalarX和scalarY的值
-* 父DOM元素的尺寸大小
-* 一个parallax场景中层的depth值
+每一个层的运动量依赖于3个因素：<br>
+1.  scalarX和scalarY的值<br>
+2.  父DOM元素的尺寸大小<br>
+3.  一个parallax场景中层的depth值<br>
 
-计算的公式如下：
-1. xMotion = parentElement.width  * (scalarX / 100) * layerDepth
-2. yMotion = parentElement.height * (scalarY / 100) * layerDepth
+计算的公式如下：<br>
+1. xMotion = parentElement.width  * (scalarX / 100) * layerDepth<br>
+2. yMotion = parentElement.height * (scalarY / 100) * layerDepth<br>
 
-所以在场景中一个data-depth为0.5的层，它的scalarX和scalarY值都为10(默认值)，它的父容器的尺寸为1000px x 1000px，那么这个层在x和y方向的总运动量就为：
-1. xMotion = 1000 * (10 / 100) * 0.5 = 50 # 50px of positive and negative motion in x
+所以在场景中一个data-depth为0.5的层，它的scalarX和scalarY值都为10(默认值)，它的父容器的尺寸为1000px x 1000px，那么这个层在x和y方向的总运动量就为：<br>
+1. xMotion = 1000 * (10 / 100) * 0.5 = 50 # 50px of positive and negative motion in x   <br>
 2. yMotion = 1000 * (10 / 100) * 0.5 = 50 # 50px of positive and negative motion in y 
 
 ##四、配置参数
 下面是一些可用的配置参数，这些参数也可以在HTML标签中使用data属性来指定。<br/>
-1. relativeInput	true 或false	Specifies whether or not to use the coordinate system of the element passed to the parallax constructor. Mouse input only    <br/>
-2. clipRelativeInput	true 或false	Specifies whether or not to clip the mouse input to the bounds of the element passed to the parallax constructor. Mouse input only <br/>
-3. calibrate-x	true 或false	指定是否根据初始时x轴的值来计算运动量  <br/>
-4. calibrate-y	true 或false	指定是否根据初始时y轴的值来计算运动量 <br/>
-5. invert-x	true 或false	设置为true则按反方向运动层 <br/>
-6. invert-y	true 或false	设置为true则按反方向运动层 <br/>
-7. limit-x	number 或false	x方向上总的运动量数值范围，设置为false则允许层自由运动 <br/>
-8. limit-y	number 或false	y方向上总的运动量数值范围，设置为false则允许层自由运动 <br/>
-9. scalar-x	number	输入的运动量和这个值相乘，增加或减少层运动的灵敏度 <br/>
-10. scalar-y	number	输入的运动量和这个值相乘，增加或减少层运动的灵敏度 <br/>
-11. friction-x	number 0-1	层运动的摩擦量，实际上是在层上添加一些easing效果 <br/>
-12. friction-y	number 0-1	层运动的摩擦量，实际上是在层上添加一些easing效果 <br/>
-13. origin-x	number	鼠标输入的x原点，默认值是0.5。0会移动原点到页面的左边，1会移动原点到页面的右边。Mouse input only <br/>
-14. origin-y	number	鼠标输入的x原点，默认值是0.5。0会移动原点到页面的上边，1会移动原点到页面的下边。Mouse input only
+1. relativeInput 	true 或false	 Specifies whether or not to use the coordinate system of the element passed to the parallax constructor. Mouse input only    <br/>
+2. clipRelativeInput     true 或false	  Specifies whether or not to clip the mouse input to the bounds of the element passed to the parallax constructor. Mouse input only <br/>
+3. calibrate-x	 true 或false	指定是否根据初始时x轴的值来计算运动量  <br/>
+4. calibrate-y	 true 或false	指定是否根据初始时y轴的值来计算运动量 <br/>
+5. invert-x	    true 或false  	设置为true则按反方向运动层 <br/>
+6. invert-y	    true 或false	        设置为true则按反方向运动层 <br/>
+7. limit-x	   number 或false	 x方向上总的运动量数值范围，设置为false则允许层自由运动 <br/>
+8. limit-y	  number 或false	 y方向上总的运动量数值范围，设置为false则允许层自由运动 <br/>
+9. scalar-x	  number	       输入的运动量和这个值相乘，增加或减少层运动的灵敏度 <br/>
+10. scalar-y	  number	        输入的运动量和这个值相乘，增加或减少层运动的灵敏度 <br/>
+11. friction-x	  number 0-1	 层运动的摩擦量，实际上是在层上添加一些easing效果 <br/>
+12. friction-y	  number 0-1	层运动的摩擦量，实际上是在层上添加一些easing效果 <br/>
+13. origin-x	  number	        鼠标输入的x原点，默认值是0.5。0会移动原点到页面的左边，1会移动原点到页面的右边。Mouse input only <br/>
+14. origin-y	  number	     鼠标输入的x原点，默认值是0.5。0会移动原点到页面的上边，1会移动原点到页面的下边。Mouse input only
 
 ##五、IOS（不懂IOS，没试过）
 　　如果如果你编写了一个原生的iOS项目，并希望在UIWebView中使用parallax.js，你需要按下面的步骤来实现它。
@@ -123,7 +124,7 @@ var parallax = new Parallax(scene, {
 
 
 ##七、感激jQuery之家
-[http://www.htmleaf.com/jQuery/shijuecha/201508152419.html](http://www.htmleaf.com/jQuery/shijuecha/201508152419.html)
+   [http://www.htmleaf.com/jQuery/shijuecha/201508152419.html](http://www.htmleaf.com/jQuery/shijuecha/201508152419.html)
 
 
 
@@ -197,36 +198,36 @@ var parallax = new Parallax(scene, {
 
 <h2 id="">三、层运动的计算规则</h2>
 
-<p>每一个层的运动量依赖于3个因素：
-* scalarX和scalarY的值
-* 父DOM元素的尺寸大小
-* 一个parallax场景中层的depth值</p>
+<p>每一个层的运动量依赖于3个因素：<br>
+1.  scalarX和scalarY的值<br>
+2.  父DOM元素的尺寸大小<br>
+3.  一个parallax场景中层的depth值<br></p>
 
-<p>计算的公式如下：
-1. xMotion = parentElement.width  * (scalarX / 100) * layerDepth
-2. yMotion = parentElement.height * (scalarY / 100) * layerDepth</p>
+<p>计算的公式如下：<br>
+1. xMotion = parentElement.width  * (scalarX / 100) * layerDepth<br>
+2. yMotion = parentElement.height * (scalarY / 100) * layerDepth<br></p>
 
-<p>所以在场景中一个data-depth为0.5的层，它的scalarX和scalarY值都为10(默认值)，它的父容器的尺寸为1000px x 1000px，那么这个层在x和y方向的总运动量就为：
-1. xMotion = 1000 * (10 / 100) * 0.5 = 50 # 50px of positive and negative motion in x
+<p>所以在场景中一个data-depth为0.5的层，它的scalarX和scalarY值都为10(默认值)，它的父容器的尺寸为1000px x 1000px，那么这个层在x和y方向的总运动量就为：<br>
+1. xMotion = 1000 * (10 / 100) * 0.5 = 50 # 50px of positive and negative motion in x   <br>
 2. yMotion = 1000 * (10 / 100) * 0.5 = 50 # 50px of positive and negative motion in y </p>
 
 <h2 id="">四、配置参数</h2>
 
 <p>下面是一些可用的配置参数，这些参数也可以在HTML标签中使用data属性来指定。<br>
-1. relativeInput    true 或false Specifies whether or not to use the coordinate system of the element passed to the parallax constructor. Mouse input only    <br>
-2. clipRelativeInput    true 或false Specifies whether or not to clip the mouse input to the bounds of the element passed to the parallax constructor. Mouse input only <br>
-3. calibrate-x    true 或false 指定是否根据初始时x轴的值来计算运动量  <br>
-4. calibrate-y    true 或false 指定是否根据初始时y轴的值来计算运动量 <br>
-5. invert-x    true 或false 设置为true则按反方向运动层 <br>
-6. invert-y    true 或false 设置为true则按反方向运动层 <br>
-7. limit-x    number 或false   x方向上总的运动量数值范围，设置为false则允许层自由运动 <br>
-8. limit-y    number 或false   y方向上总的运动量数值范围，设置为false则允许层自由运动 <br>
-9. scalar-x    number  输入的运动量和这个值相乘，增加或减少层运动的灵敏度 <br>
-10. scalar-y    number  输入的运动量和这个值相乘，增加或减少层运动的灵敏度 <br>
-11. friction-x    number 0-1  层运动的摩擦量，实际上是在层上添加一些easing效果 <br>
-12. friction-y    number 0-1  层运动的摩擦量，实际上是在层上添加一些easing效果 <br>
-13. origin-x    number  鼠标输入的x原点，默认值是0.5。0会移动原点到页面的左边，1会移动原点到页面的右边。Mouse input only <br>
-14. origin-y    number  鼠标输入的x原点，默认值是0.5。0会移动原点到页面的上边，1会移动原点到页面的下边。Mouse input only</p>
+1. relativeInput     true 或false  Specifies whether or not to use the coordinate system of the element passed to the parallax constructor. Mouse input only    <br>
+2. clipRelativeInput     true 或false      Specifies whether or not to clip the mouse input to the bounds of the element passed to the parallax constructor. Mouse input only <br>
+3. calibrate-x     true 或false    指定是否根据初始时x轴的值来计算运动量  <br>
+4. calibrate-y     true 或false    指定是否根据初始时y轴的值来计算运动量 <br>
+5. invert-x        true 或false     设置为true则按反方向运动层 <br>
+6. invert-y        true 或false         设置为true则按反方向运动层 <br>
+7. limit-x       number 或false     x方向上总的运动量数值范围，设置为false则允许层自由运动 <br>
+8. limit-y      number 或false  y方向上总的运动量数值范围，设置为false则允许层自由运动 <br>
+9. scalar-x      number           输入的运动量和这个值相乘，增加或减少层运动的灵敏度 <br>
+10. scalar-y      number            输入的运动量和这个值相乘，增加或减少层运动的灵敏度 <br>
+11. friction-x      number 0-1     层运动的摩擦量，实际上是在层上添加一些easing效果 <br>
+12. friction-y      number 0-1    层运动的摩擦量，实际上是在层上添加一些easing效果 <br>
+13. origin-x      number            鼠标输入的x原点，默认值是0.5。0会移动原点到页面的左边，1会移动原点到页面的右边。Mouse input only <br>
+14. origin-y      number         鼠标输入的x原点，默认值是0.5。0会移动原点到页面的上边，1会移动原点到页面的下边。Mouse input only</p>
 
 <h2 id="iosios">五、IOS（不懂IOS，没试过）</h2>
 
