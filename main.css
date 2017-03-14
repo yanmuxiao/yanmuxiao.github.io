@@ -490,6 +490,7 @@ body {
 	width: 90%;
 	margin: 0 auto;
 	min-height: 400px;
+	padding-top: 10px;
 }
 #disqus_thread {
 	padding: 16px
