@@ -5,6 +5,9 @@ body {
 	padding: 0;
 	margin: 0;
 }
+div {
+	box-sizing: border-box;
+}
 .entry {
 	width: 85%;
 	margin-top: 0;
@@ -621,9 +624,9 @@ a:hover {
 		margin: 70px 0 0 -180px
 	}
 }*/
-@media (max-width:600px) {
+@media (max-width:400px) {
 	.entry {
-		width: 98%;
+		width: 96%;
 	}
 	.main {
 		padding-top: 48px;
