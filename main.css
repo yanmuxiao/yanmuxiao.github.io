@@ -623,7 +623,16 @@ a:hover {
 		padding-top: 48px;
 	}
 	.header {
-		display: none;
+		margin-right: 0;
+		position: fixed;
+		top: 0;
+		right: 10px;
+		z-index: 20;
+	}
+	.header li {
+		font-size: 14px;
+		line-height: 48px;
+		margin-left: 10px;
 	}
 	.wrap-header {
 	    height: 48px;
@@ -633,8 +642,7 @@ a:hover {
 	}
 	.wrap-header h1 {
 		line-height: 48px;
-		font-size: 1.4em;
-		text-align: center;
+		font-size: 1.2em;
 	}
 	.footer > p {
 		margin: 5px 20px 0;
