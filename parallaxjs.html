@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta name="Keywords" content="blog"/>
     <meta name="Description" content="blog"/>
-    <title>yanmuxiao</title>
+    <title>Simple</title>
     <link rel="shortcut icon" href="/static/favicon.png"/>
     <link rel="stylesheet" type="text/css" href="/main.css" />
 </head>
@@ -120,6 +120,7 @@ var parallax = new Parallax(scene, {
 
 
 ##六、例子下载
+[parallaxjs例子](https://yanmuxiao.github.io/parallaxjs/parallax.html)
 [parallaxjs例子下载](https://github.com/yanmuxiao/parallax.js.git)
 
 
@@ -150,12 +151,12 @@ var parallax = new Parallax(scene, {
 　　该视觉差特效的基本HTML结构使用的是一个无序列表，每一个列表项给它们一个class layer和一个data-depth属性来指定该层的深度。深度为0的层将是固定不动的，深度为1的层运动效果最激烈的层。0-1之间的层会根据值来相对移动。</p>
 
 <pre><code class="javascript">&lt;ul id="scene"&gt;
-     &lt;li class="layer" data-depth="0.00"&gt;&lt;img src="layer1.png"&gt;&lt;/li&gt;
-     &lt;li class="layer" data-depth="0.20"&gt;&lt;img src="layer2.png"&gt;&lt;/li&gt;
-     &lt;li class="layer" data-depth="0.40"&gt;&lt;img src="layer3.png"&gt;&lt;/li&gt;
-     &lt;li class="layer" data-depth="0.60"&gt;&lt;img src="layer4.png"&gt;&lt;/li&gt;
-     &lt;li class="layer" data-depth="0.80"&gt;&lt;img src="layer5.png"&gt;&lt;/li&gt;
-     &lt;li class="layer" data-depth="1.00"&gt;&lt;img src="layer6.png"&gt;&lt;/li&gt;
+     &lt;li class="layer" data-depth="0.00"&gt;&lt;imgsrc="layer1.png"&gt;&lt;/li&gt;
+     &lt;li class="layer" data-depth="0.20"&gt;&lt;imgsrc="layer2.png"&gt;&lt;/li&gt;
+     &lt;li class="layer" data-depth="0.40"&gt;&lt;imgsrc="layer3.png"&gt;&lt;/li&gt;
+     &lt;li class="layer" data-depth="0.60"&gt;&lt;imgsrc="layer4.png"&gt;&lt;/li&gt;
+     &lt;li class="layer" data-depth="0.80"&gt;&lt;imgsrc="layer5.png"&gt;&lt;/li&gt;
+     &lt;li class="layer" data-depth="1.00"&gt;&lt;imgsrc="layer6.png"&gt;&lt;/li&gt;
 &lt;/ul&gt;   
 &lt;!-- 在html中设置属性 --&gt;
 &lt;ul id="scene"
@@ -169,12 +170,12 @@ var parallax = new Parallax(scene, {
   data-scalar-y="8"
   data-friction-x="0.2"
   data-friction-y="0.8"&gt;
-     &lt;li class="layer" data-depth="0.00"&gt;&lt;img src="graphics/layer6.png"&gt;&lt;/li&gt;
-     &lt;li class="layer" data-depth="0.20"&gt;&lt;img src="graphics/layer5.png"&gt;&lt;/li&gt;
-     &lt;li class="layer" data-depth="0.40"&gt;&lt;img src="graphics/layer4.png"&gt;&lt;/li&gt;
-     &lt;li class="layer" data-depth="0.60"&gt;&lt;img src="graphics/layer3.png"&gt;&lt;/li&gt;
-     &lt;li class="layer" data-depth="0.80"&gt;&lt;img src="graphics/layer2.png"&gt;&lt;/li&gt;
-     &lt;li class="layer" data-depth="1.00"&gt;&lt;img src="graphics/layer1.png"&gt;&lt;/li&gt;
+     &lt;li class="layer" data-depth="0.00"&gt;&lt;imgsrc="graphics/layer6.png"&gt;&lt;/li&gt;
+     &lt;li class="layer" data-depth="0.20"&gt;&lt;imgsrc="graphics/layer5.png"&gt;&lt;/li&gt;
+     &lt;li class="layer" data-depth="0.40"&gt;&lt;imgsrc="graphics/layer4.png"&gt;&lt;/li&gt;
+     &lt;li class="layer" data-depth="0.60"&gt;&lt;imgsrc="graphics/layer3.png"&gt;&lt;/li&gt;
+     &lt;li class="layer" data-depth="0.80"&gt;&lt;imgsrc="graphics/layer2.png"&gt;&lt;/li&gt;
+     &lt;li class="layer" data-depth="1.00"&gt;&lt;imgsrc="graphics/layer1.png"&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </code></pre>
 
@@ -236,13 +237,13 @@ var parallax = new Parallax(scene, {
 <p>　　UIWebView不会再自动接收deviceorientation事件，所以你的项目必须拦截gyroscope和reroute发出的事件。</p>
 
 <p>　　引入CoreMotion框架，#import ，并创建一个UIWebView的引用 @property(nonatomic, strong) IBOutlet UIWebView *parallaxWebView;。
-　　在app delegate中添加一个属性@property(nonatomic, strong) CMMotionManager *motionManager;<br>
+　　在app delegate中添加一个属性@property(nonatomic, strong) CMMotionManager *motionManager;。
 　　最后使用下面的代码来调用：</p>
-
 
 <h2 id="">六、例子下载</h2>
 
-<p><a href="https://github.com/yanmuxiao/parallax.js.git">parallaxjs例子下载</a></p>
+<p><a href="https://yanmuxiao.github.io/parallaxjs/parallax.html">parallaxjs例子</a>
+<a href="https://github.com/yanmuxiao/parallax.js.git">parallaxjs例子下载</a></p>
 
 <h2 id="jquery">七、感激jQuery之家</h2>
 
