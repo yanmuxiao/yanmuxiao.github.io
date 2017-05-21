@@ -60,7 +60,7 @@ div {
 	margin-top: 0
 }
 .entry>h3, .entry>h4, .entry>h5, .entry>h6 {
-	margin-top: 32px
+	padding-top: 16px
 }
 .entry>h3+*, .entry>h4+*, .entry>h5+*, .entry>h6+* {
 	margin-top: 0
@@ -90,7 +90,7 @@ div {
 }
 .entry h1 {
 	font-size: 22px;
-	line-height: 48px;
+	line-height: 1.8;
 	text-align: center;
 	font-weight: 500;
 	padding: 20px 0;
