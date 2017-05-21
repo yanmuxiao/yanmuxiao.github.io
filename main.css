@@ -133,7 +133,6 @@ div {
 }
 .entry pre {
 	padding: 15px 16px;
-	line-height: 16px;
 	font-size: 14px;
 	white-space: pre;
 	word-wrap: normal;
@@ -142,7 +141,10 @@ div {
 	border: 1px solid #e1e1e8;
 	border-right: none;
 	border-left: none;
-	background-color: #f7f7f9
+	background-color: #f7f7f9;
+	word-break: break-all;
+    white-space: pre-wrap;
+    line-height: 1.5;
 }
 .entry ol, .entry ul {
 	padding-left: 32px
@@ -246,7 +248,8 @@ div {
 .entry a {
 	padding-bottom: .025em;
 	color: #E93071;
-	text-decoration: none
+	text-decoration: none;
+	margin-left: 15px;
 }
 .entry a[href^="javascript:"], .entry a[onclick] {
 	margin: 0 .25em;
