@@ -89,15 +89,15 @@ div {
 	border-bottom-color: #424b50
 }
 .entry h1 {
-	font-size: 22px;
+	font-size: 20px;
 	line-height: 1.8;
 	text-align: center;
 	font-weight: 500;
 	padding: 20px 0;
 }
 .entry h2 {
-	font-size: 21px;
-	line-height: 32px;
+	font-size: 18px;
+	line-height: 1.8;
 	font-weight: 400
 }
 .entry h3 {
@@ -133,18 +133,34 @@ div {
 }
 .entry pre {
 	padding: 15px 16px;
-	font-size: 14px;
+	font-size: 16px;
 	white-space: pre;
 	word-wrap: normal;
 	overflow: auto;
 	font-family: consolas, monaco, monospace, serif;
-	border: 1px solid #e1e1e8;
 	border-right: none;
 	border-left: none;
-	background-color: #f7f7f9;
+	background-color: #fff;
 	word-break: break-all;
     white-space: pre-wrap;
     line-height: 1.8;
+    position: relative;
+}
+.entry pre:before,
+.entry pre:after {
+	content: '';
+	position: absolute;
+	width: 100%;
+	height: 1px;
+	background-color: #a0a0a0;
+	-webkit-transform: scaleY(0.2);
+	-moz-transform: scaleY(0.2);
+	-ms-transform: scaleY(0.2);
+	-o-transform: scaleY(0.2);
+	transform: scaleY(0.2);
+}
+.entry pre:after {
+	bottom: 0;
 }
 .entry ol, .entry ul {
 	padding-left: 32px
@@ -567,6 +583,10 @@ a:hover {
 	height: 1px;
 	background-color: #a0a0a0;
 	-webkit-transform: scaleY(0.2);
+	-moz-transform: scaleY(0.2);
+	-ms-transform: scaleY(0.2);
+	-o-transform: scaleY(0.2);
+	transform: scaleY(0.2);
 }
 .innermain .item:nth-last-child(2):after {
 	display: none;
@@ -620,6 +640,10 @@ a:hover {
     height: 1px;
     background-color: #a0a0a0;
     -webkit-transform: scaleY(0.2);
+	-moz-transform: scaleY(0.2);
+	-ms-transform: scaleY(0.2);
+	-o-transform: scaleY(0.2);
+	transform: scaleY(0.2);
     left: 0;
 }
 .footer > p {
