@@ -151,6 +151,7 @@ div {
 	content: '';
 	position: absolute;
 	width: 100%;
+	left: 0;
 	height: 1px;
 	background-color: #a0a0a0;
 	-webkit-transform: scaleY(0.2);
@@ -158,6 +159,9 @@ div {
 	-ms-transform: scaleY(0.2);
 	-o-transform: scaleY(0.2);
 	transform: scaleY(0.2);
+}
+.entry pre:before {
+	top: 0;
 }
 .entry pre:after {
 	bottom: 0;
