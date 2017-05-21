@@ -92,13 +92,13 @@ div {
 	font-size: 28px;
 	line-height: 48px;
 	text-align: center;
-	font-weight: 700;
+	font-weight: 500;
 	padding: 20px 0;
 }
 .entry h2 {
 	font-size: 21px;
 	line-height: 32px;
-	font-weight: 700
+	font-weight: 400
 }
 .entry h3 {
 	font-size: 18px;
@@ -144,7 +144,7 @@ div {
 	background-color: #f7f7f9;
 	word-break: break-all;
     white-space: pre-wrap;
-    line-height: 1.5;
+    line-height: 1.8;
 }
 .entry ol, .entry ul {
 	padding-left: 32px
@@ -282,7 +282,7 @@ div {
 	outline: 0
 }
 .entry b, .entry strong {
-	font-weight: 700
+	font-weight: 500
 }
 .entry em, .entry u {
 	padding-bottom: .05em;
@@ -443,7 +443,7 @@ pre[class*=language-] {
 	color: #e90
 }
 .token.important {
-	font-weight: 700
+	font-weight: 500
 }
 .token.entity {
 	cursor: help
@@ -567,7 +567,7 @@ a:hover {
 	color: #C5C5BD;
 	font-size: 17px;
 	text-transform: uppercase;
-	font-weight: 700;
+	font-weight: 500;
 	width: 140px;
 	padding: 16px 0 0
 }
