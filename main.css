@@ -267,7 +267,7 @@ div {
 }
 .entry a {
 	padding-bottom: .025em;
-	color: #E93071;
+	color: #20a0ff;
 	text-decoration: none;
 	margin-left: 15px;
 }
@@ -541,7 +541,7 @@ body {
 .wrap-header h1 {
 	width: 90%;
 	line-height: 60px;
-	color: #E93071;
+	color: #20a0ff;
 	margin: 0;
 	margin-left: 5%;
 	font-family: "Comic Sans MS", cursive, sans-serif
@@ -575,10 +575,10 @@ body {
 }
 a {
 	text-decoration: none;
-	color: #E93071
+	color: #20a0ff
 }
 a:hover {
-	border-bottom: 1px solid #E93071
+	border-bottom: 1px solid #20a0ff
 }
 .selected {
 	color: #000
@@ -626,7 +626,7 @@ a:hover {
 }
 .title a:hover {
 	padding-bottom: 2px;
-	border-bottom: 1px solid #E93071
+	border-bottom: 1px solid #20a0ff
 }
 .title h2 {
 	font-size: 17px;
@@ -669,7 +669,7 @@ a:hover {
 	font-family: -apple-system,SF UI Text,Arial,PingFang SC,Hiragino Sans GB,Microsoft YaHei,WenQuanYi Micro Hei,sans-serif
 }
 .pages a:hover {
-	border: 1px solid #E93071;
+	border: 1px solid #20a0ff;
 	border-radius: 4px
 }
 .pages>li {
