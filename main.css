@@ -685,7 +685,8 @@ a:hover {
 	color: #888
 }
 .archive {
-	margin: 10px
+	margin: 10px;
+	line-height: 2;
 }
 .archive>span {
 	color: #C5C5BD;
