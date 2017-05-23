@@ -524,6 +524,13 @@ body {
     /*box-shadow: 0 0 25px #cac6c6;*/
     padding: 10px 20px;
 }
+.innermain > ul {
+	padding: 0;
+}
+.innermain > ul li a {
+	line-height: 2;
+	font-size: 18px;
+}
 #disqus_thread {
 	padding: 16px
 }
