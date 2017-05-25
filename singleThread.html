@@ -34,9 +34,8 @@
 1、触发和执行并不是同一概念，触发，但并不一定立即执行，可能需要等待。
 2、所有JavaScript代码是在一个线程里执行的，像鼠标点击和计时器之类的事件只有在JS单线程空闲时才执行
 
-
-
-例子： function foo() {
+例子：
+       function foo() {
 	    console.log("first");
 	    setTimeout(( function(){
 	        console.log( 'second' );
@@ -46,20 +45,16 @@
 	for (var i = 0; i < 1000000; i++) {
 	    foo();
 	}
+
 ==> 执行结果会首先全部输出first，然后全部输出second；尽管中间的执行会超过5ms。
-
-
 
 ```
 
 ###二、JavaScript单线程的性质决定JavaScript引擎同一时间只执行一段代码
 
-
 1、那么Ajax是如何实现异步的呢？？？
 
  	答：既然说JavaScript是单线程运行的，那么XMLHttpRequest在连接后是否真的异步？其实请求确实是异步的，不过这请求是由浏览器新开一个线程请求(参见上图)，当请求的状态变更时，如果先前已设置回调，这异步线程就产生状态变更事件放到JavaScript引擎的处理队列中等待处理，当任务被处理时，JavaScript引擎始终是单线程运行回调函数，具体点即还是单线程运行onreadystatechange所设置的函数。
-
-
 
 2、GUI渲染也是在引擎线程中执行的，脚本中执行对界面进行更新操作,如添加结点,删除结点或改变结点的外观等更新并不会立即体现出来,这些操作将保存在一个队列中,待JavaScript引擎空闲时才有机会渲染出来。
 
@@ -79,15 +74,20 @@
 
 	console.log('我在什么时候输出？？？');
 
-
 	1). div#test的内容不会依次显示，只有while循环结束后一次性显示出来。
 	2). console.log('我在什么时候输出？？？');也是在while循环结束后才显示出来
 
 	这两点说明了什么？？？？
-
 ```	
 
-异步事件（像鼠标点击、计时器、Ajax）
+###三、异步事件
+```javascript
+
+鼠标点击、计时器、Ajax、js修改html内容
+
+```
+
+
 
 
 
@@ -102,9 +102,8 @@
 <pre><code class="javascript">1、触发和执行并不是同一概念，触发，但并不一定立即执行，可能需要等待。
 2、所有JavaScript代码是在一个线程里执行的，像鼠标点击和计时器之类的事件只有在JS单线程空闲时才执行
 
-
-
-例子： function foo() {
+例子：
+       function foo() {
         console.log("first");
         setTimeout(( function(){
             console.log( 'second' );
@@ -114,6 +113,7 @@
     for (var i = 0; i &lt; 1000000; i++) {
         foo();
     }
+
 ==&gt; 执行结果会首先全部输出first，然后全部输出second；尽管中间的执行会超过5ms。
 </code></pre>
 
@@ -140,7 +140,6 @@
 
     console.log('我在什么时候输出？？？');
 
-
     1). div#test的内容不会依次显示，只有while循环结束后一次性显示出来。
     2). console.log('我在什么时候输出？？？');也是在while循环结束后才显示出来
 
@@ -150,7 +149,10 @@
 <pre><code>
 </code></pre>
 
-<p>异步事件（像鼠标点击、计时器、Ajax）</p>
+<h3 id="">三、异步事件</h3>
+
+<pre><code class="javascript">鼠标点击、计时器、Ajax、js修改html内容
+</code></pre>
 <!-- content end -->
 </div>
 <br>
