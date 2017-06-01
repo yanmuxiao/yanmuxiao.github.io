@@ -26,7 +26,6 @@
 <div id="md" style="display: none;">
 <!-- markdown -->
 
-
 ###一、关于String的属性和方法
 
 ```javascript
@@ -36,11 +35,11 @@ var str1 = "Concat1";
 var str2 = "Concat2";
 ```
 
-1、字符串的length属性
+#####1、字符串的length属性
 ```javascript
 console.log(str.length); // 9
 ```
-2、字符串的方法
+#####2、字符串的方法
 
 a. concat
 ```javascript
@@ -55,9 +54,9 @@ b. slice(start,end)
 	console.log(string.slice(-6, -3)); // 123 ==> 倒数下标[-6, -3)
 ```
 
-	==> slice(start,end)==>返回一个新的字符串。包括字符串 stringObject 从 start 开始（包括 start）到 end 结束（不包括 end）为止的所有字符。当没有第二个参数时，截止到最后
+	==> slice(start,end)==>返回一个新的字符串。包括字符串 stringObject 从 start 开始（包括 start）到 end 结束（不包括 end）为止的所有字符。当没有第二个参数时，截止到最后。
 
-	==> 当只有一个参数，并且这个参数为负数时，表示从字符串尾部开始，-1表示倒数第一开始，n表示倒数第n开始到最后
+	==> 当只有一个参数，并且这个参数为负数时，表示从字符串尾部开始，-1表示倒数第一开始，n表示倒数第n开始到最后。
 
 c. substring(start,end)
 ```javascript
@@ -77,7 +76,7 @@ d. substr(start,lenght)
 //还要注意的是，String.slice() 与 Array.slice() 相似。
 ```
 
-对以上三个方法的总结：<br><br>
+对以上三个方法的总结：<br>
 	1、只接受连个参数，返回新的字符串<br>
 	2、slice ==> 参数可以为负<br>
 	      subString ==> 参数都不可以为负，自动转换为0<br>
@@ -103,13 +102,13 @@ f.  trim() ==> IE9以下没有这个方法，要做兼容，如下：
 		return this.replace(/(^\s*)|(\s*$)/g,"");
 	};
 ```
-g. 字符串比较：
+g. 字符串比较
 ```javascript
 	log(str.localeCompare(str1)); //-1
 	log(str1.localeCompare(str)); //1
-	log(str.localeCompare(str));  //0
+	log(str.localeCompare(str)); // 0
 ```		
-h. 字符串大小写转换：
+h. 字符串大小写转换
 ```javascript
 	log(str.toUpperCase()); // ABC123ABC
 	log(str.toLocaleUpperCase()); // ABC123ABC
@@ -125,7 +124,6 @@ i. split ==> 将字符串转换为数组
 	join ==> 将数组转换为字符串
 	console.log(arr.join('')); // abc123ABC
 ```
-<br><br>
 <!-- markdown end -->
 </div>
 <div class="entry" id="main">
@@ -137,12 +135,12 @@ var str1 = "Concat1";
 var str2 = "Concat2";
 </code></pre>
 
-<p>1、字符串的length属性</p>
+<h5 id="1length">1、字符串的length属性</h5>
 
 <pre><code class="javascript">console.log(str.length); // 9
 </code></pre>
 
-<p>2、字符串的方法</p>
+<h5 id="2">2、字符串的方法</h5>
 
 <p>a. concat</p>
 
@@ -158,9 +156,9 @@ var str2 = "Concat2";
     console.log(string.slice(-6, -3)); // 123 ==&gt; 倒数下标[-6, -3)
 </code></pre>
 
-<pre><code>==&gt; slice(start,end)==&gt;返回一个新的字符串。包括字符串 stringObject 从 start 开始（包括 start）到 end 结束（不包括 end）为止的所有字符。当没有第二个参数时，截止到最后
+<pre><code>==&gt; slice(start,end)==&gt;返回一个新的字符串。包括字符串 stringObject 从 start 开始（包括 start）到 end 结束（不包括 end）为止的所有字符。当没有第二个参数时，截止到最后。
 
-==&gt; 当只有一个参数，并且这个参数为负数时，表示从字符串尾部开始，-1表示倒数第一开始，n表示倒数第n开始到最后
+==&gt; 当只有一个参数，并且这个参数为负数时，表示从字符串尾部开始，-1表示倒数第一开始，n表示倒数第n开始到最后。
 </code></pre>
 
 <p>c. substring(start,end)</p>
@@ -182,7 +180,7 @@ var str2 = "Concat2";
 //还要注意的是，String.slice() 与 Array.slice() 相似。
 </code></pre>
 
-<p>对以上三个方法的总结：<br><br>
+<p>对以上三个方法的总结：<br>
     1、只接受连个参数，返回新的字符串<br>
     2、slice ==&gt; 参数可以为负<br>
           subString ==&gt; 参数都不可以为负，自动转换为0<br>
@@ -209,17 +207,17 @@ var str2 = "Concat2";
     };
 </code></pre>
 
-<p>g. 字符串比较：</p>
+<p>g. 字符串比较</p>
 
 <pre><code class="javascript">    log(str.localeCompare(str1)); //-1
     log(str1.localeCompare(str)); //1
-    log(str.localeCompare(str));  //0
+    log(str.localeCompare(str)); // 0
 </code></pre>
 
 <pre><code>    
 </code></pre>
 
-<p>h. 字符串大小写转换：</p>
+<p>h. 字符串大小写转换</p>
 
 <pre><code class="javascript">    log(str.toUpperCase()); // ABC123ABC
     log(str.toLocaleUpperCase()); // ABC123ABC
@@ -236,8 +234,6 @@ var str2 = "Concat2";
     join ==&gt; 将数组转换为字符串
     console.log(arr.join('')); // abc123ABC
 </code></pre>
-
-<p><br><br></p>
 <!-- content end -->
 </div>
 <br>
