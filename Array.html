@@ -1,0 +1,322 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="Keywords" content="blog"/>
+    <meta name="Description" content="blog"/>
+    <title>Simple</title>
+    <link rel="shortcut icon" href="/static/favicon.png"/>
+    <link rel="stylesheet" type="text/css" href="/main.css" />
+</head>
+<body>
+<div class="main">
+    <div class="header">
+    	<ul id="pages">
+            <li><a href="/">home</a></li>
+            <li><a href="/#/tags">tags</a></li>
+            <li><a href="/#/archive">archive</a></li>
+    	</ul>
+    </div>
+	<div class="wrap-header">
+	<h1>
+    <a href="/" id="title"></a>
+	</h1>
+	</div>
+<div id="md" style="display: none;">
+<!-- markdown -->
+
+
+###一、关于Array的属性和方法
+
+```javascript
+
+var arr = [1, 2, 3];
+var arr1 = ['a', 'b', 'c'];
+var arr2 = ['A', 'B', 'C'];
+var concatArr = [1, 2, 3, "a", "b", "c", "A", "B", "C"];
+
+1、数组的length属性
+console.log(arr.length); // 3
+
+注意：
+   1、数组的length不要随意赋值，如arr.length = 10;
+   		==> 除非要清空数组：arr.length = 0;
+   2、数组不要通过索引随便赋值，如：arr[10] = 10;
+
+   以上行为都会改变数组。
+
+
+2、数组的方法
+
+a. concat
+	console.log(arr.concat(arr1, arr2)); //[1, 2, 3, "a", "b", "c", "A", "B", "C"] 
+	==> 返回新的数组，不改变原数组
+
+b. slice(start,end)
+	console.log(concatArr.slice(0, 3)); // [1, 2, 3] ==> 下标[0, 3)
+	console.log(concatArr.slice(-3));	 // ["A", "B", "C"] ==> 倒数第3位到结束
+	console.log(concatArr.slice(-6, -3)); // ["a", "b", "c"] ==> 倒数下标[-6, -3)
+
+	==> slice(start,end)==>返回一个新的数组。包括数组 concatArr 从 start 开始（包括 start）到 end 结束（不包括 end）为止的所有元素。当没有第二个参数时，截止到最后
+
+	==> 当只有一个参数，并且这个参数为负数时，表示从数组尾部开始，-1表示倒数第一开始，n表示倒数第n开始到最后
+
+c. indexOf
+	
+   console.log(concatArr.indexOf('a')); // 3
+   console.log(concatArr.indexOf('1')); // -1 ==> 代表没有
+
+   注意了，数字1和字符串'1'是不同的元素。
+
+d. slice ==> 可以说和String的slice一模一样，字符串变数组而已，忘了可以去看[关于String的属性和方法](https://yanmuxiao.github.io/String.html)
+	
+
+	如果不给slice()传递任何参数，它就会从头到尾截取所有元素。利用这一点，我们可以很容易地复制一个Array
+	var arr2 = concat.slice(); // 数组的复制
+
+	注意：有些地方说slice()就是对应String的substring()版本，我觉得不对，因为subString的参数都不能为负。
+
+e. push和pop
+
+	push()向Array的末尾添加 若干 元素，pop()则把Array的 最后一个 元素删除掉。
+
+	注意：若干、最后一个
+		
+f. unshift和shift
+
+	如果要往Array的头部添加 若干 元素，使用unshift()方法，shift()方法则把Array的 第一个 元素删掉。
+
+	注意：若干、第一个
+
+
+g. sort  ==> 改变了原数组，返回改变后的数组(即原数组 === )
+	sort()可以对当前Array进行排序，它会直接修改当前Array的元素位置，直接调用时，按照默认顺序排序:
+
+	concatArr.sort(); // [1, 2, 3, "A", "B", "C", "a", "b", "c"]
+
+	排序规则：
+	1、字符串根据ASCII码进行排序，而小写字母a的ASCII码在大写字母之后。
+	2、把所有元素先转换为String再排序
+
+
+h. reverse  ==> 改变了原数组，返回改变后的数组(即原数组 === )
+	concatArr.reverse(); // ["C", "B", "A", "c", "b", "a", 3, 2, 1]
+
+
+i. join ==> 将数组转换为字符串，忘了可以去看[关于String的属性和方法](https://yanmuxiao.github.io/String.html)
+
+
+
+j. splice ==> 修改Array的“万能方法”,它可以从指定的索引开始删除若干元素，然后再从该位置添加若干元素。
+
+第一个参数：索引开始
+第二个参数：表示长度
+
+	==> 从指定的索引开始删除若干元素
+
+剩余的参数表示从索引开始的地方插入剩余的参数作为新的值
+
+/***********************************/
+	总结：
+		1、操作(改变)原数组，返回删除的元素组成的数组
+		==> 为数不多的操作原对象的方法
+
+		2、 只有一个参数时，默认都数组的最后
+		==> 清空某一个数组的方法：
+			a). arr.length = 0;
+			b). arr.splice(0);(同时也复制了一个数组)
+
+		3、参数少于或等于2个的时候表示只删除,不添加。
+		4、参数多2个且第二个参数为0的时候表示只添加,不删除。
+		5、参数多2个且第二个参数不为0的时候表示既删除又添加，可以用来批量替换数组的元素值。
+
+/***********************************/
+
+
+
+```
+
+###二、特别注意，改变原数组的方法有：splice、sort、reverse。
+
+<!-- markdown end -->
+</div>
+<div class="entry" id="main">
+<!-- content -->
+<h3 id="array">一、关于Array的属性和方法</h3>
+
+<pre><code class="javascript">var arr = [1, 2, 3];
+var arr1 = ['a', 'b', 'c'];
+var arr2 = ['A', 'B', 'C'];
+var concatArr = [1, 2, 3, "a", "b", "c", "A", "B", "C"];
+
+1、数组的length属性
+console.log(arr.length); // 3
+
+注意：
+   1、数组的length不要随意赋值，如arr.length = 10;
+           ==&gt; 除非要清空数组：arr.length = 0;
+   2、数组不要通过索引随便赋值，如：arr[10] = 10;
+
+   以上行为都会改变数组。
+
+
+2、数组的方法
+
+a. concat
+    console.log(arr.concat(arr1, arr2)); //[1, 2, 3, "a", "b", "c", "A", "B", "C"] 
+    ==&gt; 返回新的数组，不改变原数组
+
+b. slice(start,end)
+    console.log(concatArr.slice(0, 3)); // [1, 2, 3] ==&gt; 下标[0, 3)
+    console.log(concatArr.slice(-3));    // ["A", "B", "C"] ==&gt; 倒数第3位到结束
+    console.log(concatArr.slice(-6, -3)); // ["a", "b", "c"] ==&gt; 倒数下标[-6, -3)
+
+    ==&gt; slice(start,end)==&gt;返回一个新的数组。包括数组 concatArr 从 start 开始（包括 start）到 end 结束（不包括 end）为止的所有元素。当没有第二个参数时，截止到最后
+
+    ==&gt; 当只有一个参数，并且这个参数为负数时，表示从数组尾部开始，-1表示倒数第一开始，n表示倒数第n开始到最后
+
+c. indexOf
+
+   console.log(concatArr.indexOf('a')); // 3
+   console.log(concatArr.indexOf('1')); // -1 ==&gt; 代表没有
+
+   注意了，数字1和字符串'1'是不同的元素。
+
+d. slice ==&gt; 可以说和String的slice一模一样，字符串变数组而已，忘了可以去看[关于String的属性和方法](https://yanmuxiao.github.io/String.html)
+
+
+    如果不给slice()传递任何参数，它就会从头到尾截取所有元素。利用这一点，我们可以很容易地复制一个Array
+    var arr2 = concat.slice(); // 数组的复制
+
+    注意：有些地方说slice()就是对应String的substring()版本，我觉得不对，因为subString的参数都不能为负。
+
+e. push和pop
+
+    push()向Array的末尾添加 若干 元素，pop()则把Array的 最后一个 元素删除掉。
+
+    注意：若干、最后一个
+
+f. unshift和shift
+
+    如果要往Array的头部添加 若干 元素，使用unshift()方法，shift()方法则把Array的 第一个 元素删掉。
+
+    注意：若干、第一个
+
+
+g. sort  ==&gt; 改变了原数组，返回改变后的数组(即原数组 === )
+    sort()可以对当前Array进行排序，它会直接修改当前Array的元素位置，直接调用时，按照默认顺序排序:
+
+    concatArr.sort(); // [1, 2, 3, "A", "B", "C", "a", "b", "c"]
+
+    排序规则：
+    1、字符串根据ASCII码进行排序，而小写字母a的ASCII码在大写字母之后。
+    2、把所有元素先转换为String再排序
+
+
+h. reverse  ==&gt; 改变了原数组，返回改变后的数组(即原数组 === )
+    concatArr.reverse(); // ["C", "B", "A", "c", "b", "a", 3, 2, 1]
+
+
+i. join ==&gt; 将数组转换为字符串，忘了可以去看[关于String的属性和方法](https://yanmuxiao.github.io/String.html)
+
+
+
+j. splice ==&gt; 修改Array的“万能方法”,它可以从指定的索引开始删除若干元素，然后再从该位置添加若干元素。
+
+第一个参数：索引开始
+第二个参数：表示长度
+
+    ==&gt; 从指定的索引开始删除若干元素
+
+剩余的参数表示从索引开始的地方插入剩余的参数作为新的值
+
+/***********************************/
+    总结：
+        1、操作(改变)原数组，返回删除的元素组成的数组
+        ==&gt; 为数不多的操作原对象的方法
+
+        2、 只有一个参数时，默认都数组的最后
+        ==&gt; 清空某一个数组的方法：
+            a). arr.length = 0;
+            b). arr.splice(0);(同时也复制了一个数组)
+
+        3、参数少于或等于2个的时候表示只删除,不添加。
+        4、参数多2个且第二个参数为0的时候表示只添加,不删除。
+        5、参数多2个且第二个参数不为0的时候表示既删除又添加，可以用来批量替换数组的元素值。
+
+/***********************************/
+</code></pre>
+
+<h3 id="splicesortreverse">二、特别注意，改变原数组的方法有：splice、sort、reverse。</h3>
+<!-- content end -->
+</div>
+<br>
+<br>
+    <div id="disqus_thread"></div>
+	<div class="footer">
+		<p>© Copyright 2014 by isnowfy, Designed by isnowfy</p>
+	</div>
+</div>
+<script src="main.js"></script>
+<script id="content" type="text/mustache">
+    <h1>{{title}}</h1>
+    <div class="tag">
+    {{date}}
+    {{#tags}}
+    <a href="/#/tag/{{name}}">#{{name}}</a>
+    {{/tags}}
+    </div>
+</script>
+<script id="pagesTemplate" type="text/mustache">
+    {{#pages}}
+    <li>
+        <a href="{{path}}">{{title}}</a>
+    </li>
+    {{/pages}}
+</script>
+<script>
+$(document).ready(function() {
+    $.ajax({
+        url: "main.json",
+        type: "GET",
+        dataType: "json",
+        success: function(data) {
+            $("#title").html(data.name);
+            var pagesTemplate = Hogan.compile($("#pagesTemplate").html());
+            var pagesHtml = pagesTemplate.render({"pages": data.pages});
+            $("#pages").append(pagesHtml);
+            //path
+            var path = "Array.html";
+            //path end
+            var now = 0;
+            for (var i = 0; i < data.posts.length; ++i)
+                if (path == data.posts[i].path)
+                    now = i;
+            var post = data.posts[now];
+            var tmp = post.tags.split(" ");
+            var tags = [];
+            for (var i = 0; i < tmp.length; ++i)
+                if (tmp[i].length > 0)
+                    tags.push({"name": tmp[i]});
+            var contentTemplate = Hogan.compile($("#content").html());
+            var contentHtml = contentTemplate.render({"title": post.title, "tags": tags, "date": post.date});
+            $("#main").prepend(contentHtml);
+            if (data.disqus_shortname.length > 0) {
+                var disqus_shortname = data.disqus_shortname;
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            }
+        }
+    });
+});
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ["\\(", "\\)"]], processEscapes: true}});
+</script>
+</body>
+</html>
