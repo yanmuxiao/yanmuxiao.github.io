@@ -79,7 +79,12 @@ d. substr(start,lenght)
 
 /***********************************/
 
-e.  trim() ==> IE9以下没有这个方法，要做兼容，如下：
+e. indexOf ==> 搜索目标字符串的开始索引，只返回第一个
+    var str = '123abcABC123abcABC123abcABC123abcABC';
+    console.log(str.indexOf('abc')); // 3
+    console.log(str.indexOf('dddd')); // -1 ==> 找不到
+
+f.  trim() ==> IE9以下没有这个方法，要做兼容，如下：
 	//log("trim()==>空格处理：")
 	String.prototype.ltrim=function() {
 		return this.replace(/^\s*/g,"");
@@ -91,13 +96,13 @@ e.  trim() ==> IE9以下没有这个方法，要做兼容，如下：
 		return this.replace(/(^\s*)|(\s*$)/g,"");
 	};
 
-f. 字符串比较：
+g. 字符串比较：
 
 	log(str.localeCompare(str1)); //-1
 	log(str1.localeCompare(str)); //1
 	log(str.localeCompare(str));  //0
 		
-g. 字符串大小写转换：
+h. 字符串大小写转换：
 
 	log(str.toUpperCase()); // ABC123ABC
 	log(str.toLocaleUpperCase()); // ABC123ABC
@@ -105,7 +110,7 @@ g. 字符串大小写转换：
 	log(str.toLowerCase());  // abc123abc
 	log(str.toLocaleLowerCase()); // abc123abc
 
-h. split ==> 将字符串转换为数组
+i. split ==> 将字符串转换为数组
 	var arr = str.split('');
 	console.log(arr); //["a", "b", "c", "1", "2", "3", "A", "B", "C"]
 
@@ -166,7 +171,12 @@ d. substr(start,lenght)
 
 /***********************************/
 
-e.  trim() ==&gt; IE9以下没有这个方法，要做兼容，如下：
+e. indexOf ==&gt; 搜索目标字符串的开始索引，只返回第一个
+    var str = '123abcABC123abcABC123abcABC123abcABC';
+    console.log(str.indexOf('abc')); // 3
+    console.log(str.indexOf('dddd')); // -1 ==&gt; 找不到
+
+f.  trim() ==&gt; IE9以下没有这个方法，要做兼容，如下：
     //log("trim()==&gt;空格处理：")
     String.prototype.ltrim=function() {
         return this.replace(/^\s*/g,"");
@@ -178,13 +188,13 @@ e.  trim() ==&gt; IE9以下没有这个方法，要做兼容，如下：
         return this.replace(/(^\s*)|(\s*$)/g,"");
     };
 
-f. 字符串比较：
+g. 字符串比较：
 
     log(str.localeCompare(str1)); //-1
     log(str1.localeCompare(str)); //1
     log(str.localeCompare(str));  //0
 
-g. 字符串大小写转换：
+h. 字符串大小写转换：
 
     log(str.toUpperCase()); // ABC123ABC
     log(str.toLocaleUpperCase()); // ABC123ABC
@@ -192,7 +202,7 @@ g. 字符串大小写转换：
     log(str.toLowerCase());  // abc123abc
     log(str.toLocaleLowerCase()); // abc123abc
 
-h. split ==&gt; 将字符串转换为数组
+i. split ==&gt; 将字符串转换为数组
     var arr = str.split('');
     console.log(arr); //["a", "b", "c", "1", "2", "3", "A", "B", "C"]
 
