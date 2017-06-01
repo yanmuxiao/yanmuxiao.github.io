@@ -1,0 +1,262 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="Keywords" content="blog"/>
+    <meta name="Description" content="blog"/>
+    <title>Simple</title>
+    <link rel="shortcut icon" href="/static/favicon.png"/>
+    <link rel="stylesheet" type="text/css" href="/main.css" />
+</head>
+<body>
+<div class="main">
+    <div class="header">
+    	<ul id="pages">
+            <li><a href="/">home</a></li>
+            <li><a href="/#/tags">tags</a></li>
+            <li><a href="/#/archive">archive</a></li>
+    	</ul>
+    </div>
+	<div class="wrap-header">
+	<h1>
+    <a href="/" id="title"></a>
+	</h1>
+	</div>
+<div id="md" style="display: none;">
+<!-- markdown -->
+
+
+###一、关于String的属性和方法
+
+```javascript
+
+var str = "abc123ABC";
+var str1 = "Concat1";
+var str2 = "Concat2";
+
+1、字符串的length属性
+console.log(str.length); // 9
+
+2、字符串的方法
+
+	a. concat
+		console.log(str.concat(str1, str2)); // abc123ABCConcat1Concat2
+		==> 返回新的字符，不改变原字符串
+
+	b. 	slice(start,end)
+		console.log(string.slice(0, 3)); // abc ==> 下标[0, 3)
+		console.log(string.slice(-3));	 // ABC ==> 倒数第3位到结束
+		console.log(string.slice(-6, -3)); // 123 ==> 倒数下标[-6, -3)
+
+		==> slice(start,end)==>返回一个新的字符串。包括字符串 stringObject 从 start 开始（包括 start）到 end 结束（不包括 end）为止的所有字符。当没有第二个参数时，截止到最后
+
+		==> 当只有一个参数，并且这个参数为负数时，表示从字符串尾部开始，-1表示倒数第一开始，n表示倒数第n开始到最后
+
+	c. substring(start,end)
+	   console.log(str.substring(0, 3));   // abc ==> 下标[0, 3)
+	   console.log(str.substring(-2, 3));  // abc ==> -2转化为0，下标[0, 3)
+	   console.log(str.substring(-2, -3)); // abc ==> -2和-3转化为0，为空字符串
+		// substring和slice差不多，只是不支持负数，转换为0
+
+	d. substr(start,lenght)
+
+		console.log(str.substr(0, 5)); // abc12
+		console.log(str.substr(-3, 5)); // ABC
+		console.log(str.substr(-3)); // ABC
+		console.log(str.substr(-3, -5)); // ABC
+		//和上面两个不同的是substr的第二个参数表示截取字符串的长度，如果只有一个参数和上面的相同，如果第二个参数为为负数转换为0
+
+		//String 对象的方法 slice()、substring() 和 substr() （不建议使用）都可返回字符串的指定部分。slice() 比 substring() 要灵活一些，因为它允许使用负数作为参数。slice() 与 substr() 有所不同，因为它用两个字符的位置来指定子串，而 substr() 则用字符位置和长度来指定子串。
+
+		//还要注意的是，String.slice() 与 Array.slice() 相似。
+
+	e.  trim() ==> IE9以下没有这个方法，要做兼容，如下：
+		//log("trim()==>空格处理：")
+		String.prototype.ltrim=function()
+		{
+			return this.replace(/^\s*/g,"");
+		};
+		String.prototype.rtrim=function()
+		{
+			return this.replace(/\s*$/g,"");
+		};
+		String.prototype.trim=function()
+		{
+			return this.replace(/(^\s*)|(\s*$)/g,"");
+		};
+
+	f. 字符串比较：
+
+		log(str.localeCompare(str1)); //-1
+		log(str1.localeCompare(str)); //1
+		log(str.localeCompare(str));  //0
+		
+	g. 字符串大小写转换：
+
+		log(str.toUpperCase()); // ABC123ABC
+		log(str.toLocaleUpperCase()); // ABC123ABC
+
+		log(str.toLowerCase());  // abc123abc
+		log(str.toLocaleLowerCase()); // abc123abc
+
+	h. split ==> 将字符串转换为数组
+		var arr = str.split('');
+		console.log(arr); //["a", "b", "c", "1", "2", "3", "A", "B", "C"]
+
+		join ==> 将数组转换为字符串
+		console.log(arr.join('')); // abc123ABC
+```
+<!-- markdown end -->
+</div>
+<div class="entry" id="main">
+<!-- content -->
+<h3 id="string">一、关于String的属性和方法</h3>
+
+<pre><code class="javascript">var str = "abc123ABC";
+var str1 = "Concat1";
+var str2 = "Concat2";
+
+1、字符串的length属性
+console.log(str.length); // 9
+
+2、字符串的方法
+
+    a. concat
+        console.log(str.concat(str1, str2)); // abc123ABCConcat1Concat2
+        ==&gt; 返回新的字符，不改变原字符串
+
+    b.  slice(start,end)
+        console.log(string.slice(0, 3)); // abc ==&gt; 下标[0, 3)
+        console.log(string.slice(-3));   // ABC ==&gt; 倒数第3位到结束
+        console.log(string.slice(-6, -3)); // 123 ==&gt; 倒数下标[-6, -3)
+
+        ==&gt; slice(start,end)==&gt;返回一个新的字符串。包括字符串 stringObject 从 start 开始（包括 start）到 end 结束（不包括 end）为止的所有字符。当没有第二个参数时，截止到最后
+
+        ==&gt; 当只有一个参数，并且这个参数为负数时，表示从字符串尾部开始，-1表示倒数第一开始，n表示倒数第n开始到最后
+
+    c. substring(start,end)
+       console.log(str.substring(0, 3));   // abc ==&gt; 下标[0, 3)
+       console.log(str.substring(-2, 3));  // abc ==&gt; -2转化为0，下标[0, 3)
+       console.log(str.substring(-2, -3)); // abc ==&gt; -2和-3转化为0，为空字符串
+        // substring和slice差不多，只是不支持负数，转换为0
+
+    d. substr(start,lenght)
+
+        console.log(str.substr(0, 5)); // abc12
+        console.log(str.substr(-3, 5)); // ABC
+        console.log(str.substr(-3)); // ABC
+        console.log(str.substr(-3, -5)); // ABC
+        //和上面两个不同的是substr的第二个参数表示截取字符串的长度，如果只有一个参数和上面的相同，如果第二个参数为为负数转换为0
+
+        //String 对象的方法 slice()、substring() 和 substr() （不建议使用）都可返回字符串的指定部分。slice() 比 substring() 要灵活一些，因为它允许使用负数作为参数。slice() 与 substr() 有所不同，因为它用两个字符的位置来指定子串，而 substr() 则用字符位置和长度来指定子串。
+
+        //还要注意的是，String.slice() 与 Array.slice() 相似。
+
+    e.  trim() ==&gt; IE9以下没有这个方法，要做兼容，如下：
+        //log("trim()==&gt;空格处理：")
+        String.prototype.ltrim=function()
+        {
+            return this.replace(/^\s*/g,"");
+        };
+        String.prototype.rtrim=function()
+        {
+            return this.replace(/\s*$/g,"");
+        };
+        String.prototype.trim=function()
+        {
+            return this.replace(/(^\s*)|(\s*$)/g,"");
+        };
+
+    f. 字符串比较：
+
+        log(str.localeCompare(str1)); //-1
+        log(str1.localeCompare(str)); //1
+        log(str.localeCompare(str));  //0
+
+    g. 字符串大小写转换：
+
+        log(str.toUpperCase()); // ABC123ABC
+        log(str.toLocaleUpperCase()); // ABC123ABC
+
+        log(str.toLowerCase());  // abc123abc
+        log(str.toLocaleLowerCase()); // abc123abc
+
+    h. split ==&gt; 将字符串转换为数组
+        var arr = str.split('');
+        console.log(arr); //["a", "b", "c", "1", "2", "3", "A", "B", "C"]
+
+        join ==&gt; 将数组转换为字符串
+        console.log(arr.join('')); // abc123ABC
+</code></pre>
+<!-- content end -->
+</div>
+<br>
+<br>
+    <div id="disqus_thread"></div>
+	<div class="footer">
+		<p>© Copyright 2014 by isnowfy, Designed by isnowfy</p>
+	</div>
+</div>
+<script src="main.js"></script>
+<script id="content" type="text/mustache">
+    <h1>{{title}}</h1>
+    <div class="tag">
+    {{date}}
+    {{#tags}}
+    <a href="/#/tag/{{name}}">#{{name}}</a>
+    {{/tags}}
+    </div>
+</script>
+<script id="pagesTemplate" type="text/mustache">
+    {{#pages}}
+    <li>
+        <a href="{{path}}">{{title}}</a>
+    </li>
+    {{/pages}}
+</script>
+<script>
+$(document).ready(function() {
+    $.ajax({
+        url: "main.json",
+        type: "GET",
+        dataType: "json",
+        success: function(data) {
+            $("#title").html(data.name);
+            var pagesTemplate = Hogan.compile($("#pagesTemplate").html());
+            var pagesHtml = pagesTemplate.render({"pages": data.pages});
+            $("#pages").append(pagesHtml);
+            //path
+            var path = "String.html";
+            //path end
+            var now = 0;
+            for (var i = 0; i < data.posts.length; ++i)
+                if (path == data.posts[i].path)
+                    now = i;
+            var post = data.posts[now];
+            var tmp = post.tags.split(" ");
+            var tags = [];
+            for (var i = 0; i < tmp.length; ++i)
+                if (tmp[i].length > 0)
+                    tags.push({"name": tmp[i]});
+            var contentTemplate = Hogan.compile($("#content").html());
+            var contentHtml = contentTemplate.render({"title": post.title, "tags": tags, "date": post.date});
+            $("#main").prepend(contentHtml);
+            if (data.disqus_shortname.length > 0) {
+                var disqus_shortname = data.disqus_shortname;
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            }
+        }
+    });
+});
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ["\\(", "\\)"]], processEscapes: true}});
+</script>
+</body>
+</html>
