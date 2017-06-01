@@ -42,9 +42,8 @@ console.log(arr.length); // 3
 
 ```javascript
    注意：
-
    1、数组的length不要随意赋值，如arr.length = 10;<br>
-   		==> 除非要清空数组：arr.length = 0;<br>
+   		==> 除非要清空数组：arr.length = 0;
    2、数组不要通过索引随便赋值，如：arr[10] = 10;
 ```
    以上行为都会改变数组。
@@ -64,9 +63,9 @@ b. slice(start,end)
 	console.log(concatArr.slice(-3));	 // ["A", "B", "C"] ==> 倒数第3位到结束
 	console.log(concatArr.slice(-6, -3)); // ["a", "b", "c"] ==> 倒数下标[-6, -3)
 ```
-	==> slice(start,end)==>返回一个新的数组。包括数组 concatArr 从 start 开始（包括 start）到 end 结束（不包括 end）为止的所有元素。当没有第二个参数时，截止到最后
+	==> slice(start,end)==>返回一个新的数组。包括数组 concatArr 从 start 开始（包括 start）到 end 结束（不包括 end）为止的所有元素。当没有第二个参数时，截止到最后。
 
-	==> 当只有一个参数，并且这个参数为负数时，表示从数组尾部开始，-1表示倒数第一开始，n表示倒数第n开始到最后
+	==> 当只有一个参数，并且这个参数为负数时，表示从数组尾部开始，-1表示倒数第一开始，n表示倒数第n开始到最后。
 
 c. indexOf
 ```javascript	
@@ -103,7 +102,7 @@ g. sort  ==> 改变了原数组，返回改变后的数组(即原数组 === )
 ```
 	排序规则：
 	1、字符串根据ASCII码进行排序，而小写字母a的ASCII码在大写字母之后。
-	2、把所有元素先转换为String再排序
+	2、把所有元素先转换为String再排序。
 
 
 h. reverse  ==> 改变了原数组，返回改变后的数组(即原数组 === )
@@ -142,8 +141,10 @@ j. splice
 
 
 
-###二、特别注意，改变原数组的方法有：splice、sort、reverse。
-
+###二、特别注意，改变原数组的方法有：
+```javascript	
+splice、sort、reverse、 push和pop、unshift和shift
+```
 
 
 
@@ -168,9 +169,8 @@ var concatArr = [1, 2, 3, "a", "b", "c", "A", "B", "C"];
 </code></pre>
 
 <pre><code class="javascript">   注意：
-
    1、数组的length不要随意赋值，如arr.length = 10;&lt;br&gt;
-           ==&gt; 除非要清空数组：arr.length = 0;&lt;br&gt;
+           ==&gt; 除非要清空数组：arr.length = 0;
    2、数组不要通过索引随便赋值，如：arr[10] = 10;
 </code></pre>
 
@@ -192,9 +192,9 @@ var concatArr = [1, 2, 3, "a", "b", "c", "A", "B", "C"];
     console.log(concatArr.slice(-6, -3)); // ["a", "b", "c"] ==&gt; 倒数下标[-6, -3)
 </code></pre>
 
-<pre><code>==&gt; slice(start,end)==&gt;返回一个新的数组。包括数组 concatArr 从 start 开始（包括 start）到 end 结束（不包括 end）为止的所有元素。当没有第二个参数时，截止到最后
+<pre><code>==&gt; slice(start,end)==&gt;返回一个新的数组。包括数组 concatArr 从 start 开始（包括 start）到 end 结束（不包括 end）为止的所有元素。当没有第二个参数时，截止到最后。
 
-==&gt; 当只有一个参数，并且这个参数为负数时，表示从数组尾部开始，-1表示倒数第一开始，n表示倒数第n开始到最后
+==&gt; 当只有一个参数，并且这个参数为负数时，表示从数组尾部开始，-1表示倒数第一开始，n表示倒数第n开始到最后。
 </code></pre>
 
 <p>c. indexOf</p>
@@ -238,7 +238,7 @@ var arr2 = concat.slice(); // 数组的复制
 
 <pre><code>排序规则：
 1、字符串根据ASCII码进行排序，而小写字母a的ASCII码在大写字母之后。
-2、把所有元素先转换为String再排序
+2、把所有元素先转换为String再排序。
 </code></pre>
 
 <p>h. reverse  ==&gt; 改变了原数组，返回改变后的数组(即原数组 === )</p>
@@ -274,7 +274,10 @@ var arr2 = concat.slice(); // 数组的复制
     5、参数多2个且第二个参数不为0的时候表示既删除又添加，可以用来批量替换数组的元素值。
 </code></pre>
 
-<h3 id="splicesortreverse">二、特别注意，改变原数组的方法有：splice、sort、reverse。</h3>
+<h3 id="">二、特别注意，改变原数组的方法有：</h3>
+
+<pre><code class="javascript    ">splice、sort、reverse、 push和pop、unshift和shift
+</code></pre>
 <!-- content end -->
 </div>
 <br>
