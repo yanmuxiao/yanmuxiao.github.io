@@ -34,33 +34,40 @@
 var str = "abc123ABC";
 var str1 = "Concat1";
 var str2 = "Concat2";
+```
 
 1、字符串的length属性
+```javascript
 console.log(str.length); // 9
-
+```
 2、字符串的方法
 
 a. concat
+```javascript
 	console.log(str.concat(str1, str2)); // abc123ABCConcat1Concat2
-	==> 返回新的字符，不改变原字符串
+```
+==> 返回新的字符，不改变原字符串
 
 b. slice(start,end)
+```javascript
 	console.log(string.slice(0, 3)); // abc ==> 下标[0, 3)
 	console.log(string.slice(-3));	 // ABC ==> 倒数第3位到结束
 	console.log(string.slice(-6, -3)); // 123 ==> 倒数下标[-6, -3)
+```
 
 	==> slice(start,end)==>返回一个新的字符串。包括字符串 stringObject 从 start 开始（包括 start）到 end 结束（不包括 end）为止的所有字符。当没有第二个参数时，截止到最后
 
 	==> 当只有一个参数，并且这个参数为负数时，表示从字符串尾部开始，-1表示倒数第一开始，n表示倒数第n开始到最后
 
 c. substring(start,end)
+```javascript
 	console.log(str.substring(0, 3));   // abc ==> 下标[0, 3)
 	console.log(str.substring(-2, 3));  // abc ==> -2转化为0，下标[0, 3)
 	console.log(str.substring(-2, -3)); // abc ==> -2和-3转化为0，为空字符串
 	// substring和slice差不多，只是不支持负数，转换为0
-
+```
 d. substr(start,lenght)
-
+```javascript
 	console.log(str.substr(0, 5)); // abc12
 	console.log(str.substr(-3, 5)); // ABC
 	console.log(str.substr(-3)); // ABC
@@ -68,24 +75,24 @@ d. substr(start,lenght)
 	//和上面两个不同的是substr的第二个参数表示截取字符串的长度，如果只有一个参数和slice相同，如果第二个参数为为负数转换为0
 
 //还要注意的是，String.slice() 与 Array.slice() 相似。
+```
 
-/***********************************/
-
-对以上三个方法的总结：
-	1、只接受连个参数，返回新的字符串
-	2、slice ==> 参数可以为负
-	      subString ==> 参数都不可以为负，自动转换为0
+对以上三个方法的总结：<br><br>
+	1、只接受连个参数，返回新的字符串<br>
+	2、slice ==> 参数可以为负<br>
+	      subString ==> 参数都不可以为负，自动转换为0<br>
 	      subStr ==> 第一个参数可以为负，第二个参数表示的是字符串的长度，不能为负数，自动转换为0
 
-/***********************************/
 
 e. indexOf ==> 搜索目标字符串的开始索引，只返回第一个
+```javascript
     var str = '123abcABC123abcABC123abcABC123abcABC';
     console.log(str.indexOf('abc')); // 3
     console.log(str.indexOf('dddd')); // -1 ==> 找不到
-
+```
 f.  trim() ==> IE9以下没有这个方法，要做兼容，如下：
-	//log("trim()==>空格处理：")
+```javascript
+	//console.log("trim()==>空格处理：")
 	String.prototype.ltrim=function() {
 		return this.replace(/^\s*/g,"");
 	};
@@ -95,28 +102,30 @@ f.  trim() ==> IE9以下没有这个方法，要做兼容，如下：
 	String.prototype.trim=function() {
 		return this.replace(/(^\s*)|(\s*$)/g,"");
 	};
-
+```
 g. 字符串比较：
-
+```javascript
 	log(str.localeCompare(str1)); //-1
 	log(str1.localeCompare(str)); //1
 	log(str.localeCompare(str));  //0
-		
+```		
 h. 字符串大小写转换：
-
+```javascript
 	log(str.toUpperCase()); // ABC123ABC
 	log(str.toLocaleUpperCase()); // ABC123ABC
 
 	log(str.toLowerCase());  // abc123abc
 	log(str.toLocaleLowerCase()); // abc123abc
-
+```
 i. split ==> 将字符串转换为数组
+```javascript
 	var arr = str.split('');
 	console.log(arr); //["a", "b", "c", "1", "2", "3", "A", "B", "C"]
 
 	join ==> 将数组转换为字符串
 	console.log(arr.join('')); // abc123ABC
 ```
+<br><br>
 <!-- markdown end -->
 </div>
 <div class="entry" id="main">
@@ -126,58 +135,69 @@ i. split ==> 将字符串转换为数组
 <pre><code class="javascript">var str = "abc123ABC";
 var str1 = "Concat1";
 var str2 = "Concat2";
+</code></pre>
 
-1、字符串的length属性
-console.log(str.length); // 9
+<p>1、字符串的length属性</p>
 
-2、字符串的方法
+<pre><code class="javascript">console.log(str.length); // 9
+</code></pre>
 
-a. concat
-    console.log(str.concat(str1, str2)); // abc123ABCConcat1Concat2
-    ==&gt; 返回新的字符，不改变原字符串
+<p>2、字符串的方法</p>
 
-b. slice(start,end)
-    console.log(string.slice(0, 3)); // abc ==&gt; 下标[0, 3)
+<p>a. concat</p>
+
+<pre><code class="javascript">    console.log(str.concat(str1, str2)); // abc123ABCConcat1Concat2
+</code></pre>
+
+<p>==&gt; 返回新的字符，不改变原字符串</p>
+
+<p>b. slice(start,end)</p>
+
+<pre><code class="javascript">    console.log(string.slice(0, 3)); // abc ==&gt; 下标[0, 3)
     console.log(string.slice(-3));   // ABC ==&gt; 倒数第3位到结束
     console.log(string.slice(-6, -3)); // 123 ==&gt; 倒数下标[-6, -3)
+</code></pre>
 
-    ==&gt; slice(start,end)==&gt;返回一个新的字符串。包括字符串 stringObject 从 start 开始（包括 start）到 end 结束（不包括 end）为止的所有字符。当没有第二个参数时，截止到最后
+<pre><code>==&gt; slice(start,end)==&gt;返回一个新的字符串。包括字符串 stringObject 从 start 开始（包括 start）到 end 结束（不包括 end）为止的所有字符。当没有第二个参数时，截止到最后
 
-    ==&gt; 当只有一个参数，并且这个参数为负数时，表示从字符串尾部开始，-1表示倒数第一开始，n表示倒数第n开始到最后
+==&gt; 当只有一个参数，并且这个参数为负数时，表示从字符串尾部开始，-1表示倒数第一开始，n表示倒数第n开始到最后
+</code></pre>
 
-c. substring(start,end)
-    console.log(str.substring(0, 3));   // abc ==&gt; 下标[0, 3)
+<p>c. substring(start,end)</p>
+
+<pre><code class="javascript">    console.log(str.substring(0, 3));   // abc ==&gt; 下标[0, 3)
     console.log(str.substring(-2, 3));  // abc ==&gt; -2转化为0，下标[0, 3)
     console.log(str.substring(-2, -3)); // abc ==&gt; -2和-3转化为0，为空字符串
     // substring和slice差不多，只是不支持负数，转换为0
+</code></pre>
 
-d. substr(start,lenght)
+<p>d. substr(start,lenght)</p>
 
-    console.log(str.substr(0, 5)); // abc12
+<pre><code class="javascript">    console.log(str.substr(0, 5)); // abc12
     console.log(str.substr(-3, 5)); // ABC
     console.log(str.substr(-3)); // ABC
     console.log(str.substr(-3, -5)); // ABC
     //和上面两个不同的是substr的第二个参数表示截取字符串的长度，如果只有一个参数和slice相同，如果第二个参数为为负数转换为0
 
 //还要注意的是，String.slice() 与 Array.slice() 相似。
+</code></pre>
 
-/***********************************/
+<p>对以上三个方法的总结：<br><br>
+    1、只接受连个参数，返回新的字符串<br>
+    2、slice ==&gt; 参数可以为负<br>
+          subString ==&gt; 参数都不可以为负，自动转换为0<br>
+          subStr ==&gt; 第一个参数可以为负，第二个参数表示的是字符串的长度，不能为负数，自动转换为0</p>
 
-对以上三个方法的总结：
-    1、只接受连个参数，返回新的字符串
-    2、slice ==&gt; 参数可以为负
-          subString ==&gt; 参数都不可以为负，自动转换为0
-          subStr ==&gt; 第一个参数可以为负，第二个参数表示的是字符串的长度，不能为负数，自动转换为0
+<p>e. indexOf ==&gt; 搜索目标字符串的开始索引，只返回第一个</p>
 
-/***********************************/
-
-e. indexOf ==&gt; 搜索目标字符串的开始索引，只返回第一个
-    var str = '123abcABC123abcABC123abcABC123abcABC';
+<pre><code class="javascript">    var str = '123abcABC123abcABC123abcABC123abcABC';
     console.log(str.indexOf('abc')); // 3
     console.log(str.indexOf('dddd')); // -1 ==&gt; 找不到
+</code></pre>
 
-f.  trim() ==&gt; IE9以下没有这个方法，要做兼容，如下：
-    //log("trim()==&gt;空格处理：")
+<p>f.  trim() ==&gt; IE9以下没有这个方法，要做兼容，如下：</p>
+
+<pre><code class="javascript">    //console.log("trim()==&gt;空格处理：")
     String.prototype.ltrim=function() {
         return this.replace(/^\s*/g,"");
     };
@@ -187,28 +207,37 @@ f.  trim() ==&gt; IE9以下没有这个方法，要做兼容，如下：
     String.prototype.trim=function() {
         return this.replace(/(^\s*)|(\s*$)/g,"");
     };
+</code></pre>
 
-g. 字符串比较：
+<p>g. 字符串比较：</p>
 
-    log(str.localeCompare(str1)); //-1
+<pre><code class="javascript">    log(str.localeCompare(str1)); //-1
     log(str1.localeCompare(str)); //1
     log(str.localeCompare(str));  //0
+</code></pre>
 
-h. 字符串大小写转换：
+<pre><code>    
+</code></pre>
 
-    log(str.toUpperCase()); // ABC123ABC
+<p>h. 字符串大小写转换：</p>
+
+<pre><code class="javascript">    log(str.toUpperCase()); // ABC123ABC
     log(str.toLocaleUpperCase()); // ABC123ABC
 
     log(str.toLowerCase());  // abc123abc
     log(str.toLocaleLowerCase()); // abc123abc
+</code></pre>
 
-i. split ==&gt; 将字符串转换为数组
-    var arr = str.split('');
+<p>i. split ==&gt; 将字符串转换为数组</p>
+
+<pre><code class="javascript">    var arr = str.split('');
     console.log(arr); //["a", "b", "c", "1", "2", "3", "A", "B", "C"]
 
     join ==&gt; 将数组转换为字符串
     console.log(arr.join('')); // abc123ABC
 </code></pre>
+
+<p><br><br></p>
 <!-- content end -->
 </div>
 <br>
