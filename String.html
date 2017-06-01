@@ -40,72 +40,77 @@ console.log(str.length); // 9
 
 2、字符串的方法
 
-	a. concat
-		console.log(str.concat(str1, str2)); // abc123ABCConcat1Concat2
-		==> 返回新的字符，不改变原字符串
+a. concat
+	console.log(str.concat(str1, str2)); // abc123ABCConcat1Concat2
+	==> 返回新的字符，不改变原字符串
 
-	b. 	slice(start,end)
-		console.log(string.slice(0, 3)); // abc ==> 下标[0, 3)
-		console.log(string.slice(-3));	 // ABC ==> 倒数第3位到结束
-		console.log(string.slice(-6, -3)); // 123 ==> 倒数下标[-6, -3)
+b. slice(start,end)
+	console.log(string.slice(0, 3)); // abc ==> 下标[0, 3)
+	console.log(string.slice(-3));	 // ABC ==> 倒数第3位到结束
+	console.log(string.slice(-6, -3)); // 123 ==> 倒数下标[-6, -3)
 
-		==> slice(start,end)==>返回一个新的字符串。包括字符串 stringObject 从 start 开始（包括 start）到 end 结束（不包括 end）为止的所有字符。当没有第二个参数时，截止到最后
+	==> slice(start,end)==>返回一个新的字符串。包括字符串 stringObject 从 start 开始（包括 start）到 end 结束（不包括 end）为止的所有字符。当没有第二个参数时，截止到最后
 
-		==> 当只有一个参数，并且这个参数为负数时，表示从字符串尾部开始，-1表示倒数第一开始，n表示倒数第n开始到最后
+	==> 当只有一个参数，并且这个参数为负数时，表示从字符串尾部开始，-1表示倒数第一开始，n表示倒数第n开始到最后
 
-	c. substring(start,end)
-	   console.log(str.substring(0, 3));   // abc ==> 下标[0, 3)
-	   console.log(str.substring(-2, 3));  // abc ==> -2转化为0，下标[0, 3)
-	   console.log(str.substring(-2, -3)); // abc ==> -2和-3转化为0，为空字符串
-		// substring和slice差不多，只是不支持负数，转换为0
+c. substring(start,end)
+	console.log(str.substring(0, 3));   // abc ==> 下标[0, 3)
+	console.log(str.substring(-2, 3));  // abc ==> -2转化为0，下标[0, 3)
+	console.log(str.substring(-2, -3)); // abc ==> -2和-3转化为0，为空字符串
+	// substring和slice差不多，只是不支持负数，转换为0
 
-	d. substr(start,lenght)
+d. substr(start,lenght)
 
-		console.log(str.substr(0, 5)); // abc12
-		console.log(str.substr(-3, 5)); // ABC
-		console.log(str.substr(-3)); // ABC
-		console.log(str.substr(-3, -5)); // ABC
-		//和上面两个不同的是substr的第二个参数表示截取字符串的长度，如果只有一个参数和上面的相同，如果第二个参数为为负数转换为0
+	console.log(str.substr(0, 5)); // abc12
+	console.log(str.substr(-3, 5)); // ABC
+	console.log(str.substr(-3)); // ABC
+	console.log(str.substr(-3, -5)); // ABC
+	//和上面两个不同的是substr的第二个参数表示截取字符串的长度，如果只有一个参数和slice相同，如果第二个参数为为负数转换为0
 
-		//String 对象的方法 slice()、substring() 和 substr() （不建议使用）都可返回字符串的指定部分。slice() 比 substring() 要灵活一些，因为它允许使用负数作为参数。slice() 与 substr() 有所不同，因为它用两个字符的位置来指定子串，而 substr() 则用字符位置和长度来指定子串。
+//还要注意的是，String.slice() 与 Array.slice() 相似。
 
-		//还要注意的是，String.slice() 与 Array.slice() 相似。
+/***********************************/
 
-	e.  trim() ==> IE9以下没有这个方法，要做兼容，如下：
-		//log("trim()==>空格处理：")
-		String.prototype.ltrim=function()
-		{
-			return this.replace(/^\s*/g,"");
-		};
-		String.prototype.rtrim=function()
-		{
-			return this.replace(/\s*$/g,"");
-		};
-		String.prototype.trim=function()
-		{
-			return this.replace(/(^\s*)|(\s*$)/g,"");
-		};
+对以上三个方法的总结：
+	1、只接受连个参数，返回新的字符串
+	2、slice ==> 参数可以为负
+	      subString ==> 参数都不可以为负，自动转换为0
+	      subStr ==> 第一个参数可以为负，第二个参数表示的是字符串的长度，不能为负数，自动转换为0
 
-	f. 字符串比较：
+/***********************************/
 
-		log(str.localeCompare(str1)); //-1
-		log(str1.localeCompare(str)); //1
-		log(str.localeCompare(str));  //0
+e.  trim() ==> IE9以下没有这个方法，要做兼容，如下：
+	//log("trim()==>空格处理：")
+	String.prototype.ltrim=function() {
+		return this.replace(/^\s*/g,"");
+	};
+	String.prototype.rtrim=function() {
+		return this.replace(/\s*$/g,"");
+	};
+	String.prototype.trim=function() {
+		return this.replace(/(^\s*)|(\s*$)/g,"");
+	};
+
+f. 字符串比较：
+
+	log(str.localeCompare(str1)); //-1
+	log(str1.localeCompare(str)); //1
+	log(str.localeCompare(str));  //0
 		
-	g. 字符串大小写转换：
+g. 字符串大小写转换：
 
-		log(str.toUpperCase()); // ABC123ABC
-		log(str.toLocaleUpperCase()); // ABC123ABC
+	log(str.toUpperCase()); // ABC123ABC
+	log(str.toLocaleUpperCase()); // ABC123ABC
 
-		log(str.toLowerCase());  // abc123abc
-		log(str.toLocaleLowerCase()); // abc123abc
+	log(str.toLowerCase());  // abc123abc
+	log(str.toLocaleLowerCase()); // abc123abc
 
-	h. split ==> 将字符串转换为数组
-		var arr = str.split('');
-		console.log(arr); //["a", "b", "c", "1", "2", "3", "A", "B", "C"]
+h. split ==> 将字符串转换为数组
+	var arr = str.split('');
+	console.log(arr); //["a", "b", "c", "1", "2", "3", "A", "B", "C"]
 
-		join ==> 将数组转换为字符串
-		console.log(arr.join('')); // abc123ABC
+	join ==> 将数组转换为字符串
+	console.log(arr.join('')); // abc123ABC
 ```
 <!-- markdown end -->
 </div>
@@ -122,72 +127,77 @@ console.log(str.length); // 9
 
 2、字符串的方法
 
-    a. concat
-        console.log(str.concat(str1, str2)); // abc123ABCConcat1Concat2
-        ==&gt; 返回新的字符，不改变原字符串
+a. concat
+    console.log(str.concat(str1, str2)); // abc123ABCConcat1Concat2
+    ==&gt; 返回新的字符，不改变原字符串
 
-    b.  slice(start,end)
-        console.log(string.slice(0, 3)); // abc ==&gt; 下标[0, 3)
-        console.log(string.slice(-3));   // ABC ==&gt; 倒数第3位到结束
-        console.log(string.slice(-6, -3)); // 123 ==&gt; 倒数下标[-6, -3)
+b. slice(start,end)
+    console.log(string.slice(0, 3)); // abc ==&gt; 下标[0, 3)
+    console.log(string.slice(-3));   // ABC ==&gt; 倒数第3位到结束
+    console.log(string.slice(-6, -3)); // 123 ==&gt; 倒数下标[-6, -3)
 
-        ==&gt; slice(start,end)==&gt;返回一个新的字符串。包括字符串 stringObject 从 start 开始（包括 start）到 end 结束（不包括 end）为止的所有字符。当没有第二个参数时，截止到最后
+    ==&gt; slice(start,end)==&gt;返回一个新的字符串。包括字符串 stringObject 从 start 开始（包括 start）到 end 结束（不包括 end）为止的所有字符。当没有第二个参数时，截止到最后
 
-        ==&gt; 当只有一个参数，并且这个参数为负数时，表示从字符串尾部开始，-1表示倒数第一开始，n表示倒数第n开始到最后
+    ==&gt; 当只有一个参数，并且这个参数为负数时，表示从字符串尾部开始，-1表示倒数第一开始，n表示倒数第n开始到最后
 
-    c. substring(start,end)
-       console.log(str.substring(0, 3));   // abc ==&gt; 下标[0, 3)
-       console.log(str.substring(-2, 3));  // abc ==&gt; -2转化为0，下标[0, 3)
-       console.log(str.substring(-2, -3)); // abc ==&gt; -2和-3转化为0，为空字符串
-        // substring和slice差不多，只是不支持负数，转换为0
+c. substring(start,end)
+    console.log(str.substring(0, 3));   // abc ==&gt; 下标[0, 3)
+    console.log(str.substring(-2, 3));  // abc ==&gt; -2转化为0，下标[0, 3)
+    console.log(str.substring(-2, -3)); // abc ==&gt; -2和-3转化为0，为空字符串
+    // substring和slice差不多，只是不支持负数，转换为0
 
-    d. substr(start,lenght)
+d. substr(start,lenght)
 
-        console.log(str.substr(0, 5)); // abc12
-        console.log(str.substr(-3, 5)); // ABC
-        console.log(str.substr(-3)); // ABC
-        console.log(str.substr(-3, -5)); // ABC
-        //和上面两个不同的是substr的第二个参数表示截取字符串的长度，如果只有一个参数和上面的相同，如果第二个参数为为负数转换为0
+    console.log(str.substr(0, 5)); // abc12
+    console.log(str.substr(-3, 5)); // ABC
+    console.log(str.substr(-3)); // ABC
+    console.log(str.substr(-3, -5)); // ABC
+    //和上面两个不同的是substr的第二个参数表示截取字符串的长度，如果只有一个参数和slice相同，如果第二个参数为为负数转换为0
 
-        //String 对象的方法 slice()、substring() 和 substr() （不建议使用）都可返回字符串的指定部分。slice() 比 substring() 要灵活一些，因为它允许使用负数作为参数。slice() 与 substr() 有所不同，因为它用两个字符的位置来指定子串，而 substr() 则用字符位置和长度来指定子串。
+//还要注意的是，String.slice() 与 Array.slice() 相似。
 
-        //还要注意的是，String.slice() 与 Array.slice() 相似。
+/***********************************/
 
-    e.  trim() ==&gt; IE9以下没有这个方法，要做兼容，如下：
-        //log("trim()==&gt;空格处理：")
-        String.prototype.ltrim=function()
-        {
-            return this.replace(/^\s*/g,"");
-        };
-        String.prototype.rtrim=function()
-        {
-            return this.replace(/\s*$/g,"");
-        };
-        String.prototype.trim=function()
-        {
-            return this.replace(/(^\s*)|(\s*$)/g,"");
-        };
+对以上三个方法的总结：
+    1、只接受连个参数，返回新的字符串
+    2、slice ==&gt; 参数可以为负
+          subString ==&gt; 参数都不可以为负，自动转换为0
+          subStr ==&gt; 第一个参数可以为负，第二个参数表示的是字符串的长度，不能为负数，自动转换为0
 
-    f. 字符串比较：
+/***********************************/
 
-        log(str.localeCompare(str1)); //-1
-        log(str1.localeCompare(str)); //1
-        log(str.localeCompare(str));  //0
+e.  trim() ==&gt; IE9以下没有这个方法，要做兼容，如下：
+    //log("trim()==&gt;空格处理：")
+    String.prototype.ltrim=function() {
+        return this.replace(/^\s*/g,"");
+    };
+    String.prototype.rtrim=function() {
+        return this.replace(/\s*$/g,"");
+    };
+    String.prototype.trim=function() {
+        return this.replace(/(^\s*)|(\s*$)/g,"");
+    };
 
-    g. 字符串大小写转换：
+f. 字符串比较：
 
-        log(str.toUpperCase()); // ABC123ABC
-        log(str.toLocaleUpperCase()); // ABC123ABC
+    log(str.localeCompare(str1)); //-1
+    log(str1.localeCompare(str)); //1
+    log(str.localeCompare(str));  //0
 
-        log(str.toLowerCase());  // abc123abc
-        log(str.toLocaleLowerCase()); // abc123abc
+g. 字符串大小写转换：
 
-    h. split ==&gt; 将字符串转换为数组
-        var arr = str.split('');
-        console.log(arr); //["a", "b", "c", "1", "2", "3", "A", "B", "C"]
+    log(str.toUpperCase()); // ABC123ABC
+    log(str.toLocaleUpperCase()); // ABC123ABC
 
-        join ==&gt; 将数组转换为字符串
-        console.log(arr.join('')); // abc123ABC
+    log(str.toLowerCase());  // abc123abc
+    log(str.toLocaleLowerCase()); // abc123abc
+
+h. split ==&gt; 将字符串转换为数组
+    var arr = str.split('');
+    console.log(arr); //["a", "b", "c", "1", "2", "3", "A", "B", "C"]
+
+    join ==&gt; 将数组转换为字符串
+    console.log(arr.join('')); // abc123ABC
 </code></pre>
 <!-- content end -->
 </div>
