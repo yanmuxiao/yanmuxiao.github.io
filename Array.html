@@ -26,50 +26,56 @@
 <div id="md" style="display: none;">
 <!-- markdown -->
 
-
 ###一、关于Array的属性和方法
 
 ```javascript
-
 var arr = [1, 2, 3];
 var arr1 = ['a', 'b', 'c'];
 var arr2 = ['A', 'B', 'C'];
 var concatArr = [1, 2, 3, "a", "b", "c", "A", "B", "C"];
-
-1、数组的length属性
+```
+####1、数组的length属性
+```javascript
 console.log(arr.length); // 3
+```
 
-注意：
-   1、数组的length不要随意赋值，如arr.length = 10;
-   		==> 除非要清空数组：arr.length = 0;
+
+```javascript
+   注意：
+
+   1、数组的length不要随意赋值，如arr.length = 10;<br>
+   		==> 除非要清空数组：arr.length = 0;<br>
    2、数组不要通过索引随便赋值，如：arr[10] = 10;
-
+```
    以上行为都会改变数组。
 
 
-2、数组的方法
+####2、数组的方法
 
 a. concat
+```javascript
 	console.log(arr.concat(arr1, arr2)); //[1, 2, 3, "a", "b", "c", "A", "B", "C"] 
-	==> 返回新的数组，不改变原数组
+```
+==> 返回新的数组，不改变原数组
 
 b. slice(start,end)
+```javascript
 	console.log(concatArr.slice(0, 3)); // [1, 2, 3] ==> 下标[0, 3)
 	console.log(concatArr.slice(-3));	 // ["A", "B", "C"] ==> 倒数第3位到结束
 	console.log(concatArr.slice(-6, -3)); // ["a", "b", "c"] ==> 倒数下标[-6, -3)
-
+```
 	==> slice(start,end)==>返回一个新的数组。包括数组 concatArr 从 start 开始（包括 start）到 end 结束（不包括 end）为止的所有元素。当没有第二个参数时，截止到最后
 
 	==> 当只有一个参数，并且这个参数为负数时，表示从数组尾部开始，-1表示倒数第一开始，n表示倒数第n开始到最后
 
 c. indexOf
-	
+```javascript	
    console.log(concatArr.indexOf('a')); // 3
    console.log(concatArr.indexOf('1')); // -1 ==> 代表没有
 
-   注意了，数字1和字符串'1'是不同的元素。
-
-d. slice ==> 可以说和String的slice一模一样，字符串变数组而已，忘了可以去看: 关于String的属性和方法
+   //注意了，数字1和字符串'1'是不同的元素。
+```
+d. slice ==> 可以说和String的slice一模一样，字符串变数组而已，忘了可以去看: [关于String的属性和方法](https://yanmuxiao.github.io/String.html)。
 	
 
 	如果不给slice()传递任何参数，它就会从头到尾截取所有元素。利用这一点，我们可以很容易地复制一个Array
@@ -78,37 +84,40 @@ d. slice ==> 可以说和String的slice一模一样，字符串变数组而已�
 	注意：有些地方说slice()就是对应String的substring()版本，我觉得不对，因为subString的参数都不能为负。
 
 e. push和pop
-
+```javascript	
 	push()向Array的末尾添加 若干 元素，pop()则把Array的 最后一个 元素删除掉。
 
 	注意：若干、最后一个
-		
+```		
 f. unshift和shift
-
+```javascript	
 	如果要往Array的头部添加 若干 元素，使用unshift()方法，shift()方法则把Array的 第一个 元素删掉。
 
 	注意：若干、第一个
-
+```
 
 g. sort  ==> 改变了原数组，返回改变后的数组(即原数组 === )
 	sort()可以对当前Array进行排序，它会直接修改当前Array的元素位置，直接调用时，按照默认顺序排序:
-
+```javascript	
 	concatArr.sort(); // [1, 2, 3, "A", "B", "C", "a", "b", "c"]
-
+```
 	排序规则：
 	1、字符串根据ASCII码进行排序，而小写字母a的ASCII码在大写字母之后。
 	2、把所有元素先转换为String再排序
 
 
 h. reverse  ==> 改变了原数组，返回改变后的数组(即原数组 === )
+```javascript	
 	concatArr.reverse(); // ["C", "B", "A", "c", "b", "a", 3, 2, 1]
+```
+
+i. join ==> 将数组转换为字符串，忘了可以去看: [关于String的属性和方法](https://yanmuxiao.github.io/String.html)
 
 
-i. join ==> 将数组转换为字符串，忘了可以去看: 关于String的属性和方法
 
-
-
-j. splice ==> 修改Array的“万能方法”,它可以从指定的索引开始删除若干元素，然后再从该位置添加若干元素。
+j. splice 
+```javascript	
+ 修改Array的“万能方法”,它可以从指定的索引开始删除若干元素，然后再从该位置添加若干元素。
 
 第一个参数：索引开始
 第二个参数：表示长度
@@ -116,8 +125,8 @@ j. splice ==> 修改Array的“万能方法”,它可以从指定的索引开始
 	==> 从指定的索引开始删除若干元素
 
 剩余的参数表示从索引开始的地方插入剩余的参数作为新的值
+```
 
-/***********************************/
 	总结：
 		1、操作(改变)原数组，返回删除的元素组成的数组
 		==> 为数不多的操作原对象的方法
@@ -131,14 +140,9 @@ j. splice ==> 修改Array的“万能方法”,它可以从指定的索引开始
 		4、参数多2个且第二个参数为0的时候表示只添加,不删除。
 		5、参数多2个且第二个参数不为0的时候表示既删除又添加，可以用来批量替换数组的元素值。
 
-/***********************************/
 
-
-
-```
 
 ###二、特别注意，改变原数组的方法有：splice、sort、reverse。
-
 
 
 
@@ -156,80 +160,97 @@ j. splice ==> 修改Array的“万能方法”,它可以从指定的索引开始
 var arr1 = ['a', 'b', 'c'];
 var arr2 = ['A', 'B', 'C'];
 var concatArr = [1, 2, 3, "a", "b", "c", "A", "B", "C"];
+</code></pre>
 
-1、数组的length属性
-console.log(arr.length); // 3
+<h4 id="1length">1、数组的length属性</h4>
 
-注意：
-   1、数组的length不要随意赋值，如arr.length = 10;
-           ==&gt; 除非要清空数组：arr.length = 0;
+<pre><code class="javascript">console.log(arr.length); // 3
+</code></pre>
+
+<pre><code class="javascript">   注意：
+
+   1、数组的length不要随意赋值，如arr.length = 10;&lt;br&gt;
+           ==&gt; 除非要清空数组：arr.length = 0;&lt;br&gt;
    2、数组不要通过索引随便赋值，如：arr[10] = 10;
+</code></pre>
 
-   以上行为都会改变数组。
+<p>以上行为都会改变数组。</p>
 
+<h4 id="2">2、数组的方法</h4>
 
-2、数组的方法
+<p>a. concat</p>
 
-a. concat
-    console.log(arr.concat(arr1, arr2)); //[1, 2, 3, "a", "b", "c", "A", "B", "C"] 
-    ==&gt; 返回新的数组，不改变原数组
+<pre><code class="javascript">    console.log(arr.concat(arr1, arr2)); //[1, 2, 3, "a", "b", "c", "A", "B", "C"] 
+</code></pre>
 
-b. slice(start,end)
-    console.log(concatArr.slice(0, 3)); // [1, 2, 3] ==&gt; 下标[0, 3)
+<p>==&gt; 返回新的数组，不改变原数组</p>
+
+<p>b. slice(start,end)</p>
+
+<pre><code class="javascript">    console.log(concatArr.slice(0, 3)); // [1, 2, 3] ==&gt; 下标[0, 3)
     console.log(concatArr.slice(-3));    // ["A", "B", "C"] ==&gt; 倒数第3位到结束
     console.log(concatArr.slice(-6, -3)); // ["a", "b", "c"] ==&gt; 倒数下标[-6, -3)
+</code></pre>
 
-    ==&gt; slice(start,end)==&gt;返回一个新的数组。包括数组 concatArr 从 start 开始（包括 start）到 end 结束（不包括 end）为止的所有元素。当没有第二个参数时，截止到最后
+<pre><code>==&gt; slice(start,end)==&gt;返回一个新的数组。包括数组 concatArr 从 start 开始（包括 start）到 end 结束（不包括 end）为止的所有元素。当没有第二个参数时，截止到最后
 
-    ==&gt; 当只有一个参数，并且这个参数为负数时，表示从数组尾部开始，-1表示倒数第一开始，n表示倒数第n开始到最后
+==&gt; 当只有一个参数，并且这个参数为负数时，表示从数组尾部开始，-1表示倒数第一开始，n表示倒数第n开始到最后
+</code></pre>
 
-c. indexOf
+<p>c. indexOf</p>
 
-   console.log(concatArr.indexOf('a')); // 3
+<pre><code class="javascript    ">   console.log(concatArr.indexOf('a')); // 3
    console.log(concatArr.indexOf('1')); // -1 ==&gt; 代表没有
 
-   注意了，数字1和字符串'1'是不同的元素。
+   //注意了，数字1和字符串'1'是不同的元素。
+</code></pre>
 
-d. slice ==&gt; 可以说和String的slice一模一样，字符串变数组而已，忘了可以去看: 关于String的属性和方法
+<p>d. slice ==&gt; 可以说和String的slice一模一样，字符串变数组而已，忘了可以去看: <a href="https://yanmuxiao.github.io/String.html">关于String的属性和方法</a>。</p>
 
+<pre><code>如果不给slice()传递任何参数，它就会从头到尾截取所有元素。利用这一点，我们可以很容易地复制一个Array
+var arr2 = concat.slice(); // 数组的复制
 
-    如果不给slice()传递任何参数，它就会从头到尾截取所有元素。利用这一点，我们可以很容易地复制一个Array
-    var arr2 = concat.slice(); // 数组的复制
+注意：有些地方说slice()就是对应String的substring()版本，我觉得不对，因为subString的参数都不能为负。
+</code></pre>
 
-    注意：有些地方说slice()就是对应String的substring()版本，我觉得不对，因为subString的参数都不能为负。
+<p>e. push和pop</p>
 
-e. push和pop
-
-    push()向Array的末尾添加 若干 元素，pop()则把Array的 最后一个 元素删除掉。
+<pre><code class="javascript    ">    push()向Array的末尾添加 若干 元素，pop()则把Array的 最后一个 元素删除掉。
 
     注意：若干、最后一个
+</code></pre>
 
-f. unshift和shift
+<pre><code>    
+</code></pre>
 
-    如果要往Array的头部添加 若干 元素，使用unshift()方法，shift()方法则把Array的 第一个 元素删掉。
+<p>f. unshift和shift</p>
+
+<pre><code class="javascript    ">    如果要往Array的头部添加 若干 元素，使用unshift()方法，shift()方法则把Array的 第一个 元素删掉。
 
     注意：若干、第一个
+</code></pre>
 
+<p>g. sort  ==&gt; 改变了原数组，返回改变后的数组(即原数组 === )
+    sort()可以对当前Array进行排序，它会直接修改当前Array的元素位置，直接调用时，按照默认顺序排序:</p>
 
-g. sort  ==&gt; 改变了原数组，返回改变后的数组(即原数组 === )
-    sort()可以对当前Array进行排序，它会直接修改当前Array的元素位置，直接调用时，按照默认顺序排序:
+<pre><code class="javascript    ">    concatArr.sort(); // [1, 2, 3, "A", "B", "C", "a", "b", "c"]
+</code></pre>
 
-    concatArr.sort(); // [1, 2, 3, "A", "B", "C", "a", "b", "c"]
+<pre><code>排序规则：
+1、字符串根据ASCII码进行排序，而小写字母a的ASCII码在大写字母之后。
+2、把所有元素先转换为String再排序
+</code></pre>
 
-    排序规则：
-    1、字符串根据ASCII码进行排序，而小写字母a的ASCII码在大写字母之后。
-    2、把所有元素先转换为String再排序
+<p>h. reverse  ==&gt; 改变了原数组，返回改变后的数组(即原数组 === )</p>
 
+<pre><code class="javascript    ">    concatArr.reverse(); // ["C", "B", "A", "c", "b", "a", 3, 2, 1]
+</code></pre>
 
-h. reverse  ==&gt; 改变了原数组，返回改变后的数组(即原数组 === )
-    concatArr.reverse(); // ["C", "B", "A", "c", "b", "a", 3, 2, 1]
+<p>i. join ==&gt; 将数组转换为字符串，忘了可以去看: <a href="https://yanmuxiao.github.io/String.html">关于String的属性和方法</a></p>
 
+<p>j. splice </p>
 
-i. join ==&gt; 将数组转换为字符串，忘了可以去看: 关于String的属性和方法
-
-
-
-j. splice ==&gt; 修改Array的“万能方法”,它可以从指定的索引开始删除若干元素，然后再从该位置添加若干元素。
+<pre><code class="javascript    "> 修改Array的“万能方法”,它可以从指定的索引开始删除若干元素，然后再从该位置添加若干元素。
 
 第一个参数：索引开始
 第二个参数：表示长度
@@ -237,22 +258,20 @@ j. splice ==&gt; 修改Array的“万能方法”,它可以从指定的索引开
     ==&gt; 从指定的索引开始删除若干元素
 
 剩余的参数表示从索引开始的地方插入剩余的参数作为新的值
+</code></pre>
 
-/***********************************/
-    总结：
-        1、操作(改变)原数组，返回删除的元素组成的数组
-        ==&gt; 为数不多的操作原对象的方法
+<pre><code>总结：
+    1、操作(改变)原数组，返回删除的元素组成的数组
+    ==&gt; 为数不多的操作原对象的方法
 
-        2、 只有一个参数时，默认都数组的最后
-        ==&gt; 清空某一个数组的方法：
-            a). arr.length = 0;
-            b). arr.splice(0);(同时也复制了一个数组)
+    2、 只有一个参数时，默认都数组的最后
+    ==&gt; 清空某一个数组的方法：
+        a). arr.length = 0;
+        b). arr.splice(0);(同时也复制了一个数组)
 
-        3、参数少于或等于2个的时候表示只删除,不添加。
-        4、参数多2个且第二个参数为0的时候表示只添加,不删除。
-        5、参数多2个且第二个参数不为0的时候表示既删除又添加，可以用来批量替换数组的元素值。
-
-/***********************************/
+    3、参数少于或等于2个的时候表示只删除,不添加。
+    4、参数多2个且第二个参数为0的时候表示只添加,不删除。
+    5、参数多2个且第二个参数不为0的时候表示既删除又添加，可以用来批量替换数组的元素值。
 </code></pre>
 
 <h3 id="splicesortreverse">二、特别注意，改变原数组的方法有：splice、sort、reverse。</h3>
