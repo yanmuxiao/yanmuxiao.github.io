@@ -65,6 +65,9 @@ b. [0-9a-zA-Z\_]+可以匹配至少由一个数字、字母或者下划线组成
 c. [a-zA-Z\_\$][0-9a-zA-Z\_\$]*可以匹配由字母或下划线、$开头，后接任意个由一个数字、字母或者下划线、$组成的字符串，也就是JavaScript允许的变量名
 d. [a-zA-Z\_\$][0-9a-zA-Z\_\$]{0, 19}更精确地限制了变量的长度是1-20个字符（前面1个字符+后面最多19个字符）
 ```
+
+注意：^ [0-9a-zA-Z\_]  和 ^[^0-9a-zA-Z\_] 的意思相反，[]里面加^表示非的意思，所以^[^0-9a-zA-Z\_]表示匹配非数字、字母或者下划线开头的所以字符。
+
 4、或（|）
 ```javascript
 a. A|B可以匹配A或B，所以(J|j)ava(S|s)cript可以匹配'JavaScript'、'Javascript'、'javaScript'或者'javascript'
@@ -91,6 +94,12 @@ var r1 = /test/g;
 var r2 = new RegExp('test', 'g');
 
 ```
+
+7、分组
+除了简单地判断是否匹配之外，正则表达式还有提取子串的强大功能。用()表示的就是要提取的分组（Group）。比如：
+^(\d{3})-(\d{3,8})$分别定义了两个组，可以直接从匹配的字符串中提取出区号和本地号码。
+
+分组要结合RegExp的exec()方法使用，请往下看。
 
 ###三、如何定义一个RegExp？
 
@@ -185,8 +194,13 @@ re.exec('102300'); // ['102300', '102300', '']
 必须让\d+采用非贪婪匹配（也就是尽可能少匹配），才能把后面的0匹配出来，加个?就可以让\d+采用非贪婪匹配：
 ```javascript
 var re = /^(\d+?)(0*)$/;
-re.exec('102300'); // ['102300', '1023', '00']
+var result = re.exec('102300');
+console.log(result);  // ['102300', '1023', '00']
+console.log(result.index); // 0
+console.log(resutl.input); // "102300"
 ```
+
+存在分组是exec()返回的的数组多了提取分组的值而已，一样存在index、input属性。
 
 ####3、compile()
 
@@ -202,7 +216,6 @@ console.log(patt1.test("The best things in life are free")); // true
 patt1.compile("d");
 console.log(patt1.test("The best things in life are free")); // false
 ```
-
 <!-- markdown end -->
 </div>
 <div class="entry" id="main">
@@ -246,6 +259,8 @@ c. [a-zA-Z\_\$][0-9a-zA-Z\_\$]*可以匹配由字母或下划线、$开头，后
 d. [a-zA-Z\_\$][0-9a-zA-Z\_\$]{0, 19}更精确地限制了变量的长度是1-20个字符（前面1个字符+后面最多19个字符）
 </code></pre>
 
+<p>注意：^ [0-9a-zA-Z_]  和 ^[^0-9a-zA-Z_] 的意思相反，[]里面加^表示非的意思，所以^[^0-9a-zA-Z_]表示匹配非数字、字母或者下划线开头的所以字符。</p>
+
 <p>4、或（|）</p>
 
 <pre><code class="javascript">a. A|B可以匹配A或B，所以(J|j)ava(S|s)cript可以匹配'JavaScript'、'Javascript'、'javaScript'或者'javascript'
@@ -270,6 +285,12 @@ var r1 = /test/g;
 // 等价于:
 var r2 = new RegExp('test', 'g');
 </code></pre>
+
+<p>7、分组
+除了简单地判断是否匹配之外，正则表达式还有提取子串的强大功能。用()表示的就是要提取的分组（Group）。比如：
+^(\d{3})-(\d{3,8})$分别定义了两个组，可以直接从匹配的字符串中提取出区号和本地号码。</p>
+
+<p>分组要结合RegExp的exec()方法使用，请往下看。</p>
 
 <h3 id="regexp">三、如何定义一个RegExp？</h3>
 
@@ -356,8 +377,13 @@ re.exec('102300'); // ['102300', '102300', '']
 <p>必须让\d+采用非贪婪匹配（也就是尽可能少匹配），才能把后面的0匹配出来，加个?就可以让\d+采用非贪婪匹配：</p>
 
 <pre><code class="javascript">var re = /^(\d+?)(0*)$/;
-re.exec('102300'); // ['102300', '1023', '00']
+var result = re.exec('102300');
+console.log(result);  // ['102300', '1023', '00']
+console.log(result.index); // 0
+console.log(resutl.input); // "102300"
 </code></pre>
+
+<p>存在分组是exec()返回的的数组多了提取分组的值而已，一样存在index、input属性。</p>
 
 <h4 id="3compile">3、compile()</h4>
 
