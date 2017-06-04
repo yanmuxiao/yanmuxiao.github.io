@@ -25,133 +25,204 @@
 	</div>
 <div id="md" style="display: none;">
 <!-- markdown -->
-###一、JavaScript引擎：
+###一、JavaScript线程
 
 在了解计时器内部运作前，我们必须清楚一点，触发和执行并不是同一概念，计时器的回调函数一定会在指定delay的时间后被触发，但并不一定立即执行，可能需要等待。所有JavaScript代码是在一个线程里执行的，像鼠标点击和计时器之类的事件只有在JS单线程空闲时才执行。
 
 ```javascript
 
-1、触发和执行并不是同一概念，触发，但并不一定立即执行，可能需要等待。
-2、所有JavaScript代码是在一个线程里执行的，像鼠标点击和计时器之类的事件只有在JS单线程空闲时才执行
-
-例子：
-       function foo() {
+// 例子：
+       var num = 1000000; 
+	for (var i = 0; i < num ; i++) {
 	    console.log("first");
 	    setTimeout(( function(){
 	        console.log( 'second' );
 	    }),5);
 	}
-	 
-	for (var i = 0; i < 1000000; i++) {
-	    foo();
-	}
+        console.log('third');
+```
+分析：
+1)、 当num的值很小时(如num < 10000)，执行结果会首先全部输出first，然后输出third，最后全部输出second；尽管中间的执行会超过5ms。
 
-==> 执行结果会首先全部输出first，然后全部输出second；尽管中间的执行会超过5ms。
+==> console.log 和 setTimeout是异步的。
 
+2)、当num > 1000000时，浏览器很可能会崩溃(cpu飙升，相当于死循环了)，html页面不会有任何渲染呈现出来，即使页面很简单。
+
+==> for循环是同步的（while和do...while也是同步的)
+
+那么如何让html页面先渲染呈现出来，而在执行这个for循环呢？
+如下，利用setTimeout的异步特性：
+```javascript
+    var num = 1000000; 
+	setTimeout(function(){
+            for (var i = 0; i < num ; i++) {
+	    console.log("first");
+	    setTimeout(( function(){
+	        console.log( 'second' );
+	        }),5);
+	    }
+     }, 0);
+     console.log('third');
 ```
 
-###二、JavaScript单线程的性质决定JavaScript引擎同一时间只执行一段代码
 
-1、那么Ajax是如何实现异步的呢？？？
+###二、js对DOM的操作是异步的
 
- 	答：既然说JavaScript是单线程运行的，那么XMLHttpRequest在连接后是否真的异步？其实请求确实是异步的，不过这请求是由浏览器新开一个线程请求(参见上图)，当请求的状态变更时，如果先前已设置回调，这异步线程就产生状态变更事件放到JavaScript引擎的处理队列中等待处理，当任务被处理时，JavaScript引擎始终是单线程运行回调函数，具体点即还是单线程运行onreadystatechange所设置的函数。
-
-2、GUI渲染也是在引擎线程中执行的，脚本中执行对界面进行更新操作,如添加结点,删除结点或改变结点的外观等更新并不会立即体现出来,这些操作将保存在一个队列中,待JavaScript引擎空闲时才有机会渲染出来。
+GUI渲染也是在引擎线程中执行的，脚本中执行对界面进行更新操作,如添加结点,删除结点或改变结点的外观等更新并不会立即体现出来,这些操作将保存在一个队列中,待JavaScript引擎空闲时才有机会渲染出来。
 
 例子：
 
 ```javascript
 
-      <div id="test">test</div>
-
-	var j = 10000;
-	var i=0;
-	while(j > 0) {
- 		document.getElementById("test").innerHTML+=i++ + "<br />";
- 		j--;
-		console.log(j);
+var num1 = 30;
+var num2 = 31;
+var timer1 = setTimeout(function(){
+	document.getElementById("test").innerHTML = arr.join('');
+}, 30)
+var timer2 = setTimeout(function(){
+	for(var m = 0; m < 10000000; m++) {
+		console.log(m)
 	}
-
-	console.log('我在什么时候输出？？？');
-
-	1). div#test的内容不会依次显示，只有while循环结束后一次性显示出来。
-	2). console.log('我在什么时候输出？？？');也是在while循环结束后才显示出来
-
-	这两点说明了什么？？？？
+}, 39)
 ```	
-###三、异步事件
+	1、当num1 > num2时，timer2中的for循环是死循环，timer1对DOM节点的操作得不到响应；
+        2、当num1 < num2，并且他们之间的时间差足够完成对DOM的操作，否则和1一样得不到响应。
+
+        上面两点说明：脚本中执行对界面进行更新操作是异步的。
+
+
+###三、浏览器不是单线程的
+
+虽然JS运行在浏览器中，是单线程的，每个window一个JS线程，但浏览器不是单线程的，例如Webkit或是Gecko引擎，都可能有如下线程：
+
 ```javascript
 
-鼠标点击、计时器、Ajax、js修改html内容
+javascript引擎线程
+界面渲染线程
+浏览器事件触发线程
+Http请求线程
+
+```	
+
+#####靠，其实就一句话：js是单线程的，所谓的js异步都是浏览器的功劳，没js的事。
+
+###四、那么Ajax是如何实现异步的呢？？？
+
+ 	答：既然说JavaScript是单线程运行的，那么XMLHttpRequest在连接后是否真的异步？其实请求确实是异步的，不过这请求是由浏览器新开一个线程请求，当请求的状态变更时，如果先前已设置回调，这异步线程就产生状态变更事件放到JavaScript引擎的处理队列中等待处理，当任务被处理时，JavaScript引擎始终是单线程运行回调函数，具体点即还是单线程运行onreadystatechange所设置的函数。
+
+
+###五、异步事件
+
+```javascript
+
+鼠标点击、计时器、Ajax、console.log、脚本中执行对界面进行更新操作
 
 ```
 
+还是那句话：js是单线程的，所谓的js异步都是浏览器的功劳，没js的事。
 
 
+###六、更多详情请看原文
+[Javascript是单线程的深入分析](http://www.cnblogs.com/Mainz/p/3552717.html)
 
 
 <!-- markdown end -->
 </div>
 <div class="entry" id="main">
 <!-- content -->
-<h3 id="javascript">一、JavaScript引擎：</h3>
+<h3 id="javascript">一、JavaScript线程</h3>
 
 <p>在了解计时器内部运作前，我们必须清楚一点，触发和执行并不是同一概念，计时器的回调函数一定会在指定delay的时间后被触发，但并不一定立即执行，可能需要等待。所有JavaScript代码是在一个线程里执行的，像鼠标点击和计时器之类的事件只有在JS单线程空闲时才执行。</p>
 
-<pre><code class="javascript">1、触发和执行并不是同一概念，触发，但并不一定立即执行，可能需要等待。
-2、所有JavaScript代码是在一个线程里执行的，像鼠标点击和计时器之类的事件只有在JS单线程空闲时才执行
-
-例子：
-       function foo() {
+<pre><code class="javascript">// 例子：
+       var num = 1000000; 
+    for (var i = 0; i &lt; num ; i++) {
         console.log("first");
         setTimeout(( function(){
             console.log( 'second' );
         }),5);
     }
-
-    for (var i = 0; i &lt; 1000000; i++) {
-        foo();
-    }
-
-==&gt; 执行结果会首先全部输出first，然后全部输出second；尽管中间的执行会超过5ms。
+        console.log('third');
 </code></pre>
 
-<h3 id="javascriptjavascript">二、JavaScript单线程的性质决定JavaScript引擎同一时间只执行一段代码</h3>
+<p>分析：
+1)、 当num的值很小时(如num &lt; 10000)，执行结果会首先全部输出first，然后输出third，最后全部输出second；尽管中间的执行会超过5ms。</p>
 
-<p>1、那么Ajax是如何实现异步的呢？？？</p>
+<p>==&gt; console.log 和 setTimeout是异步的。</p>
 
-<pre><code> 答：既然说JavaScript是单线程运行的，那么XMLHttpRequest在连接后是否真的异步？其实请求确实是异步的，不过这请求是由浏览器新开一个线程请求(参见上图)，当请求的状态变更时，如果先前已设置回调，这异步线程就产生状态变更事件放到JavaScript引擎的处理队列中等待处理，当任务被处理时，JavaScript引擎始终是单线程运行回调函数，具体点即还是单线程运行onreadystatechange所设置的函数。
+<p>2)、当num &gt; 1000000时，浏览器很可能会崩溃(cpu飙升，相当于死循环了)，html页面不会有任何渲染呈现出来，即使页面很简单。</p>
+
+<p>==&gt; for循环是同步的（while和do...while也是同步的)</p>
+
+<p>那么如何让html页面先渲染呈现出来，而在执行这个for循环呢？
+如下，利用setTimeout的异步特性：</p>
+
+<pre><code class="javascript">    var num = 1000000; 
+    setTimeout(function(){
+            for (var i = 0; i &lt; num ; i++) {
+        console.log("first");
+        setTimeout(( function(){
+            console.log( 'second' );
+            }),5);
+        }
+     }, 0);
+     console.log('third');
 </code></pre>
 
-<p>2、GUI渲染也是在引擎线程中执行的，脚本中执行对界面进行更新操作,如添加结点,删除结点或改变结点的外观等更新并不会立即体现出来,这些操作将保存在一个队列中,待JavaScript引擎空闲时才有机会渲染出来。</p>
+<h3 id="jsdom">二、js对DOM的操作是异步的</h3>
+
+<p>GUI渲染也是在引擎线程中执行的，脚本中执行对界面进行更新操作,如添加结点,删除结点或改变结点的外观等更新并不会立即体现出来,这些操作将保存在一个队列中,待JavaScript引擎空闲时才有机会渲染出来。</p>
 
 <p>例子：</p>
 
-<pre><code class="javascript">      &lt;div id="test"&gt;test&lt;/div&gt;
-
-    var j = 10000;
-    var i=0;
-    while(j &gt; 0) {
-         document.getElementById("test").innerHTML+=i++ + "&lt;br /&gt;";
-         j--;
-        console.log(j);
+<pre><code class="javascript">var num1 = 30;
+var num2 = 31;
+var timer1 = setTimeout(function(){
+    document.getElementById("test").innerHTML = arr.join('');
+}, 30)
+var timer2 = setTimeout(function(){
+    for(var m = 0; m &lt; 10000000; m++) {
+        console.log(m)
     }
+}, 39)
+</code></pre>
 
-    console.log('我在什么时候输出？？？');
+<pre><code>1、当num1 &gt; num2时，timer2中的for循环是死循环，timer1对DOM节点的操作得不到响应；
+    2、当num1 &lt; num2，并且他们之间的时间差足够完成对DOM的操作，否则和1一样得不到响应。
 
-    1). div#test的内容不会依次显示，只有while循环结束后一次性显示出来。
-    2). console.log('我在什么时候输出？？？');也是在while循环结束后才显示出来
+    上面两点说明：脚本中执行对界面进行更新操作是异步的。
+</code></pre>
 
-    这两点说明了什么？？？？
+<h3 id="">三、浏览器不是单线程的</h3>
+
+<p>虽然JS运行在浏览器中，是单线程的，每个window一个JS线程，但浏览器不是单线程的，例如Webkit或是Gecko引擎，都可能有如下线程：</p>
+
+<pre><code class="javascript">javascript引擎线程
+界面渲染线程
+浏览器事件触发线程
+Http请求线程
 </code></pre>
 
 <pre><code>
 </code></pre>
 
-<h3 id="">三、异步事件</h3>
+<h5 id="jsjsjs">靠，其实就一句话：js是单线程的，所谓的js异步都是浏览器的功劳，没js的事。</h5>
 
-<pre><code class="javascript">鼠标点击、计时器、Ajax、js修改html内容
+<h3 id="ajax">四、那么Ajax是如何实现异步的呢？？？</h3>
+
+<pre><code> 答：既然说JavaScript是单线程运行的，那么XMLHttpRequest在连接后是否真的异步？其实请求确实是异步的，不过这请求是由浏览器新开一个线程请求，当请求的状态变更时，如果先前已设置回调，这异步线程就产生状态变更事件放到JavaScript引擎的处理队列中等待处理，当任务被处理时，JavaScript引擎始终是单线程运行回调函数，具体点即还是单线程运行onreadystatechange所设置的函数。
 </code></pre>
+
+<h3 id="">五、异步事件</h3>
+
+<pre><code class="javascript">鼠标点击、计时器、Ajax、console.log、脚本中执行对界面进行更新操作
+</code></pre>
+
+<p>还是那句话：js是单线程的，所谓的js异步都是浏览器的功劳，没js的事。</p>
+
+<h3 id="">六、更多详情请看原文</h3>
+
+<p><a href="http://www.cnblogs.com/Mainz/p/3552717.html">Javascript是单线程的深入分析</a></p>
 <!-- content end -->
 </div>
 <br>
