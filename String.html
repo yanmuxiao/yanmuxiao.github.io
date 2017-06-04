@@ -83,13 +83,71 @@ d. substr(start,lenght)
 	      subStr ==> 第一个参数可以为负，第二个参数表示的是字符串的长度，不能为负数，自动转换为0
 
 
-e. indexOf ==> 搜索目标字符串的开始索引，只返回第一个
+e. indexOf(string, start)和lastIndexOf(string, start)
+
+indexOf搜索目标字符串的开始索引，第一个参数只能是字符串，且对大小写敏感，只返回第一个的位置索引；
+indexOf第二个参数表示从该索引开始搜索，只能为正数，负数自动转化为0。
+
+lastIndexOf从后往前搜索目标字符串的开始索引，第一个参数只能是字符串，且对大小写敏感，只返回最后一个的位置索引；
+indexOf第二个参数只能为正数，负数返回结果为-1找不到。它的合法取值是 0 到 stringObject.length - 1。如省略该参数，则将从字符串的最后一个字符处开始检索。
+
 ```javascript
+
     var str = '123abcABC123abcABC123abcABC123abcABC';
     console.log(str.indexOf('abc')); // 3
     console.log(str.indexOf('dddd')); // -1 ==> 找不到
+
+    str.indexOf('abc', 6); // 12
+    str.indexOf('abc', -6); // 3
+
+    str.lastIndexOf('abc', 4); // 3
+    str.lastIndexOf('abc', -4); // -1
+    str.lastIndexOf('abc', 14); // 12
+
 ```
-f.  trim() ==> IE9以下没有这个方法，要做兼容，如下：
+f. search(sting/RegExp)
+
+搜索目标字符串的开始索引，参数可以是字符串或者正则，对大小写敏感，正则可以忽略大小写敏感。
+只返回第一个的位置索引，所以即使是全局匹配g也是返回第一个的位置索引；
+特别注意：search方法只接收一个参数。
+```javascript
+    var str = '123abcABC123abcABC123abcABC123abcABC';
+    console.log(str.search('abc')); // 3
+    console.log(str.search(/Abc/ig)); // 3
+    console.log(str.search(/Abc/ig, 6)); // 3
+    console.log(str.search('dddd')); // -1 ==> 找不到
+```
+	
+indexOf：不支持正则，支持指定起始位置开始搜索(负数时转化为0)，有lastIndex反向搜索
+search：支持正则和字符串，不支持指定起始位置开始搜索
+
+g. match(searchvalue, regexp)
+
+	match() 方法可在字符串内检索指定的值，或找到一个或多个正则表达式的匹配。
+	该方法类似 indexOf() 和 lastIndexOf()，但是它返回指定的值，而不是字符串的位置。
+
+	searchvalue 必需。规定要检索的字符串值。 
+	regexp 必需。规定要匹配的模式的 RegExp 对象。如果该参数不是 RegExp 对象，则需要首先把它传递给 RegExp 构造函数，将其转换为 RegExp 对象。 
+```javascript
+	var str = '123abcABC123abcABC123abcABC123abcABC';
+	console.log(str.match('abc')); // ["abc"]
+	console.log(str.match(/abc/)); // ["abc"]
+	console.log(str.match(/abc/g)); // ["abc", "abc", "abc", "abc"]
+	console.log(str.match(/\d+/g)); // ["123", "123", "123", "123"]
+```
+
+h. replace(str/RegExp, repalcement)
+	第一个参数时字符串或正则，字符串只能替换第一个，正则可以匹配设置(ig)；
+	第二个参数repalcement如果是字符串那么就只接替换，repalcement可以是函数。
+```javascript
+	var str = '123abcABC123abcABC123abcABC123abcABC';
+	console.log(str.replace('abc', 'RRR')); // "123RRRABC123abcABC123abcABC123abcABC"
+
+	console.log(str.replace(/abc/ig, 'RRR')); // "123RRRRRR123RRRRRR123RRRRRR123RRRRRR"
+```	
+
+
+i.  trim() ==> IE9以下没有这个方法，要做兼容，如下：
 ```javascript
 	//console.log("trim()==>空格处理：")
 	String.prototype.ltrim=function() {
@@ -102,13 +160,13 @@ f.  trim() ==> IE9以下没有这个方法，要做兼容，如下：
 		return this.replace(/(^\s*)|(\s*$)/g,"");
 	};
 ```
-g. 字符串比较
+j. 字符串比较
 ```javascript
 	log(str.localeCompare(str1)); //-1
 	log(str1.localeCompare(str)); //1
 	log(str.localeCompare(str)); // 0
 ```		
-h. 字符串大小写转换
+k. 字符串大小写转换
 ```javascript
 	log(str.toUpperCase()); // ABC123ABC
 	log(str.toLocaleUpperCase()); // ABC123ABC
@@ -116,7 +174,7 @@ h. 字符串大小写转换
 	log(str.toLowerCase());  // abc123abc
 	log(str.toLocaleLowerCase()); // abc123abc
 ```
-i. split ==> 将字符串转换为数组
+l. split ==> 将字符串转换为数组
 ```javascript
 	var arr = str.split('');
 	console.log(arr); //["a", "b", "c", "1", "2", "3", "A", "B", "C"]
@@ -186,14 +244,72 @@ var str2 = "Concat2";
           subString ==&gt; 参数都不可以为负，自动转换为0<br>
           subStr ==&gt; 第一个参数可以为负，第二个参数表示的是字符串的长度，不能为负数，自动转换为0</p>
 
-<p>e. indexOf ==&gt; 搜索目标字符串的开始索引，只返回第一个</p>
+<p>e. indexOf(string, start)和lastIndexOf(string, start)</p>
+
+<p>indexOf搜索目标字符串的开始索引，第一个参数只能是字符串，且对大小写敏感，只返回第一个的位置索引；
+indexOf第二个参数表示从该索引开始搜索，只能为正数，负数自动转化为0。</p>
+
+<p>lastIndexOf从后往前搜索目标字符串的开始索引，第一个参数只能是字符串，且对大小写敏感，只返回最后一个的位置索引；
+indexOf第二个参数只能为正数，负数返回结果为-1找不到。它的合法取值是 0 到 stringObject.length - 1。如省略该参数，则将从字符串的最后一个字符处开始检索。</p>
 
 <pre><code class="javascript">    var str = '123abcABC123abcABC123abcABC123abcABC';
     console.log(str.indexOf('abc')); // 3
     console.log(str.indexOf('dddd')); // -1 ==&gt; 找不到
+
+    str.indexOf('abc', 6); // 12
+    str.indexOf('abc', -6); // 3
+
+    str.lastIndexOf('abc', 4); // 3
+    str.lastIndexOf('abc', -4); // -1
+    str.lastIndexOf('abc', 14); // 12
 </code></pre>
 
-<p>f.  trim() ==&gt; IE9以下没有这个方法，要做兼容，如下：</p>
+<p>f. search(sting/RegExp)</p>
+
+<p>搜索目标字符串的开始索引，参数可以是字符串或者正则，对大小写敏感，正则可以忽略大小写敏感。
+只返回第一个的位置索引，所以即使是全局匹配g也是返回第一个的位置索引；
+特别注意：search方法只接收一个参数。</p>
+
+<pre><code class="javascript">    var str = '123abcABC123abcABC123abcABC123abcABC';
+    console.log(str.search('abc')); // 3
+    console.log(str.search(/Abc/ig)); // 3
+    console.log(str.search(/Abc/ig, 6)); // 3
+    console.log(str.search('dddd')); // -1 ==&gt; 找不到
+</code></pre>
+
+<p>indexOf：不支持正则，支持指定起始位置开始搜索(负数时转化为0)，有lastIndex反向搜索
+search：支持正则和字符串，不支持指定起始位置开始搜索</p>
+
+<p>g. match(searchvalue, regexp)</p>
+
+<pre><code>match() 方法可在字符串内检索指定的值，或找到一个或多个正则表达式的匹配。
+该方法类似 indexOf() 和 lastIndexOf()，但是它返回指定的值，而不是字符串的位置。
+
+searchvalue 必需。规定要检索的字符串值。 
+regexp 必需。规定要匹配的模式的 RegExp 对象。如果该参数不是 RegExp 对象，则需要首先把它传递给 RegExp 构造函数，将其转换为 RegExp 对象。 
+</code></pre>
+
+<pre><code class="javascript">    var str = '123abcABC123abcABC123abcABC123abcABC';
+    console.log(str.match('abc')); // ["abc"]
+    console.log(str.match(/abc/)); // ["abc"]
+    console.log(str.match(/abc/g)); // ["abc", "abc", "abc", "abc"]
+    console.log(str.match(/\d+/g)); // ["123", "123", "123", "123"]
+</code></pre>
+
+<p>h. replace(str/RegExp, repalcement)
+    第一个参数时字符串或正则，字符串只能替换第一个，正则可以匹配设置(ig)；
+    第二个参数repalcement如果是字符串那么就只接替换，repalcement可以是函数。</p>
+
+<pre><code class="javascript">    var str = '123abcABC123abcABC123abcABC123abcABC';
+    console.log(str.replace('abc', 'RRR')); // "123RRRABC123abcABC123abcABC123abcABC"
+
+    console.log(str.replace(/abc/ig, 'RRR')); // "123RRRRRR123RRRRRR123RRRRRR123RRRRRR"
+</code></pre>
+
+<pre><code>
+</code></pre>
+
+<p>i.  trim() ==&gt; IE9以下没有这个方法，要做兼容，如下：</p>
 
 <pre><code class="javascript">    //console.log("trim()==&gt;空格处理：")
     String.prototype.ltrim=function() {
@@ -207,7 +323,7 @@ var str2 = "Concat2";
     };
 </code></pre>
 
-<p>g. 字符串比较</p>
+<p>j. 字符串比较</p>
 
 <pre><code class="javascript">    log(str.localeCompare(str1)); //-1
     log(str1.localeCompare(str)); //1
@@ -217,7 +333,7 @@ var str2 = "Concat2";
 <pre><code>    
 </code></pre>
 
-<p>h. 字符串大小写转换</p>
+<p>k. 字符串大小写转换</p>
 
 <pre><code class="javascript">    log(str.toUpperCase()); // ABC123ABC
     log(str.toLocaleUpperCase()); // ABC123ABC
@@ -226,7 +342,7 @@ var str2 = "Concat2";
     log(str.toLocaleLowerCase()); // abc123abc
 </code></pre>
 
-<p>i. split ==&gt; 将字符串转换为数组</p>
+<p>l. split ==&gt; 将字符串转换为数组</p>
 
 <pre><code class="javascript">    var arr = str.split('');
     console.log(arr); //["a", "b", "c", "1", "2", "3", "A", "B", "C"]
