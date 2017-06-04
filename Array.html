@@ -67,6 +67,14 @@ b. slice(start,end)
 
 	==> 当只有一个参数，并且这个参数为负数时，表示从数组尾部开始，-1表示倒数第一开始，n表示倒数第n开始到最后。
 
+
+slice 可以说和String的slice一模一样，字符串变数组而已，忘了可以去看: [关于String的属性和方法](https://yanmuxiao.github.io/String.html)。
+	
+
+	如果不给slice()传递任何参数，它就会从头到尾截取所有元素。利用这一点，我们可以很容易地复制一个Array
+	var arr2 = concat.slice(); // 数组的复制
+
+	注意：有些地方说slice()就是对应String的substring()版本，我觉得不对，因为subString的参数都不能为负。
 c. indexOf
 ```javascript	
    console.log(concatArr.indexOf('a')); // 3
@@ -74,28 +82,20 @@ c. indexOf
 
    //注意了，数字1和字符串'1'是不同的元素。
 ```
-d. slice ==> 可以说和String的slice一模一样，字符串变数组而已，忘了可以去看: [关于String的属性和方法](https://yanmuxiao.github.io/String.html)。
-	
-
-	如果不给slice()传递任何参数，它就会从头到尾截取所有元素。利用这一点，我们可以很容易地复制一个Array
-	var arr2 = concat.slice(); // 数组的复制
-
-	注意：有些地方说slice()就是对应String的substring()版本，我觉得不对，因为subString的参数都不能为负。
-
-e. push和pop
+d. push和pop
 ```javascript	
 	push()向Array的末尾添加 若干 元素，pop()则把Array的 最后一个 元素删除掉。
 
 	注意：若干、最后一个
 ```		
-f. unshift和shift
+e. unshift和shift
 ```javascript	
 	如果要往Array的头部添加 若干 元素，使用unshift()方法，shift()方法则把Array的 第一个 元素删掉。
 
 	注意：若干、第一个
 ```
 
-g. sort  ==> 改变了原数组，返回改变后的数组(即原数组 === )
+f. sort  ==> 改变了原数组，返回改变后的数组(即原数组 === )
 	sort()可以对当前Array进行排序，它会直接修改当前Array的元素位置，直接调用时，按照默认顺序排序:
 ```javascript	
 	concatArr.sort(); // [1, 2, 3, "A", "B", "C", "a", "b", "c"]
@@ -105,16 +105,16 @@ g. sort  ==> 改变了原数组，返回改变后的数组(即原数组 === )
 	2、把所有元素先转换为String再排序。
 
 
-h. reverse  ==> 改变了原数组，返回改变后的数组(即原数组 === )
+g. reverse  ==> 改变了原数组，返回改变后的数组(即原数组 === )
 ```javascript	
 	concatArr.reverse(); // ["C", "B", "A", "c", "b", "a", 3, 2, 1]
 ```
 
-i. join ==> 将数组转换为字符串，忘了可以去看: [关于String的属性和方法](https://yanmuxiao.github.io/String.html)
+h. join ==> 将数组转换为字符串，忘了可以去看: [关于String的属性和方法](https://yanmuxiao.github.io/String.html)
 
 
 
-j. splice 
+i. splice 
 ```javascript	
  修改Array的“万能方法”,它可以从指定的索引开始删除若干元素，然后再从该位置添加若干元素。
 
@@ -145,7 +145,6 @@ j. splice
 ```javascript	
 splice、sort、reverse、 push和pop、unshift和shift
 ```
-
 
 
 
@@ -197,6 +196,14 @@ var concatArr = [1, 2, 3, "a", "b", "c", "A", "B", "C"];
 ==&gt; 当只有一个参数，并且这个参数为负数时，表示从数组尾部开始，-1表示倒数第一开始，n表示倒数第n开始到最后。
 </code></pre>
 
+<p>slice 可以说和String的slice一模一样，字符串变数组而已，忘了可以去看: <a href="https://yanmuxiao.github.io/String.html">关于String的属性和方法</a>。</p>
+
+<pre><code>如果不给slice()传递任何参数，它就会从头到尾截取所有元素。利用这一点，我们可以很容易地复制一个Array
+var arr2 = concat.slice(); // 数组的复制
+
+注意：有些地方说slice()就是对应String的substring()版本，我觉得不对，因为subString的参数都不能为负。
+</code></pre>
+
 <p>c. indexOf</p>
 
 <pre><code class="javascript    ">   console.log(concatArr.indexOf('a')); // 3
@@ -205,15 +212,7 @@ var concatArr = [1, 2, 3, "a", "b", "c", "A", "B", "C"];
    //注意了，数字1和字符串'1'是不同的元素。
 </code></pre>
 
-<p>d. slice ==&gt; 可以说和String的slice一模一样，字符串变数组而已，忘了可以去看: <a href="https://yanmuxiao.github.io/String.html">关于String的属性和方法</a>。</p>
-
-<pre><code>如果不给slice()传递任何参数，它就会从头到尾截取所有元素。利用这一点，我们可以很容易地复制一个Array
-var arr2 = concat.slice(); // 数组的复制
-
-注意：有些地方说slice()就是对应String的substring()版本，我觉得不对，因为subString的参数都不能为负。
-</code></pre>
-
-<p>e. push和pop</p>
+<p>d. push和pop</p>
 
 <pre><code class="javascript    ">    push()向Array的末尾添加 若干 元素，pop()则把Array的 最后一个 元素删除掉。
 
@@ -223,14 +222,14 @@ var arr2 = concat.slice(); // 数组的复制
 <pre><code>    
 </code></pre>
 
-<p>f. unshift和shift</p>
+<p>e. unshift和shift</p>
 
 <pre><code class="javascript    ">    如果要往Array的头部添加 若干 元素，使用unshift()方法，shift()方法则把Array的 第一个 元素删掉。
 
     注意：若干、第一个
 </code></pre>
 
-<p>g. sort  ==&gt; 改变了原数组，返回改变后的数组(即原数组 === )
+<p>f. sort  ==&gt; 改变了原数组，返回改变后的数组(即原数组 === )
     sort()可以对当前Array进行排序，它会直接修改当前Array的元素位置，直接调用时，按照默认顺序排序:</p>
 
 <pre><code class="javascript    ">    concatArr.sort(); // [1, 2, 3, "A", "B", "C", "a", "b", "c"]
@@ -241,14 +240,14 @@ var arr2 = concat.slice(); // 数组的复制
 2、把所有元素先转换为String再排序。
 </code></pre>
 
-<p>h. reverse  ==&gt; 改变了原数组，返回改变后的数组(即原数组 === )</p>
+<p>g. reverse  ==&gt; 改变了原数组，返回改变后的数组(即原数组 === )</p>
 
 <pre><code class="javascript    ">    concatArr.reverse(); // ["C", "B", "A", "c", "b", "a", 3, 2, 1]
 </code></pre>
 
-<p>i. join ==&gt; 将数组转换为字符串，忘了可以去看: <a href="https://yanmuxiao.github.io/String.html">关于String的属性和方法</a></p>
+<p>h. join ==&gt; 将数组转换为字符串，忘了可以去看: <a href="https://yanmuxiao.github.io/String.html">关于String的属性和方法</a></p>
 
-<p>j. splice </p>
+<p>i. splice </p>
 
 <pre><code class="javascript    "> 修改Array的“万能方法”,它可以从指定的索引开始删除若干元素，然后再从该位置添加若干元素。
 
