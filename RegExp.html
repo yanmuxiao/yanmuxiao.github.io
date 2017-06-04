@@ -73,6 +73,7 @@ d. [a-zA-Z\_\$][0-9a-zA-Z\_\$]{0, 19}更精确地限制了变量的长度是1-20
 ```javascript
 a. A|B可以匹配A或B，所以(J|j)ava(S|s)cript可以匹配'JavaScript'、'Javascript'、'javaScript'或者'javascript'
 ```
+注意：| 的优先级大于 ^、$，使用 | 时必须使用()包起来，否则很容易出现问题。
 
 5、开始和结束限制
 ```javascript
@@ -268,6 +269,8 @@ d. [a-zA-Z\_\$][0-9a-zA-Z\_\$]{0, 19}更精确地限制了变量的长度是1-20
 
 <pre><code class="javascript">a. A|B可以匹配A或B，所以(J|j)ava(S|s)cript可以匹配'JavaScript'、'Javascript'、'javaScript'或者'javascript'
 </code></pre>
+
+<p>注意：| 的优先级大于 ^、$，使用 | 时必须使用()包起来，否则很容易出现问题。</p>
 
 <p>5、开始和结束限制</p>
 
