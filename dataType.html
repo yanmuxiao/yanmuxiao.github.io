@@ -1,0 +1,308 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="Keywords" content="blog"/>
+    <meta name="Description" content="blog"/>
+    <title>Simple</title>
+    <link rel="shortcut icon" href="/static/favicon.png"/>
+    <link rel="stylesheet" type="text/css" href="/main.css" />
+</head>
+<body>
+<div class="main">
+    <div class="header">
+    	<ul id="pages">
+            <li><a href="/">home</a></li>
+            <li><a href="/#/tags">tags</a></li>
+            <li><a href="/#/archive">archive</a></li>
+    	</ul>
+    </div>
+	<div class="wrap-header">
+	<h1>
+    <a href="/" id="title"></a>
+	</h1>
+	</div>
+<div id="md" style="display: none;">
+<!-- markdown -->
+###一、js的数据类型
+
+Null、Undefined、Boolean、Number、String、Array、Object
+
+还能叫得出名字的还有：NaN(Not a Number)、正则(RegExp)、日期(Date)、函数(Function)、argument等等，其中NaN属于Number类型，正则、日期、函数、argument属于Object，感觉js的数据类型有点乱。
+
+###二、js数据类型的分类：值类型、引用类型
+
+// 值类型
+```javascript
+
+console.log(typeof(x));    // undefined
+
+console.log(typeof(10));  // number
+
+console.log(typeof('abc')); // string
+
+console.log(typeof(true));  // boolean
+
+console.log(typeof (null));  //object ==> 结果是object，但是属于值类型
+```
+// 引用类型
+```javascript
+console.log(typeof(function () { }));  //function
+
+console.log(typeof([1, 'a', true]));  //object
+
+console.log(typeof ({ a: 10, b: 20 }));  //object
+
+console.log(typeof (new Number(10)));  //object
+```
+typeof对js数据的判断结果共有6种：
+```javascript
+undefined, number, string, boolean, function, object
+```
+#####1、分类：
+
+简单的值类型(不是对象)：null、undefined、boolean、number、string。
+
+复杂的引用类型(是对象)：函数、数组、对象、new Number(10)、new String('10')、new Boolean(true)、正则、日期等等。
+
+#####2、为什么说null不是对象呢？typeof null 的值不是object吗？
+
+a. 它老祖宗都不认他。
+
+console.log(null instanceof Object); // false
+
+b. 对象的定义是：若干属性的集合，而null不符合对象的定义，不是引用类型。
+
+var nullType = null;
+
+nullType.a = 123; // 报错 ==> Unexpected token .
+
+综上：null不是一个对象，不是复杂的引用类型。null最初是用来表示空对象的，但是不属于对象。typeof对null的判断是js的一个bug。
+
+###三、如何判断一个变量的数据类型
+
+#####1、值类型的类型判断用typeof
+
+// 值类型
+
+console.log(typeof(x));    // undefined
+
+console.log(typeof(10));  // number
+
+console.log(typeof('abc')); // string
+
+console.log(typeof(true));  // boolean
+
+//虽然function也是一个引用类型对象，但是可以通过typeof判断：
+
+var fn = function() {};
+
+console.log(typeof fn); // function
+
+如何判断null类型？用 ===：
+
+console.log(null === null); // true
+
+不能用 == ，因为：
+
+console.log(null == undefined); // true
+
+console.log(null === undefined); // false
+
+#####2、引用类型的类型判断用instanceof
+
+//引用类型
+
+console.log(new String('string') instanceof String); // true
+
+console.log(new Number(10) instanceof Number); // true
+
+console.log(new Boolean(true) instanceof Boolean); // true
+
+console.log(new Array(3,4,5) instanceof Array); // true
+
+console.log([] instanceof Array); // true
+
+var fn = function() {}
+
+console.log(fn instanceof Function); // true
+<!-- markdown end -->
+</div>
+<div class="entry" id="main">
+<!-- content -->
+<h3 id="js">一、js的数据类型</h3>
+
+<p>Null、Undefined、Boolean、Number、String、Array、Object</p>
+
+<p>还能叫得出名字的还有：NaN(Not a Number)、正则(RegExp)、日期(Date)、函数(Function)、argument等等，其中NaN属于Number类型，正则、日期、函数、argument属于Object，感觉js的数据类型有点乱。</p>
+
+<h3 id="js">二、js数据类型的分类：值类型、引用类型</h3>
+
+<p>// 值类型</p>
+
+<pre><code class="javascript">console.log(typeof(x));    // undefined
+
+console.log(typeof(10));  // number
+
+console.log(typeof('abc')); // string
+
+console.log(typeof(true));  // boolean
+
+console.log(typeof (null));  //object ==&gt; 结果是object，但是属于值类型
+</code></pre>
+
+<p>// 引用类型</p>
+
+<pre><code class="javascript">console.log(typeof(function () { }));  //function
+
+console.log(typeof([1, 'a', true]));  //object
+
+console.log(typeof ({ a: 10, b: 20 }));  //object
+
+console.log(typeof (new Number(10)));  //object
+</code></pre>
+
+<p>typeof对js数据的判断结果共有6种：</p>
+
+<pre><code class="javascript">undefined, number, string, boolean, function, object
+</code></pre>
+
+<h5 id="1">1、分类：</h5>
+
+<p>简单的值类型(不是对象)：null、undefined、boolean、number、string。</p>
+
+<p>复杂的引用类型(是对象)：函数、数组、对象、new Number(10)、new String('10')、new Boolean(true)、正则、日期等等。</p>
+
+<h5 id="2nulltypeofnullobject">2、为什么说null不是对象呢？typeof null 的值不是object吗？</h5>
+
+<p>a. 它老祖宗都不认他。</p>
+
+<p>console.log(null instanceof Object); // false</p>
+
+<p>b. 对象的定义是：若干属性的集合，而null不符合对象的定义，不是引用类型。</p>
+
+<p>var nullType = null;</p>
+
+<p>nullType.a = 123; // 报错 ==&gt; Unexpected token .</p>
+
+<p>综上：null不是一个对象，不是复杂的引用类型。null最初是用来表示空对象的，但是不属于对象。typeof对null的判断是js的一个bug。</p>
+
+<h3 id="">三、如何判断一个变量的数据类型</h3>
+
+<h5 id="1typeof">1、值类型的类型判断用typeof</h5>
+
+<p>// 值类型</p>
+
+<p>console.log(typeof(x));    // undefined</p>
+
+<p>console.log(typeof(10));  // number</p>
+
+<p>console.log(typeof('abc')); // string</p>
+
+<p>console.log(typeof(true));  // boolean</p>
+
+<p>//虽然function也是一个引用类型对象，但是可以通过typeof判断：</p>
+
+<p>var fn = function() {};</p>
+
+<p>console.log(typeof fn); // function</p>
+
+<p>如何判断null类型？用 ===：</p>
+
+<p>console.log(null === null); // true</p>
+
+<p>不能用 == ，因为：</p>
+
+<p>console.log(null == undefined); // true</p>
+
+<p>console.log(null === undefined); // false</p>
+
+<h5 id="2instanceof">2、引用类型的类型判断用instanceof</h5>
+
+<p>//引用类型</p>
+
+<p>console.log(new String('string') instanceof String); // true</p>
+
+<p>console.log(new Number(10) instanceof Number); // true</p>
+
+<p>console.log(new Boolean(true) instanceof Boolean); // true</p>
+
+<p>console.log(new Array(3,4,5) instanceof Array); // true</p>
+
+<p>console.log([] instanceof Array); // true</p>
+
+<p>var fn = function() {}</p>
+
+<p>console.log(fn instanceof Function); // true</p>
+<!-- content end -->
+</div>
+<br>
+<br>
+    <div id="disqus_thread"></div>
+	<div class="footer">
+		<p>© Copyright 2014 by isnowfy, Designed by isnowfy</p>
+	</div>
+</div>
+<script src="main.js"></script>
+<script id="content" type="text/mustache">
+    <h1>{{title}}</h1>
+    <div class="tag">
+    {{date}}
+    {{#tags}}
+    <a href="/#/tag/{{name}}">#{{name}}</a>
+    {{/tags}}
+    </div>
+</script>
+<script id="pagesTemplate" type="text/mustache">
+    {{#pages}}
+    <li>
+        <a href="{{path}}">{{title}}</a>
+    </li>
+    {{/pages}}
+</script>
+<script>
+$(document).ready(function() {
+    $.ajax({
+        url: "main.json",
+        type: "GET",
+        dataType: "json",
+        success: function(data) {
+            $("#title").html(data.name);
+            var pagesTemplate = Hogan.compile($("#pagesTemplate").html());
+            var pagesHtml = pagesTemplate.render({"pages": data.pages});
+            $("#pages").append(pagesHtml);
+            //path
+            var path = "dataType.html";
+            //path end
+            var now = 0;
+            for (var i = 0; i < data.posts.length; ++i)
+                if (path == data.posts[i].path)
+                    now = i;
+            var post = data.posts[now];
+            var tmp = post.tags.split(" ");
+            var tags = [];
+            for (var i = 0; i < tmp.length; ++i)
+                if (tmp[i].length > 0)
+                    tags.push({"name": tmp[i]});
+            var contentTemplate = Hogan.compile($("#content").html());
+            var contentHtml = contentTemplate.render({"title": post.title, "tags": tags, "date": post.date});
+            $("#main").prepend(contentHtml);
+            if (data.disqus_shortname.length > 0) {
+                var disqus_shortname = data.disqus_shortname;
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            }
+        }
+    });
+});
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ["\\(", "\\)"]], processEscapes: true}});
+</script>
+</body>
+</html>
