@@ -126,16 +126,16 @@ Function.prototype.constructor是一个函数，正是该函数创建了Function
 Function.prototype.constructor === Function // true
 
 ```
+js内置二级构造函数对象还有：
+```javascript
+Date、Array、String、Boolean、RegExp、Number
+```
 
-	js内置二级构造函数对象还有：
-
-	Date、Array、String、Boolean、RegExp、Number
-
-	用户可以自定义的二级函数对象，如：
-
+用户可以自定义的二级函数对象，如：
+```javascript
 	var Person = new Function();
 
-	也可以这样（这只是一种快捷方式）：
+	// 也可以这样（这只是一种快捷方式）：
 
 	function Person() {}
 
@@ -143,30 +143,29 @@ Function.prototype.constructor === Function // true
 	Person instanceof Function // true
 	typeof Person // 'function'
 
-
-	还是那句话：所以的对象都是由函数创建的。
-
-
-	重点：
-
-	1、二级函数对象的原型对象都是继承一级函数对象Object的原型对象，请看它们的原型指向：
-
-	```javascrip
-	Function.prototype.__proto__ === Object.prototype   // true
-	Date.prototype.__proto__ === Object.prototype   // true
-	Array.prototype.__proto__ === Object.prototype   // true
-	String.prototype.__proto__ === Object.prototype   // true
-	Boolean.prototype.__proto__ === Object.prototype   // true
-	RegExp.prototype.__proto__ === Object.prototype   // true
-	Number.prototype.__proto__ === Object.prototype   // true
-
-	Person.prototype.__proto__ === Object.prototype   // true
-	```
-
-        什么情况下产生继承关系呢？个人觉得用new运算符 + 构造函数才会产生继承关系，但是这些二级构造函数对象都是js内置的，他们的继承关系真是不清楚，可以是太菜了........
+```
+还是那句话：所以的对象都是由函数创建的。
 
 
-	2、二级对象继承了一级对象Object.prototype中的所以属性，同时二级对象也有自己的私有属性，是Object的原型中没有的，我们经常用到的比如：
+重点：
+
+1、二级函数对象的原型对象都是继承一级函数对象Object的原型对象，请看它们的原型指向：
+```javascript
+Function.prototype.__proto__ === Object.prototype   // true
+Date.prototype.__proto__ === Object.prototype   // true
+Array.prototype.__proto__ === Object.prototype   // true
+String.prototype.__proto__ === Object.prototype   // true
+Boolean.prototype.__proto__ === Object.prototype   // true
+RegExp.prototype.__proto__ === Object.prototype   // true
+Number.prototype.__proto__ === Object.prototype   // true
+
+Person.prototype.__proto__ === Object.prototype   // true
+```
+
+ 什么情况下产生继承关系呢？个人觉得用new运算符 + 构造函数才会产生继承关系，但是这些二级构造函数对象都是js内置的，他们的继承关系真是不清楚，可以是太菜了........
+
+
+2、二级对象继承了一级对象Object.prototype中的所以属性，同时二级对象也有自己的私有属性，是Object的原型中没有的，我们经常用到的比如：
 
 ```javascript
 
@@ -181,66 +180,62 @@ c). Array的私有属性
 
 ###三、非函数对象（非内置函数对象的没有内置的私有属性）
 	
-	1、常用的非函数对象，这些对象都是new + 构造函数创建的，存在继承关系
+1、常用的非函数对象，这些对象都是new + 构造函数创建的，存在继承关系
 
-	```javascript
+```javascript
 
 	1）、var obj = {};（new Object()）
 	2）、var arr = [];（new Array()）
 	3）、var Num = new Number();
 	4）、var Str = new String();
 
-	```
+```
 
-	2、非函数对象没有原型，也就是没有prototype属性，但是非函数对象也是由函数创建的。既然它是由函数创建的，我们肯定能找到创建它的函数，如下：
+2、非函数对象没有原型，也就是没有prototype属性，但是非函数对象也是由函数创建的。既然它是由函数创建的，我们肯定能找到创建它的函数，如下：
 
-		a). json对象
-		```javascript
-		var obj = new Object();// 很明显可以看出有Object函数创建
-		obj.constructor === Object // true
-		```
-		b). 数组对象
-		```javascript
-		var arr = new Array();
-		arr.constructor === Array // true
-		```
-		数组和对象还可以通过快捷方式创建，如：[]和{}，实质上也是通过函数创建的，这种快捷方式叫做语法糖。请看：
+a). json对象
+```javascript
+var obj = new Object();// 很明显可以看出有Object函数创建
+obj.constructor === Object // true
+```
+b). 数组对象
+```javascript
+var arr = new Array();
+arr.constructor === Array // true
+```
+数组和对象还可以通过快捷方式创建，如：[]和{}，实质上也是通过函数创建的，这种快捷方式叫做语法糖。请看：
 
-		```javascript
-		var obj = {};
-		obj.constructor === Object // true
+```javascript
+var obj = {};
+obj.constructor === Object // true
 
-		var arr = [];
-		arr.constructor === Array // true
-		```
+var arr = [];
+arr.constructor === Array // true
+```
 
-		总结：
-		```javascript
-
-		 非函数对象都有constructor属性指向创建该对象的函数。进一步说明对象都是由函数创建的。
-
-		 ```
-
-	3、非函数对象的继承关系
-
-	1）、由2可以知道，非函数对象都是通过一级或者二级内置函数创建的，有contructor直接指向创建函数。那么他们的继承关系是怎样的呢，是否有__proto__直接指向它继承的对象？答案是当然有啦。在js中，只要你是一个对象，不是你继承别的对象就是别的对象继承你，我们叫这种通过原型对象继承属性的方式原型链。看：
+总结：非函数对象都有constructor属性指向创建该对象的函数。进一步说明对象都是由函数创建的。
 
 
-		a). json对象
-		```javascript
+3、非函数对象的继承关系
 
-		var obj = {};
-		obj.__proto__ === Object.prototype // true
-		Object.prototype.__proto__ === null // true
+1）、由2可以知道，非函数对象都是通过一级或者二级内置函数创建的，有contructor直接指向创建函数。那么他们的继承关系是怎样的呢，是否有__proto__直接指向它继承的对象？答案是当然有啦。在js中，只要你是一个对象，不是你继承别的对象就是别的对象继承你，我们叫这种通过原型对象继承属性的方式原型链。看：
 
-		// 这就是obj最长的原型链了
-		obj.__proto__.__proto__ === null // true
 
-		```
-		b). 数组对象
-		```javascript
+a). json对象
+```javascript
 
-		var arr = [];
+var obj = {};
+obj.__proto__ === Object.prototype // true
+Object.prototype.__proto__ === null // true
+
+// 这就是obj最长的原型链了
+obj.__proto__.__proto__ === null // true
+
+```
+b). 数组对象
+```javascript
+
+var arr = [];
 		arr.__proto__ === Array.prototype // true
 		Array.prototype.__proto__ === Object.prototype // true
 		Object.prototype.__proto__ === null // true
@@ -248,23 +243,23 @@ c). Array的私有属性
 		// 数组对象最长的原型链
 		arr.__proto__.__proto__.__proto__ === null // true
 
-		```
-		同理，其他非函数对象皆一样。
+```
+同理，其他非函数对象皆一样。
 
 
-		2）、看一下非函数对象是否真的继承了别的对象的属性（方法）
+2）、看一下非函数对象是否真的继承了别的对象的属性（方法）
 
-		a). 数组对象
-		```javascript
-		var str = [1, 2, 3, 'a', 'b', 'c'];
-		str.slice(2, 5); // [3, "a", "b"]
-		```
-		结果很明显，我们经常用就不多举例了。
+a). 数组对象
+```javascript
+var str = [1, 2, 3, 'a', 'b', 'c'];
+str.slice(2, 5); // [3, "a", "b"]
+```
+结果很明显，我们经常用就不多举例了。
 
 
-	4、非函数对象的内置对象arguments
+4、非函数对象的内置对象arguments
 
-		arguments只出现在函数中，伪数组，格式和数组一样：[1, 2, 3]，用于接收函数的参数。由Object创建，如下：
+arguments只出现在函数中，伪数组，格式和数组一样：[1, 2, 3]，用于接收函数的参数。由Object创建，如下：
 ```javascript
 function arg() {
 
@@ -275,13 +270,13 @@ function arg() {
 	console.log(typeof arguments.slice); // undefined
 }
 ```
-		内置属性length，可以通过索引访问对应得值。它不是数组，不能用数组的方法。如：
+内置属性length，可以通过索引访问对应得值。它不是数组，不能用数组的方法。如：
 
 ```javascript
 	arguments.slice(); // undefined
 ```
 
-		如何转化为数组，从而可以使用数组的所以方法？
+如何转化为数组，从而可以使用数组的所以方法？
 
 ```javascript
 	// Array.prototype.slice.call(arguments);
@@ -301,26 +296,25 @@ function arg() {
 
 ###四、一级函数对象Object原型中的属性hasOwnProperty
 
-	一级函数对象Object原型中的属性hasOwnProperty会被所有的函数对象或者非函数对象继承。
+一级函数对象Object原型中的属性hasOwnProperty会被所有的函数对象或者非函数对象继承。
 
-	我们都知道对象是可以自定义属性，如何判断一个属性是自定义的还是内置的或者继承原型链中的呢？就看hasOwnProperty了本身了。
+我们都知道对象是可以自定义属性，如何判断一个属性是自定义的还是内置的或者继承原型链中的呢？就看hasOwnProperty了本身了。
 
 
-	那么我们哪些地方会用到hasOwnProperty。
+那么我们哪些地方会用到hasOwnProperty。
 
-	1、判断
-
-	```javascript
+1、判断
+```javascript
 	var obj = {
 		a: 'A',
 		b: 'B'
 	};
 	obj.hasOwnProperty('toString'); // false(继承的)
 	obj.hasOwnProperty('a'); // true (对象本身的)
-	```
+```
 
-	2、遍历
-	```javascript
+2、遍历
+```javascript
 	Object.prototype.newProperty = 'newPropertyValue';
 	var obj = {
 		a: 'A',
@@ -342,7 +336,7 @@ function arg() {
 			console.log(key + '==>' + obj[key])
 		}
 	}
-	```
+```
 
 五、总结
 
@@ -370,11 +364,11 @@ function arg() {
 
     （js任何一个对象不是被继承就是继承别的对象，所以js对象总能找到一条属于它的用来继承属性（方法）的一条（原型）对象链。）
 
-
-     这样的定义看完全文的都应该懂吧！
-
-
 ```
+
+ 这样的定义看完全文的都应该懂吧！
+
+
 
 唉，终于清晰了.....<br>
 网上看到的关于原型链的文章都太深奥了，似懂非懂，过一段时间又忘了，自己整理一下，菜鸟来的，有错请多多指教！
@@ -468,32 +462,31 @@ typeof Function // 'function'
 <pre><code class="javascript">Function.prototype.constructor === Function // true
 </code></pre>
 
-<pre><code>js内置二级构造函数对象还有：
+<p>js内置二级构造函数对象还有：</p>
 
-Date、Array、String、Boolean、RegExp、Number
+<pre><code class="javascript">Date、Array、String、Boolean、RegExp、Number
+</code></pre>
 
-用户可以自定义的二级函数对象，如：
+<p>用户可以自定义的二级函数对象，如：</p>
 
-var Person = new Function();
+<pre><code class="javascript">    var Person = new Function();
 
-也可以这样（这只是一种快捷方式）：
+    // 也可以这样（这只是一种快捷方式）：
 
-function Person() {}
+    function Person() {}
 
-Person instanceof Object // true
-Person instanceof Function // true
-typeof Person // 'function'
+    Person instanceof Object // true
+    Person instanceof Function // true
+    typeof Person // 'function'
+</code></pre>
 
+<p>还是那句话：所以的对象都是由函数创建的。</p>
 
-还是那句话：所以的对象都是由函数创建的。
+<p>重点：</p>
 
+<p>1、二级函数对象的原型对象都是继承一级函数对象Object的原型对象，请看它们的原型指向：</p>
 
-重点：
-
-1、二级函数对象的原型对象都是继承一级函数对象Object的原型对象，请看它们的原型指向：
-
-```javascrip
-Function.prototype.__proto__ === Object.prototype   // true
+<pre><code class="javascript">Function.prototype.__proto__ === Object.prototype   // true
 Date.prototype.__proto__ === Object.prototype   // true
 Array.prototype.__proto__ === Object.prototype   // true
 String.prototype.__proto__ === Object.prototype   // true
@@ -502,13 +495,11 @@ RegExp.prototype.__proto__ === Object.prototype   // true
 Number.prototype.__proto__ === Object.prototype   // true
 
 Person.prototype.__proto__ === Object.prototype   // true
-```
-
-    什么情况下产生继承关系呢？个人觉得用new运算符 + 构造函数才会产生继承关系，但是这些二级构造函数对象都是js内置的，他们的继承关系真是不清楚，可以是太菜了........
-
-
-2、二级对象继承了一级对象Object.prototype中的所以属性，同时二级对象也有自己的私有属性，是Object的原型中没有的，我们经常用到的比如：
 </code></pre>
+
+<p>什么情况下产生继承关系呢？个人觉得用new运算符 + 构造函数才会产生继承关系，但是这些二级构造函数对象都是js内置的，他们的继承关系真是不清楚，可以是太菜了........</p>
+
+<p>2、二级对象继承了一级对象Object.prototype中的所以属性，同时二级对象也有自己的私有属性，是Object的原型中没有的，我们经常用到的比如：</p>
 
 <pre><code class="javascript">a). Date的私有属性
     getDate、getDay、getFullYear等等
@@ -520,91 +511,79 @@ c). Array的私有属性
 
 <h3 id="">三、非函数对象（非内置函数对象的没有内置的私有属性）</h3>
 
-<pre><code>1、常用的非函数对象，这些对象都是new + 构造函数创建的，存在继承关系
+<p>1、常用的非函数对象，这些对象都是new + 构造函数创建的，存在继承关系</p>
 
-```javascript
-
-1）、var obj = {};（new Object()）
-2）、var arr = [];（new Array()）
-3）、var Num = new Number();
-4）、var Str = new String();
-
-```
-
-2、非函数对象没有原型，也就是没有prototype属性，但是非函数对象也是由函数创建的。既然它是由函数创建的，我们肯定能找到创建它的函数，如下：
-
-    a). json对象
-    ```javascript
-    var obj = new Object();// 很明显可以看出有Object函数创建
-    obj.constructor === Object // true
-    ```
-    b). 数组对象
-    ```javascript
-    var arr = new Array();
-    arr.constructor === Array // true
-    ```
-    数组和对象还可以通过快捷方式创建，如：[]和{}，实质上也是通过函数创建的，这种快捷方式叫做语法糖。请看：
-
-    ```javascript
-    var obj = {};
-    obj.constructor === Object // true
-
-    var arr = [];
-    arr.constructor === Array // true
-    ```
-
-    总结：
-    ```javascript
-
-     非函数对象都有constructor属性指向创建该对象的函数。进一步说明对象都是由函数创建的。
-
-     ```
-
-3、非函数对象的继承关系
-
-1）、由2可以知道，非函数对象都是通过一级或者二级内置函数创建的，有contructor直接指向创建函数。那么他们的继承关系是怎样的呢，是否有__proto__直接指向它继承的对象？答案是当然有啦。在js中，只要你是一个对象，不是你继承别的对象就是别的对象继承你，我们叫这种通过原型对象继承属性的方式原型链。看：
-
-
-    a). json对象
-    ```javascript
-
-    var obj = {};
-    obj.__proto__ === Object.prototype // true
-    Object.prototype.__proto__ === null // true
-
-    // 这就是obj最长的原型链了
-    obj.__proto__.__proto__ === null // true
-
-    ```
-    b). 数组对象
-    ```javascript
-
-    var arr = [];
-    arr.__proto__ === Array.prototype // true
-    Array.prototype.__proto__ === Object.prototype // true
-    Object.prototype.__proto__ === null // true
-
-    // 数组对象最长的原型链
-    arr.__proto__.__proto__.__proto__ === null // true
-
-    ```
-    同理，其他非函数对象皆一样。
-
-
-    2）、看一下非函数对象是否真的继承了别的对象的属性（方法）
-
-    a). 数组对象
-    ```javascript
-    var str = [1, 2, 3, 'a', 'b', 'c'];
-    str.slice(2, 5); // [3, "a", "b"]
-    ```
-    结果很明显，我们经常用就不多举例了。
-
-
-4、非函数对象的内置对象arguments
-
-    arguments只出现在函数中，伪数组，格式和数组一样：[1, 2, 3]，用于接收函数的参数。由Object创建，如下：
+<pre><code class="javascript">    1）、var obj = {};（new Object()）
+    2）、var arr = [];（new Array()）
+    3）、var Num = new Number();
+    4）、var Str = new String();
 </code></pre>
+
+<p>2、非函数对象没有原型，也就是没有prototype属性，但是非函数对象也是由函数创建的。既然它是由函数创建的，我们肯定能找到创建它的函数，如下：</p>
+
+<p>a). json对象</p>
+
+<pre><code class="javascript">var obj = new Object();// 很明显可以看出有Object函数创建
+obj.constructor === Object // true
+</code></pre>
+
+<p>b). 数组对象</p>
+
+<pre><code class="javascript">var arr = new Array();
+arr.constructor === Array // true
+</code></pre>
+
+<p>数组和对象还可以通过快捷方式创建，如：[]和{}，实质上也是通过函数创建的，这种快捷方式叫做语法糖。请看：</p>
+
+<pre><code class="javascript">var obj = {};
+obj.constructor === Object // true
+
+var arr = [];
+arr.constructor === Array // true
+</code></pre>
+
+<p>总结：非函数对象都有constructor属性指向创建该对象的函数。进一步说明对象都是由函数创建的。</p>
+
+<p>3、非函数对象的继承关系</p>
+
+<p>1）、由2可以知道，非函数对象都是通过一级或者二级内置函数创建的，有contructor直接指向创建函数。那么他们的继承关系是怎样的呢，是否有<strong>proto</strong>直接指向它继承的对象？答案是当然有啦。在js中，只要你是一个对象，不是你继承别的对象就是别的对象继承你，我们叫这种通过原型对象继承属性的方式原型链。看：</p>
+
+<p>a). json对象</p>
+
+<pre><code class="javascript">var obj = {};
+obj.__proto__ === Object.prototype // true
+Object.prototype.__proto__ === null // true
+
+// 这就是obj最长的原型链了
+obj.__proto__.__proto__ === null // true
+</code></pre>
+
+<p>b). 数组对象</p>
+
+<pre><code class="javascript">var arr = [];
+        arr.__proto__ === Array.prototype // true
+        Array.prototype.__proto__ === Object.prototype // true
+        Object.prototype.__proto__ === null // true
+
+        // 数组对象最长的原型链
+        arr.__proto__.__proto__.__proto__ === null // true
+</code></pre>
+
+<p>同理，其他非函数对象皆一样。</p>
+
+<p>2）、看一下非函数对象是否真的继承了别的对象的属性（方法）</p>
+
+<p>a). 数组对象</p>
+
+<pre><code class="javascript">var str = [1, 2, 3, 'a', 'b', 'c'];
+str.slice(2, 5); // [3, "a", "b"]
+</code></pre>
+
+<p>结果很明显，我们经常用就不多举例了。</p>
+
+<p>4、非函数对象的内置对象arguments</p>
+
+<p>arguments只出现在函数中，伪数组，格式和数组一样：[1, 2, 3]，用于接收函数的参数。由Object创建，如下：</p>
 
 <pre><code class="javascript">function arg() {
 
@@ -616,14 +595,12 @@ c). Array的私有属性
 }
 </code></pre>
 
-<pre><code>    内置属性length，可以通过索引访问对应得值。它不是数组，不能用数组的方法。如：
-</code></pre>
+<p>内置属性length，可以通过索引访问对应得值。它不是数组，不能用数组的方法。如：</p>
 
 <pre><code class="javascript">    arguments.slice(); // undefined
 </code></pre>
 
-<pre><code>    如何转化为数组，从而可以使用数组的所以方法？
-</code></pre>
+<p>如何转化为数组，从而可以使用数组的所以方法？</p>
 
 <pre><code class="javascript">    // Array.prototype.slice.call(arguments);
 
@@ -641,48 +618,45 @@ c). Array的私有属性
 
 <h3 id="objecthasownproperty">四、一级函数对象Object原型中的属性hasOwnProperty</h3>
 
-<pre><code>一级函数对象Object原型中的属性hasOwnProperty会被所有的函数对象或者非函数对象继承。
+<p>一级函数对象Object原型中的属性hasOwnProperty会被所有的函数对象或者非函数对象继承。</p>
 
-我们都知道对象是可以自定义属性，如何判断一个属性是自定义的还是内置的或者继承原型链中的呢？就看hasOwnProperty了本身了。
+<p>我们都知道对象是可以自定义属性，如何判断一个属性是自定义的还是内置的或者继承原型链中的呢？就看hasOwnProperty了本身了。</p>
 
+<p>那么我们哪些地方会用到hasOwnProperty。</p>
 
-那么我们哪些地方会用到hasOwnProperty。
+<p>1、判断</p>
 
-1、判断
+<pre><code class="javascript">    var obj = {
+        a: 'A',
+        b: 'B'
+    };
+    obj.hasOwnProperty('toString'); // false(继承的)
+    obj.hasOwnProperty('a'); // true (对象本身的)
+</code></pre>
 
-```javascript
-var obj = {
-    a: 'A',
-    b: 'B'
-};
-obj.hasOwnProperty('toString'); // false(继承的)
-obj.hasOwnProperty('a'); // true (对象本身的)
-```
+<p>2、遍历</p>
 
-2、遍历
-```javascript
-Object.prototype.newProperty = 'newPropertyValue';
-var obj = {
-    a: 'A',
-    b: 'B'
-}
-for(var key in obj) {
-    console.log(key + '==&gt;' + obj[key])
-}
-
-// 结果：
-// a==&gt;A
-// b==&gt;B
-// newProperty==&gt;newPropertyValue
-
-如何不遍历newProperty呢？
-
-for(var key in obj) {
-    if(obj.hasOwnProperty(key)) {
+<pre><code class="javascript">    Object.prototype.newProperty = 'newPropertyValue';
+    var obj = {
+        a: 'A',
+        b: 'B'
+    }
+    for(var key in obj) {
         console.log(key + '==&gt;' + obj[key])
     }
-}
-```
+
+    // 结果：
+    // a==&gt;A
+    // b==&gt;B
+    // newProperty==&gt;newPropertyValue
+
+    如何不遍历newProperty呢？
+
+    for(var key in obj) {
+        if(obj.hasOwnProperty(key)) {
+            console.log(key + '==&gt;' + obj[key])
+        }
+    }
 </code></pre>
 
 <p>五、总结</p>
@@ -708,10 +682,9 @@ for(var key in obj) {
 
 
     （js任何一个对象不是被继承就是继承别的对象，所以js对象总能找到一条属于它的用来继承属性（方法）的一条（原型）对象链。）
-
-
-     这样的定义看完全文的都应该懂吧！
 </code></pre>
+
+<p>这样的定义看完全文的都应该懂吧！</p>
 
 <p>唉，终于清晰了.....<br>
 网上看到的关于原型链的文章都太深奥了，似懂非懂，过一段时间又忘了，自己整理一下，菜鸟来的，有错请多多指教！</p>
