@@ -26,8 +26,31 @@
 <div id="md" style="display: none;">
 <!-- markdown -->
 
-###一、js内置一级函数对象Object（首字母大写）
+###一、js内置一级构造函数Object（首字母大写）
 
+#####1、普通函数和构造函数的区别
+
+普通函数：
+
+```javascript
+1）、不建议使用new关键字调用，否则就成为构造函数的调用了
+2）、可以用return语句返回值
+3）、函数内部不建议使用this关键字，函数里面的this指向window，添加在this身上的属性是全局属性
+4）、函数命名以驼峰方式，首字母小写
+```
+构造函数：
+
+```javascript
+1）、用new关键字调用，否则就成为普通函数的调用了
+2）、函数内部可以使用this关键字
+      在构造函数内部，this指向的是构造出的新对象。用this定义的变量或函数/方法，就是实例变量或实例函数/方法。需要用实例才能访问到，不能用类型名访问。
+3）、默认不用return返回值（或者说有默认的返回值，也就是当前对象）
+      当然，我们也可以让构造函数像普通函数一样有返回值，但是返回值必须是引用类型对象，不能是值类型，如：null、undefined、boolean、number、string，否则这个返回值无效，依然返回构造的this对象。例如可以返回{a: 'A', b: 'B'}等等。
+4）、函数命名建议首字母大写，与普通函数区分开
+     不是命名规范中的，但是建议这么写。
+```
+
+#####2、Object构造函数
 ```javascript
 
 Object instanceof Object // true
@@ -36,7 +59,7 @@ typeof Object // 'function'
 
 ```
 
-Object既是函数，也是对象，我们称这种对象为函数对象。所有的函数对象都有一个默认属性为prototype（原型），这个属性Object.prototype是一个对象，所以称为原型对象，它的属性集合有：
+Object既是对象，也是函数，我们称这种对象为函数对象，是js内置的构造函数。所有的函数对象都有一个默认属性为prototype（原型），这个属性Object.prototype是一个对象，所以称为原型对象，它的属性集合有：
 ```javascript
       
 console.log(Object.prototype);// 输出如下：
@@ -62,19 +85,19 @@ console.log(Object.prototype);// 输出如下：
 特别重要的三个属性：
 ```javascript
 
-1、Object.prototype.constructor是一个函数，正是该函数创建了Object对象，其实就是它自己，如下：
+1）、Object.prototype.constructor是一个函数，正是该函数创建了Objec.prototypet对象，正因为有了Object函数对象才会有Object.prototype这个原型对象。如下：
 
 Object.prototype.constructor === Object // true
 
-2、Object.prototype.__proto__存放的是继承关系，Object是一级函数对象，它没有继承与别的对象，所以它继承的是空对象null。如下：
+2）、Object.prototype.__proto__存放的是继承关系，Object是一级函数对象，它没有继承与别的对象，所以它继承的是空对象null。如下：
 
 Object.prototype.__proto__ === null // true
 
-3、hasOwnProperty判断对象的属性是否为原型中的属性。
+3）、hasOwnProperty判断对象的属性是否为原型中的属性。
 
 ```
 
-###二、js内置二级函数对象Function（首字母大写）
+###二、js内置二级构造函数Function（首字母大写）
 
 ```javascript
 
@@ -83,7 +106,7 @@ Function instanceof Function // true
 typeof Function // 'function'
 
 ```
-1、Function是一个函数对象，所以有一个默认属性为prototype，这个属性Function.prototype是一个对象，它的属性集合分别有：（注意：和Object的有所不同）
+1、Function是内置构造函数对象，所以有一个默认属性为prototype，这个属性Function.prototype是一个对象，它的属性集合分别有：（注意：和Object的有所不同）
 
 ```javascript
 
@@ -96,7 +119,7 @@ typeof Function // 'function'
 
 ```
 
-Function.prototype.constructor是一个函数，正是该函数创建了Function对象，其实就是它自己，看：
+Function.prototype.constructor是一个函数，正是该函数创建了Function.prototype对象，看：
 
 ```javascript
 
@@ -104,7 +127,7 @@ Function.prototype.constructor === Function // true
 
 ```
 
-	js内置二级函数对象还有：
+	js内置二级构造函数对象还有：
 
 	Date、Array、String、Boolean、RegExp、Number
 
@@ -126,7 +149,7 @@ Function.prototype.constructor === Function // true
 
 	重点：
 
-	1、二级对象都是继承一级对象Object的，请看它们的原型指向：
+	1、二级函数对象的原型对象都是继承一级函数对象Object的原型对象，请看它们的原型指向：
 
 	```javascrip
 	Function.prototype.__proto__ === Object.prototype   // true
@@ -139,6 +162,9 @@ Function.prototype.constructor === Function // true
 
 	Person.prototype.__proto__ === Object.prototype   // true
 	```
+
+        什么情况下产生继承关系呢？个人觉得用new运算符 + 构造函数才会产生继承关系，但是这些二级构造函数对象都是js内置的，他们的继承关系真是不清楚，可以是太菜了........
+
 
 	2、二级对象继承了一级对象Object.prototype中的所以属性，同时二级对象也有自己的私有属性，是Object的原型中没有的，我们经常用到的比如：
 
@@ -155,7 +181,7 @@ c). Array的私有属性
 
 ###三、非函数对象（非内置函数对象的没有内置的私有属性）
 	
-	1、常用的非函数对象有：
+	1、常用的非函数对象，这些对象都是new + 构造函数创建的，存在继承关系
 
 	```javascript
 
@@ -352,19 +378,41 @@ function arg() {
 
 唉，终于清晰了.....<br>
 网上看到的关于原型链的文章都太深奥了，似懂非懂，过一段时间又忘了，自己整理一下，菜鸟来的，有错请多多指教！
-
 <!-- markdown end -->
 </div>
 <div class="entry" id="main">
 <!-- content -->
-<h3 id="jsobject">一、js内置一级函数对象Object（首字母大写）</h3>
+<h3 id="jsobject">一、js内置一级构造函数Object（首字母大写）</h3>
+
+<h5 id="1">1、普通函数和构造函数的区别</h5>
+
+<p>普通函数：</p>
+
+<pre><code class="javascript">1）、不建议使用new关键字调用，否则就成为构造函数的调用了
+2）、可以用return语句返回值
+3）、函数内部不建议使用this关键字，函数里面的this指向window，添加在this身上的属性是全局属性
+4）、函数命名以驼峰方式，首字母小写
+</code></pre>
+
+<p>构造函数：</p>
+
+<pre><code class="javascript">1）、用new关键字调用，否则就成为普通函数的调用了
+2）、函数内部可以使用this关键字
+      在构造函数内部，this指向的是构造出的新对象。用this定义的变量或函数/方法，就是实例变量或实例函数/方法。需要用实例才能访问到，不能用类型名访问。
+3）、默认不用return返回值（或者说有默认的返回值，也就是当前对象）
+      当然，我们也可以让构造函数像普通函数一样有返回值，但是返回值必须是引用类型对象，不能是值类型，如：null、undefined、boolean、number、string，否则这个返回值无效，依然返回构造的this对象。例如可以返回{a: 'A', b: 'B'}等等。
+4）、函数命名建议首字母大写，与普通函数区分开
+     不是命名规范中的，但是建议这么写。
+</code></pre>
+
+<h5 id="2object">2、Object构造函数</h5>
 
 <pre><code class="javascript">Object instanceof Object // true
 Object instanceof Function // true
 typeof Object // 'function'
 </code></pre>
 
-<p>Object既是函数，也是对象，我们称这种对象为函数对象。所有的函数对象都有一个默认属性为prototype（原型），这个属性Object.prototype是一个对象，所以称为原型对象，它的属性集合有：</p>
+<p>Object既是对象，也是函数，我们称这种对象为函数对象，是js内置的构造函数。所有的函数对象都有一个默认属性为prototype（原型），这个属性Object.prototype是一个对象，所以称为原型对象，它的属性集合有：</p>
 
 <pre><code class="javascript">console.log(Object.prototype);// 输出如下：
 
@@ -387,25 +435,25 @@ typeof Object // 'function'
 
 <p>特别重要的三个属性：</p>
 
-<pre><code class="javascript">1、Object.prototype.constructor是一个函数，正是该函数创建了Object对象，其实就是它自己，如下：
+<pre><code class="javascript">1）、Object.prototype.constructor是一个函数，正是该函数创建了Objec.prototypet对象，正因为有了Object函数对象才会有Object.prototype这个原型对象。如下：
 
 Object.prototype.constructor === Object // true
 
-2、Object.prototype.__proto__存放的是继承关系，Object是一级函数对象，它没有继承与别的对象，所以它继承的是空对象null。如下：
+2）、Object.prototype.__proto__存放的是继承关系，Object是一级函数对象，它没有继承与别的对象，所以它继承的是空对象null。如下：
 
 Object.prototype.__proto__ === null // true
 
-3、hasOwnProperty判断对象的属性是否为原型中的属性。
+3）、hasOwnProperty判断对象的属性是否为原型中的属性。
 </code></pre>
 
-<h3 id="jsfunction">二、js内置二级函数对象Function（首字母大写）</h3>
+<h3 id="jsfunction">二、js内置二级构造函数Function（首字母大写）</h3>
 
 <pre><code class="javascript">Function instanceof Object // true
 Function instanceof Function // true
 typeof Function // 'function'
 </code></pre>
 
-<p>1、Function是一个函数对象，所以有一个默认属性为prototype，这个属性Function.prototype是一个对象，它的属性集合分别有：（注意：和Object的有所不同）</p>
+<p>1、Function是内置构造函数对象，所以有一个默认属性为prototype，这个属性Function.prototype是一个对象，它的属性集合分别有：（注意：和Object的有所不同）</p>
 
 <pre><code class="javascript">    constructor:Function()
     __proto__: Object.prototype
@@ -415,12 +463,12 @@ typeof Function // 'function'
     __lookupSetter__
 </code></pre>
 
-<p>Function.prototype.constructor是一个函数，正是该函数创建了Function对象，其实就是它自己，看：</p>
+<p>Function.prototype.constructor是一个函数，正是该函数创建了Function.prototype对象，看：</p>
 
 <pre><code class="javascript">Function.prototype.constructor === Function // true
 </code></pre>
 
-<pre><code>js内置二级函数对象还有：
+<pre><code>js内置二级构造函数对象还有：
 
 Date、Array、String、Boolean、RegExp、Number
 
@@ -442,7 +490,7 @@ typeof Person // 'function'
 
 重点：
 
-1、二级对象都是继承一级对象Object的，请看它们的原型指向：
+1、二级函数对象的原型对象都是继承一级函数对象Object的原型对象，请看它们的原型指向：
 
 ```javascrip
 Function.prototype.__proto__ === Object.prototype   // true
@@ -455,6 +503,9 @@ Number.prototype.__proto__ === Object.prototype   // true
 
 Person.prototype.__proto__ === Object.prototype   // true
 ```
+
+    什么情况下产生继承关系呢？个人觉得用new运算符 + 构造函数才会产生继承关系，但是这些二级构造函数对象都是js内置的，他们的继承关系真是不清楚，可以是太菜了........
+
 
 2、二级对象继承了一级对象Object.prototype中的所以属性，同时二级对象也有自己的私有属性，是Object的原型中没有的，我们经常用到的比如：
 </code></pre>
@@ -469,7 +520,7 @@ c). Array的私有属性
 
 <h3 id="">三、非函数对象（非内置函数对象的没有内置的私有属性）</h3>
 
-<pre><code>1、常用的非函数对象有：
+<pre><code>1、常用的非函数对象，这些对象都是new + 构造函数创建的，存在继承关系
 
 ```javascript
 
