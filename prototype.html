@@ -42,6 +42,7 @@
 
 ```javascript
 1）、用new关键字调用，否则就成为普通函数的调用了
+
 2）、函数内部可以使用this关键字
       在构造函数内部，this指向的是构造出的新对象。用this定义的变量或函数/方法，就是实例变量或实例函数/方法。需要用实例才能访问到，不能用类型名访问。
 3）、默认不用return返回值（或者说有默认的返回值，也就是当前对象）
@@ -87,7 +88,7 @@ console.log(Object.prototype);// 输出如下：
 特别重要的三个属性：
 ```javascript
 
-1）、Object.prototype.constructor是一个函数，正是该函数创建了Objec.prototypet对象，正因为有了Object函数对象才会有Object.prototype这个原型对象。如下：
+1）、Object.prototype.constructor是指向当前内置函数对象的引用。如下：
 
 Object.prototype.constructor === Object // true
 
@@ -121,7 +122,7 @@ typeof Function // 'function'
 
 ```
 
-Function.prototype.constructor是一个函数，正是该函数创建了Function.prototype对象，看：
+Function.prototype.constructor是指向当前内置函数对象的引用，看：
 
 ```javascript
 
@@ -164,7 +165,7 @@ Number.prototype.__proto__ === Object.prototype   // true
 Person.prototype.__proto__ === Object.prototype   // true
 ```
 
- 什么情况下产生继承关系呢？个人觉得用new运算符 + 构造函数才会产生继承关系，但是这些二级构造函数对象都是js内置的，他们的继承关系真是不清楚，可能是太菜了........
+ 什么情况下产生继承关系呢？个人觉得用new运算符 + 构造函数才会产生继承关系，但是这些二级构造函数对象都是js内置的，他们和Object的继承关系真是不清楚，可能是太菜了........
 
 
 2、二级对象继承了一级对象Object.prototype中的所以属性，同时二级对象也有自己的私有属性，是Object的原型中没有的，我们经常用到的比如：
@@ -348,9 +349,9 @@ function arg() {
 
 1、对象的定义：若干属性（方法）的集合;
 
-2、所有的函数都是对象，但是对象不一定是函数;
+2、所有的函数都是对象，但是对象不一定是函数，既是对象又是函数的对象称为函数对象；
 
-3、所有的函数对象都有一个默认属性为prototype，这个属性prototype是一个对象。其中有一个属性为constructor，这个属性就是由该函数创建的；另外一个是__proto__属性，指明继承关系。
+3、所有的函数对象都有一个默认属性为prototype，这个属性prototype是一个对象。其中有一个属性为constructor，这个属性是当前函数的引用；另外一个是__proto__属性，指明继承关系。
 
 4、所有的非函数对象（实例）都有一个constructor属性，这个属性是一个存放着创建该对象的函数；同时也有__proto__属性，指明继承关系。
 
@@ -395,6 +396,7 @@ function arg() {
 <p>构造函数：</p>
 
 <pre><code class="javascript">1）、用new关键字调用，否则就成为普通函数的调用了
+
 2）、函数内部可以使用this关键字
       在构造函数内部，this指向的是构造出的新对象。用this定义的变量或函数/方法，就是实例变量或实例函数/方法。需要用实例才能访问到，不能用类型名访问。
 3）、默认不用return返回值（或者说有默认的返回值，也就是当前对象）
@@ -435,7 +437,7 @@ typeof Object // 'function'
 
 <p>特别重要的三个属性：</p>
 
-<pre><code class="javascript">1）、Object.prototype.constructor是一个函数，正是该函数创建了Objec.prototypet对象，正因为有了Object函数对象才会有Object.prototype这个原型对象。如下：
+<pre><code class="javascript">1）、Object.prototype.constructor是指向当前内置函数对象的引用。如下：
 
 Object.prototype.constructor === Object // true
 
@@ -463,7 +465,7 @@ typeof Function // 'function'
     __lookupSetter__
 </code></pre>
 
-<p>Function.prototype.constructor是一个函数，正是该函数创建了Function.prototype对象，看：</p>
+<p>Function.prototype.constructor是指向当前内置函数对象的引用，看：</p>
 
 <pre><code class="javascript">Function.prototype.constructor === Function // true
 </code></pre>
@@ -503,7 +505,7 @@ Number.prototype.__proto__ === Object.prototype   // true
 Person.prototype.__proto__ === Object.prototype   // true
 </code></pre>
 
-<p>什么情况下产生继承关系呢？个人觉得用new运算符 + 构造函数才会产生继承关系，但是这些二级构造函数对象都是js内置的，他们的继承关系真是不清楚，可能是太菜了........</p>
+<p>什么情况下产生继承关系呢？个人觉得用new运算符 + 构造函数才会产生继承关系，但是这些二级构造函数对象都是js内置的，他们和Object的继承关系真是不清楚，可能是太菜了........</p>
 
 <p>2、二级对象继承了一级对象Object.prototype中的所以属性，同时二级对象也有自己的私有属性，是Object的原型中没有的，我们经常用到的比如：</p>
 
@@ -671,9 +673,9 @@ str.slice(2, 5); // [3, "a", "b"]
 
 <pre><code class="javascript">1、对象的定义：若干属性（方法）的集合;
 
-2、所有的函数都是对象，但是对象不一定是函数;
+2、所有的函数都是对象，但是对象不一定是函数，既是对象又是函数的对象称为函数对象；
 
-3、所有的函数对象都有一个默认属性为prototype，这个属性prototype是一个对象。其中有一个属性为constructor，这个属性就是由该函数创建的；另外一个是__proto__属性，指明继承关系。
+3、所有的函数对象都有一个默认属性为prototype，这个属性prototype是一个对象。其中有一个属性为constructor，这个属性是当前函数的引用；另外一个是__proto__属性，指明继承关系。
 
 4、所有的非函数对象（实例）都有一个constructor属性，这个属性是一个存放着创建该对象的函数；同时也有__proto__属性，指明继承关系。
 
