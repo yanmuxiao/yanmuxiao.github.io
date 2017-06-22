@@ -1,0 +1,498 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="Keywords" content="blog"/>
+    <meta name="Description" content="blog"/>
+    <title>Simple</title>
+    <link rel="shortcut icon" href="/static/favicon.png"/>
+    <link rel="stylesheet" type="text/css" href="/main.css" />
+</head>
+<body>
+<div class="main">
+    <div class="header">
+    	<ul id="pages">
+            <li><a href="/">home</a></li>
+            <li><a href="/#/tags">tags</a></li>
+            <li><a href="/#/archive">archive</a></li>
+    	</ul>
+    </div>
+	<div class="wrap-header">
+	<h1>
+    <a href="/" id="title"></a>
+	</h1>
+	</div>
+<div id="md" style="display: none;">
+<!-- markdown -->
+###一、js作用域
+
+在一个页面中，一个<scriptSS>标签包裹的js形成一个全局作用域，如
+
+```javascript
+	
+	// 页面的第1个<scriptSS>作用域：
+
+		<scriptSS></script> 或者 <scriptSS src='a.js'></script> ==> A作用域
+
+```
+
+我们将页面的第1个<scriptSS>作用域A称为全局作用域，全局作用将的变量都是window的属性。
+
+嵌在一个<scriptSS>作用域中的函数形成的作用域称为局部作用域，同样的，嵌在一个函数作用域中的函数也形成一个局部作用域，如
+
+```javascript
+
+	<scriptSS>   
+
+		var x = 10; // 全局作用域A中的x
+
+		var fn1 = function() {
+
+			var x = 20; // 局部作用域fn1中的x
+
+
+			var fn2 = function() {
+
+				var x = 30; // 局部作用域fn2中的x
+
+			}
+
+		}
+
+
+	</script>
+
+```
+
+作用域链：全局作用域A ==> 局部作用域fn1 ==> 局部作用域fn2
+
+当局部作用域fn2中使用某个变量时，先判断当前局部作用域fn2中是否存在该变量，如果存在，直接使用当前作用域的变量，如果不存在，再判断局部作用域fn1是否存在，如果存在，直接使用fn1中的变量，如果不存在，最后在全局作用域A找，如果存在直接使用，如果不存在，则该变量未定义运行报错。这就是所谓的js作用域链。
+
+相反的，全局作用域A不能使用局部作用域fn1和局部作用域fn2中的通过var声明的私有变量。
+
+
+
+###二、作用域内变量声明提前
+
+```javascript
+
+<scriptSS>   
+
+	console.log(x);  // undefined
+	var x = 10; // 全局作用域A中的x
+
+	var fn1 = function() {
+
+
+		console.log(x); // undefined
+		var x = 20; // 局部作用域fn1中的x
+
+
+		var fn2 = function() {
+
+			console.log(x);	// undefined
+			var x = 30; // 局部作用域fn2中的x
+
+		}
+
+	}
+
+
+</script>
+
+```
+
+相当于：
+```javascript
+
+<scriptSS>   
+	
+
+	var x;  // 只声明未定义，值为undefined
+	console.log(x);  // undefined
+	x = 10; // 全局作用域A中的x
+
+	var fn1 = function() {
+
+		var x;
+		console.log(x); // undefined
+		x = 20; // 局部作用域fn1中的x
+
+
+		var fn2 = function() {
+
+			var x;
+			console.log(x);	// undefined
+			x = 30; // 局部作用域fn2中的x
+
+		}
+
+	}
+
+
+</script>
+
+```
+
+###三、作用域内函数声明提前
+```javascript
+
+<scriptSS>   
+	
+
+	var aFn = function() {
+		console.log(10);
+	}
+
+	function aFn() {
+		console.log(20);
+	}
+
+	aFn(); // 10
+
+
+</script>
+```
+
+###四、局部作用域内未通过var声明的全局变量
+```javascript
+
+<scriptSS>   
+
+        var x = 10; // 全局作用域A中的x
+
+	var fn1 = function() {
+
+		var x = 20; // 局部作用域fn1中的x
+		y = 'y';
+
+		var fn2 = function() {
+
+			var x = 30; // 局部作用域fn2中的x
+
+		}
+
+	}
+	console.log(y); // 报错
+
+</script>
+
+```
+
+注意：局部作用域内未通过var声明的全局变量只有在形成该局部作用域的函数调用后才能在全局作用域中访问。
+
+
+###五、多个<scriptSS>标签包裹的js形成的全局作用域
+
+```javascript
+	
+	// 页面的第1个<scriptSS>作用域：
+
+		<scriptSS></script> 或者 <script src='a.js'></script> ==> A作用域
+
+		假如A作用域中有作用域链：全局作用域A ==> 局部作用域fn1 ==> 局部作用域fn2
+
+	// 页面的第2个<scriptSS>作用域：
+
+		<scriptSS></script> 或者 <scriptSS src='b.js'></script> ==> B作用域
+
+		假如B作用域中有作用域链：全局作用域B ==> 局部作用域fn3 ==> 局部作用域fn4
+
+```
+
+关系：
+
+1、页面的第1个<scriptSS>作用域A加载完成后会立即执行，页面的第2个<scriptSS>作用域B尚未加载，所以全局作用域A执行过程中不能使用第2个<scriptSS>作用域B中的变量，否则报错。
+
+2、全局作用域A中的局部作用域在全局作用域A中运行时也不能使用第2个<scriptSS>作用域B中的变量，否则报错。
+
+3、页面的第2个<scriptSS>作用域B以及局部作用域fn3和局部作用域fn4可以使用页面的第1个<scriptSS>作用域A中的所有全局变量。
+
+4、页面的第1个<scriptSS>作用域A在执行过程中如果报错，立即停止执行，但是，不影响页面的第2个<scriptSS>作用域B的执行，也不影响页面的第2个<scriptSS>作用域B使用作用域A中的全局变量。
+
+5、页面的第2个<scriptSS>作用域B执行后，页面的第1个<scriptSS>作用域A中的局部作用域函数可以使用作用域B中的全局变量。作用域A的局部作用域是否能使用作用域B中的全局变量取决于该局部作用域什么时候执行。类似地：
+
+
+```javascript
+	
+	全局作用域A ==> 局部作用域fn1 ==> 局部作用域fn2
+
+```
+
+在局部作用域fn1定义的未通过var声明的全局变量能否在局部作用域fn2中使用也取决于fn2在fn1执行后在执行，反之亦然。
+
+
+
+###六、总结
+
+	为了更好的理解js代码，建议变量必须先用var声明再使用。
+
+	ES6增加let、const声明变量的运算符，通过let声明的变量不存在变量提升，必须声明再使用，否则报错，const声明的变量为常量，不可改变，否则报错。
+
+	了解更多，学习ES6吧。
+
+
+
+
+
+
+
+
+
+<!-- markdown end -->
+</div>
+<div class="entry" id="main">
+<!-- content -->
+<h3 id="js">一、js作用域</h3>
+
+<p>在一个页面中，一个<scriptss>标签包裹的js形成一个全局作用域，如</scriptss></p>
+
+<pre><code class="javascript">    // 页面的第1个&lt;scriptSS&gt;作用域：
+
+        &lt;scriptSS&gt;&lt;/script&gt; 或者 &lt;scriptSS src='a.js'&gt;&lt;/script&gt; ==&gt; A作用域
+</code></pre>
+
+<p>我们将页面的第1个<scriptss>作用域A称为全局作用域，全局作用将的变量都是window的属性。</scriptss></p>
+
+<p>嵌在一个<scriptss>作用域中的函数形成的作用域称为局部作用域，同样的，嵌在一个函数作用域中的函数也形成一个局部作用域，如</scriptss></p>
+
+<pre><code class="javascript">    &lt;scriptSS&gt;   
+
+        var x = 10; // 全局作用域A中的x
+
+        var fn1 = function() {
+
+            var x = 20; // 局部作用域fn1中的x
+
+
+            var fn2 = function() {
+
+                var x = 30; // 局部作用域fn2中的x
+
+            }
+
+        }
+
+
+    &lt;/script&gt;
+</code></pre>
+
+<p>作用域链：全局作用域A ==&gt; 局部作用域fn1 ==&gt; 局部作用域fn2</p>
+
+<p>当局部作用域fn2中使用某个变量时，先判断当前局部作用域fn2中是否存在该变量，如果存在，直接使用当前作用域的变量，如果不存在，再判断局部作用域fn1是否存在，如果存在，直接使用fn1中的变量，如果不存在，最后在全局作用域A找，如果存在直接使用，如果不存在，则该变量未定义运行报错。这就是所谓的js作用域链。</p>
+
+<p>相反的，全局作用域A不能使用局部作用域fn1和局部作用域fn2中的通过var声明的私有变量。</p>
+
+<h3 id="">二、作用域内变量声明提前</h3>
+
+<pre><code class="javascript">&lt;scriptSS&gt;   
+
+    console.log(x);  // undefined
+    var x = 10; // 全局作用域A中的x
+
+    var fn1 = function() {
+
+
+        console.log(x); // undefined
+        var x = 20; // 局部作用域fn1中的x
+
+
+        var fn2 = function() {
+
+            console.log(x); // undefined
+            var x = 30; // 局部作用域fn2中的x
+
+        }
+
+    }
+
+
+&lt;/script&gt;
+</code></pre>
+
+<p>相当于：</p>
+
+<pre><code class="javascript">&lt;scriptSS&gt;   
+
+
+    var x;  // 只声明未定义，值为undefined
+    console.log(x);  // undefined
+    x = 10; // 全局作用域A中的x
+
+    var fn1 = function() {
+
+        var x;
+        console.log(x); // undefined
+        x = 20; // 局部作用域fn1中的x
+
+
+        var fn2 = function() {
+
+            var x;
+            console.log(x); // undefined
+            x = 30; // 局部作用域fn2中的x
+
+        }
+
+    }
+
+
+&lt;/script&gt;
+</code></pre>
+
+<h3 id="">三、作用域内函数声明提前</h3>
+
+<pre><code class="javascript">&lt;scriptSS&gt;   
+
+
+    var aFn = function() {
+        console.log(10);
+    }
+
+    function aFn() {
+        console.log(20);
+    }
+
+    aFn(); // 10
+
+
+&lt;/script&gt;
+</code></pre>
+
+<h3 id="var">四、局部作用域内未通过var声明的全局变量</h3>
+
+<pre><code class="javascript">&lt;scriptSS&gt;   
+
+        var x = 10; // 全局作用域A中的x
+
+    var fn1 = function() {
+
+        var x = 20; // 局部作用域fn1中的x
+        y = 'y';
+
+        var fn2 = function() {
+
+            var x = 30; // 局部作用域fn2中的x
+
+        }
+
+    }
+    console.log(y); // 报错
+
+&lt;/script&gt;
+</code></pre>
+
+<p>注意：局部作用域内未通过var声明的全局变量只有在形成该局部作用域的函数调用后才能在全局作用域中访问。</p>
+
+<h3 id="scriptssjs">五、多个<scriptss>标签包裹的js形成的全局作用域</scriptss></h3>
+
+<pre><code class="javascript">    // 页面的第1个&lt;scriptSS&gt;作用域：
+
+        &lt;scriptSS&gt;&lt;/script&gt; 或者 &lt;script src='a.js'&gt;&lt;/script&gt; ==&gt; A作用域
+
+        假如A作用域中有作用域链：全局作用域A ==&gt; 局部作用域fn1 ==&gt; 局部作用域fn2
+
+    // 页面的第2个&lt;scriptSS&gt;作用域：
+
+        &lt;scriptSS&gt;&lt;/script&gt; 或者 &lt;scriptSS src='b.js'&gt;&lt;/script&gt; ==&gt; B作用域
+
+        假如B作用域中有作用域链：全局作用域B ==&gt; 局部作用域fn3 ==&gt; 局部作用域fn4
+</code></pre>
+
+<p>关系：</p>
+
+<p>1、页面的第1个<scriptss>作用域A加载完成后会立即执行，页面的第2个<scriptss>作用域B尚未加载，所以全局作用域A执行过程中不能使用第2个<scriptss>作用域B中的变量，否则报错。</scriptss></scriptss></scriptss></p>
+
+<p>2、全局作用域A中的局部作用域在全局作用域A中运行时也不能使用第2个<scriptss>作用域B中的变量，否则报错。</scriptss></p>
+
+<p>3、页面的第2个<scriptss>作用域B以及局部作用域fn3和局部作用域fn4可以使用页面的第1个<scriptss>作用域A中的所有全局变量。</scriptss></scriptss></p>
+
+<p>4、页面的第1个<scriptss>作用域A在执行过程中如果报错，立即停止执行，但是，不影响页面的第2个<scriptss>作用域B的执行，也不影响页面的第2个<scriptss>作用域B使用作用域A中的全局变量。</scriptss></scriptss></scriptss></p>
+
+<p>5、页面的第2个<scriptss>作用域B执行后，页面的第1个<scriptss>作用域A中的局部作用域函数可以使用作用域B中的全局变量。作用域A的局部作用域是否能使用作用域B中的全局变量取决于该局部作用域什么时候执行。类似地：</scriptss></scriptss></p>
+
+<pre><code class="javascript">    全局作用域A ==&gt; 局部作用域fn1 ==&gt; 局部作用域fn2
+</code></pre>
+
+<p>在局部作用域fn1定义的未通过var声明的全局变量能否在局部作用域fn2中使用也取决于fn2在fn1执行后在执行，反之亦然。</p>
+
+<h3 id="">六、总结</h3>
+
+<pre><code>为了更好的理解js代码，建议变量必须先用var声明再使用。
+
+ES6增加let、const声明变量的运算符，通过let声明的变量不存在变量提升，必须声明再使用，否则报错，const声明的变量为常量，不可改变，否则报错。
+
+了解更多，学习ES6吧。
+</code></pre>
+<!-- content end -->
+</div>
+<br>
+<br>
+    <div id="disqus_thread"></div>
+	<div class="footer">
+		<p>© Copyright 2014 by isnowfy, Designed by isnowfy</p>
+	</div>
+</div>
+<script src="main.js"></script>
+<script id="content" type="text/mustache">
+    <h1>{{title}}</h1>
+    <div class="tag">
+    {{date}}
+    {{#tags}}
+    <a href="/#/tag/{{name}}">#{{name}}</a>
+    {{/tags}}
+    </div>
+</script>
+<script id="pagesTemplate" type="text/mustache">
+    {{#pages}}
+    <li>
+        <a href="{{path}}">{{title}}</a>
+    </li>
+    {{/pages}}
+</script>
+<script>
+$(document).ready(function() {
+    $.ajax({
+        url: "main.json",
+        type: "GET",
+        dataType: "json",
+        success: function(data) {
+            $("#title").html(data.name);
+            var pagesTemplate = Hogan.compile($("#pagesTemplate").html());
+            var pagesHtml = pagesTemplate.render({"pages": data.pages});
+            $("#pages").append(pagesHtml);
+            //path
+            var path = "scope.html";
+            //path end
+            var now = 0;
+            for (var i = 0; i < data.posts.length; ++i)
+                if (path == data.posts[i].path)
+                    now = i;
+            var post = data.posts[now];
+            var tmp = post.tags.split(" ");
+            var tags = [];
+            for (var i = 0; i < tmp.length; ++i)
+                if (tmp[i].length > 0)
+                    tags.push({"name": tmp[i]});
+            var contentTemplate = Hogan.compile($("#content").html());
+            var contentHtml = contentTemplate.render({"title": post.title, "tags": tags, "date": post.date});
+            $("#main").prepend(contentHtml);
+            if (data.disqus_shortname.length > 0) {
+                var disqus_shortname = data.disqus_shortname;
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            }
+        }
+    });
+});
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ["\\(", "\\)"]], processEscapes: true}});
+</script>
+</body>
+</html>
