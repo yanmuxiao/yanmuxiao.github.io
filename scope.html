@@ -154,6 +154,27 @@
 
 </script>
 ```
+相当于：
+```javascript
+
+<scriptSS>   
+	
+       var aFn；// 变量声明提前
+       
+        // 函数声明提前
+        function aFn() {
+		console.log(20);
+	}
+        
+        // 重新赋值覆盖
+	aFn = function() {
+		console.log(10);
+	}
+
+	aFn(); // 10
+
+</script>
+```
 
 ###四、局部作用域内未通过var声明的全局变量
 ```javascript
@@ -231,7 +252,6 @@
 	ES6增加let、const声明变量的运算符，通过let声明的变量不存在变量提升，必须声明再使用，否则报错，const声明的变量为常量，不可改变，否则报错。
 
 	了解更多，学习ES6吧。
-
 
 
 
@@ -356,6 +376,27 @@
 
     aFn(); // 10
 
+
+&lt;/script&gt;
+</code></pre>
+
+<p>相当于：</p>
+
+<pre><code class="javascript">&lt;scriptSS&gt;   
+
+       var aFn；// 变量声明提前
+
+        // 函数声明提前
+        function aFn() {
+        console.log(20);
+    }
+
+        // 重新赋值覆盖
+    aFn = function() {
+        console.log(10);
+    }
+
+    aFn(); // 10
 
 &lt;/script&gt;
 </code></pre>
