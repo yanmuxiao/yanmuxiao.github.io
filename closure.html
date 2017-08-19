@@ -78,7 +78,7 @@ function fn1() {  // 局部作用域fn1
 在局部作用域形成(或者说定义)时，局部作用域中自由变量的指向已经确定，与在哪里调用执行无关。
 
 
-三、闭包的概念
+三、闭包
 ```javascript
 
 <scriptSS>
@@ -111,32 +111,78 @@ function fn1() {  // 局部作用域fn1
 
 四、哪些方式可以形成闭包呢？
 
-很明显，由（三）可以知道，通过在函数中return一个函数的方式可以形成闭包，这种方式是将函数当做返回值。还有别的方式吗？
+很明显，由（三）可以知道，通过在函数中return一个函数的方式可以形成闭包，这种方式是将函数当做返回值。还有别的方式吗？还有2种：
 
-另外一种方式，将函数当做参数传递：
+1、另外一种方式就是返回一个对象，对象中函数方法（即函数）：
 
 ```javascript
 
 <scriptSS>
-	
-	var x = 10; // 全局作用域A中的变量x
-	function fn1() {
-		console.log(x);
-	}
 
-	var fn2 = function(arg) {
-		var x = 20;
-		arg();
-	}
-	fn2(fn1); // 10
+
+function returnObj() {
+  var num = 800;
+  return {
+      objFn: function() {
+        console.log(num++);
+      }
+  }
+}
+
+var returnObj1 = returnObj();
+returnObj1.objFn();// 800
+returnObj1.objFn();// 801
+
+var returnObj2 = returnObj();
+returnObj2.objFn();// 800
+returnObj2.objFn();// 801
+returnObj2.objFn();// 802
+
+// 或者 new + 构造函数的隐性return返回
+	
+function Persion() {
+    var num = 600;
+    this.say = function() {
+        console.log(num++);
+    }
+}
+var p1 = new Persion();
+p1.say(); //600 
+p1.say();//601 
+p1.say();//602
+
+var p2 = new Persion();
+p2.say(); //600 
+p2.say(); //601 
+p2.say(); //602 
 
 </script>
 
 ```
 
-通过将函数当做参数传递的方式可以形成闭包。
+2、ES6多了一种形成局部作用域和声明局部变量的方法，所以也多了一种形成闭包的方法
 
-形成闭包的两种方式：函数作为返回值，函数作为参数传递。
+```javascript
+<script>
+{
+  let letV = 123;
+  var varVFn = function() {
+    console.log(letV)
+    letV++;
+  }
+}
+var varVFn1 = varVFn;
+varVFn1();//123
+varVFn1();//124
+var varVFn2 = varVFn;
+varVFn2();//125
+varVFn2();//126
+
+// 这种方法即使varVFn重新赋给别的变量也不会产生新的局部变量，而是始终指向letV，就像全局作用域的全局变量一样。
+
+</script>
+```
+形成闭包的两种方式：函数作为返回值、将含有方法的对象作为返回值、ES6新的局部作用域形成和局部变量声明方法。
 
 
 五、闭包的用途
@@ -147,7 +193,7 @@ function fn1() {  // 局部作用域fn1
 
 <scriptSS>
 	
-	var x = 10; // 全局作用域A中的变量x
+   var x = 10; // 全局作用域A中的变量x
 
     function fn1() {  // 局部作用域fn1
     	var x = 20;
@@ -270,11 +316,25 @@ console.log(object.getNameFunc()());
 
 ###七、总结
 
-闭包的形成是利用在局部作用域形成(或者说定义)时，局部作用域中自由变量的指向已经确定，与在哪里调用执行无关。
+1、闭包的概念
 
-闭包的概念：在一个局部作用域中使用另外一个局部作用域中的私有变量的行为成为闭包（也就是在一个函数中使用另外一个函数中的通过var声明的私有变量的行为称为闭包）。闭包就是将函数内部和函数外部连接起来的一座桥梁。
 
-作用域链和原型链和相似。
+闭包的形成是利用在局部作用域形成(或者说定义)时，局部作用域中自由变量的指向已经确定，与在哪里调用执行无关这一特性形成的（明白这一点即使你不懂闭包也不会出错，甚至可以说你完全不用去理解关于闭包的一切）。
+
+
+网上一些关于闭包的概念：在一个局部作用域中使用另外一个局部作用域中的私有变量的行为成为闭包（也就是在一个函数中使用另外一个函数中的通过var声明的私有变量的行为称为闭包）。闭包就是将函数内部和函数外部连接起来的一座桥梁。
+
+又有人说每个函数都构成了闭包。
+
+
+个人观点：
+
+ES5闭包的概念: 一个函数将它里面的函数或者一个含有函数的对象作为返回值return到函数外面被赋值调用的行为称为闭包。
+
+ES6闭包的多了一种情况：直接在块作用域{}内用let声明变量和用非let声明的函数，而该函数中又使用了在块作用域中用let声明的变量的行为也构成了闭包。（块作用域{}内用let声明变量有点像一般的全局作用域中的全局变量）==》这种情况纯属个人想法。
+
+
+2、作用域链和原型链和相似。
 
 
 
@@ -327,7 +387,7 @@ function fn1() {  // 局部作用域fn1
 
 <p>在局部作用域形成(或者说定义)时，局部作用域中自由变量的指向已经确定，与在哪里调用执行无关。</p>
 
-<p>三、闭包的概念</p>
+<p>三、闭包</p>
 
 <pre><code class="javascript">&lt;scriptSS&gt;
 
@@ -356,29 +416,75 @@ function fn1() {  // 局部作用域fn1
 
 <p>四、哪些方式可以形成闭包呢？</p>
 
-<p>很明显，由（三）可以知道，通过在函数中return一个函数的方式可以形成闭包，这种方式是将函数当做返回值。还有别的方式吗？</p>
+<p>很明显，由（三）可以知道，通过在函数中return一个函数的方式可以形成闭包，这种方式是将函数当做返回值。还有别的方式吗？还有2种：</p>
 
-<p>另外一种方式，将函数当做参数传递：</p>
+<p>1、另外一种方式就是返回一个对象，对象中函数方法（即函数）：</p>
 
 <pre><code class="javascript">&lt;scriptSS&gt;
 
-    var x = 10; // 全局作用域A中的变量x
-    function fn1() {
-        console.log(x);
-    }
 
-    var fn2 = function(arg) {
-        var x = 20;
-        arg();
+function returnObj() {
+  var num = 800;
+  return {
+      objFn: function() {
+        console.log(num++);
+      }
+  }
+}
+
+var returnObj1 = returnObj();
+returnObj1.objFn();// 800
+returnObj1.objFn();// 801
+
+var returnObj2 = returnObj();
+returnObj2.objFn();// 800
+returnObj2.objFn();// 801
+returnObj2.objFn();// 802
+
+// 或者 new + 构造函数的隐性return返回
+
+function Persion() {
+    var num = 600;
+    this.say = function() {
+        console.log(num++);
     }
-    fn2(fn1); // 10
+}
+var p1 = new Persion();
+p1.say(); //600 
+p1.say();//601 
+p1.say();//602
+
+var p2 = new Persion();
+p2.say(); //600 
+p2.say(); //601 
+p2.say(); //602 
 
 &lt;/script&gt;
 </code></pre>
 
-<p>通过将函数当做参数传递的方式可以形成闭包。</p>
+<p>2、ES6多了一种形成局部作用域和声明局部变量的方法，所以也多了一种形成闭包的方法</p>
 
-<p>形成闭包的两种方式：函数作为返回值，函数作为参数传递。</p>
+<pre><code class="javascript">&lt;script&gt;
+{
+  let letV = 123;
+  var varVFn = function() {
+    console.log(letV)
+    letV++;
+  }
+}
+var varVFn1 = varVFn;
+varVFn1();//123
+varVFn1();//124
+var varVFn2 = varVFn;
+varVFn2();//125
+varVFn2();//126
+
+// 这种方法即使varVFn重新赋给别的变量也不会产生新的局部变量，而是始终指向letV，就像全局作用域的全局变量一样。
+
+&lt;/script&gt;
+</code></pre>
+
+<p>形成闭包的两种方式：函数作为返回值、将含有方法的对象作为返回值、ES6新的局部作用域形成和局部变量声明方法。</p>
 
 <p>五、闭包的用途</p>
 
@@ -386,7 +492,7 @@ function fn1() {  // 局部作用域fn1
 
 <pre><code class="javascript">&lt;scriptSS&gt;
 
-    var x = 10; // 全局作用域A中的变量x
+   var x = 10; // 全局作用域A中的变量x
 
     function fn1() {  // 局部作用域fn1
         var x = 20;
@@ -492,11 +598,21 @@ console.log(object.getNameFunc()());
 
 <h3 id="">七、总结</h3>
 
-<p>闭包的形成是利用在局部作用域形成(或者说定义)时，局部作用域中自由变量的指向已经确定，与在哪里调用执行无关。</p>
+<p>1、闭包的概念</p>
 
-<p>闭包的概念：在一个局部作用域中使用另外一个局部作用域中的私有变量的行为成为闭包（也就是在一个函数中使用另外一个函数中的通过var声明的私有变量的行为称为闭包）。闭包就是将函数内部和函数外部连接起来的一座桥梁。</p>
+<p>闭包的形成是利用在局部作用域形成(或者说定义)时，局部作用域中自由变量的指向已经确定，与在哪里调用执行无关这一特性形成的（明白这一点即使你不懂闭包也不会出错，甚至可以说你完全不用去理解关于闭包的一切）。</p>
 
-<p>作用域链和原型链和相似。</p>
+<p>网上一些关于闭包的概念：在一个局部作用域中使用另外一个局部作用域中的私有变量的行为成为闭包（也就是在一个函数中使用另外一个函数中的通过var声明的私有变量的行为称为闭包）。闭包就是将函数内部和函数外部连接起来的一座桥梁。</p>
+
+<p>又有人说每个函数都构成了闭包。</p>
+
+<p>个人观点：</p>
+
+<p>ES5闭包的概念: 一个函数将它里面的函数或者一个含有函数的对象作为返回值return到函数外面被赋值调用的行为称为闭包。</p>
+
+<p>ES6闭包的多了一种情况：直接在块作用域{}内用let声明变量和用非let声明的函数，而该函数中又使用了在块作用域中用let声明的变量的行为也构成了闭包。（块作用域{}内用let声明变量有点像一般的全局作用域中的全局变量）==》这种情况纯属个人想法。</p>
+
+<p>2、作用域链和原型链和相似。</p>
 <!-- content end -->
 </div>
 <br>
