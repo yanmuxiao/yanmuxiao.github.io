@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta name="Keywords" content="blog"/>
     <meta name="Description" content="blog"/>
-    <title>yanmuxiao</title>
+    <title>Simple</title>
     <link rel="shortcut icon" href="/static/favicon.png"/>
     <link rel="stylesheet" type="text/css" href="/main.css" />
 </head>
@@ -224,11 +224,11 @@
 	在了解之前，先注册github账号，由于你的本地Git仓库和github仓库之间的传输是通过SSH加密的，所以需要一点设置: 
 
     1. 第一步: 创建SSH Key。
-     	1). 在用户主目录下，看看有没有.ssh目录，如果有，再看看这个
+     	1). 在用户主目录(C:\Users\用户名)下，看看有没有.ssh目录，如果有，再看看这个
      	目录下有没有id_rsa和id_rsa.pub这两个文件，如果有的话，直接跳过此如下命令；
      	2). 如果没有的话，在这个目录下打开命令行，输入如下命令: 
 
-	 	ssh-keygen  -t rsa –C "youremail@example.com"
+	 	ssh-keygen  -t rsa –C（可以使用默认的设置，连续3次Enter）
 
 	 	然后该目录先生成两个文件: 
 	 		id_rsa是私钥，不能泄露出去
@@ -484,9 +484,6 @@ $ git config --global user.email 'your email'
 git config --list
 
 
-
-
-
 $ cd E:   ==&gt;进入哪个盘
 $ cd dir ==&gt;进入哪个目录
 $ cd ~/.目录名 ==&gt;快速进入指定目录
@@ -494,7 +491,6 @@ $ cd ~/.目录名 ==&gt;快速进入指定目录
 $ mkdir dir ==&gt;新建目录
 $ cd dir ==&gt;进入新建的目录
 $ pwd ==&gt;显示当前目录的路径
-
 
 
 $ git init ==&gt;这个目录变成git可以管理的仓库
@@ -513,7 +509,6 @@ $ git init ==&gt;这个目录变成git可以管理的仓库
             fs.writeFile('readme.txt', '这里是readme.txt的文件内容')
 
 
-
 2、把文件添加到版本库中
 
     1).  git add readme.txt  ==&gt; 将新建readme.txt文件添加到暂存区里面去
@@ -522,7 +517,6 @@ $ git init ==&gt;这个目录变成git可以管理的仓库
 
             git reset -- clone.txt
                 ==&gt; 将已经添加到暂存区的文件撤回工作区
-
 
 
     2).  git commit   ==&gt;   把文件提交到Git仓库
@@ -569,8 +563,6 @@ $ git init ==&gt;这个目录变成git可以管理的仓库
     3). 那么如何实现单个文件的版本回退呢？
         git log 文件名
         git reset  版本号 文件名
-
-
 
 
 4. 理解工作区与暂存区的区别？
@@ -623,7 +615,6 @@ $ git init ==&gt;这个目录变成git可以管理的仓库
     注意: 命令git checkout -- readme.txt 中的 --很重要，如果没有 -- 的话，那么命令变成切换分支了。
 
 
-
 2. 删除文件
     1)、尚未commit, 即版本库中没有该文件
        a). git命令删除: git rm deleteFile.txt
@@ -664,16 +655,15 @@ $ git init ==&gt;这个目录变成git可以管理的仓库
 <pre><code>在了解之前，先注册github账号，由于你的本地Git仓库和github仓库之间的传输是通过SSH加密的，所以需要一点设置: 
 
 1. 第一步: 创建SSH Key。
-     1). 在用户主目录下，看看有没有.ssh目录，如果有，再看看这个
+     1). 在用户主目录(C:\Users\用户名)下，看看有没有.ssh目录，如果有，再看看这个
      目录下有没有id_rsa和id_rsa.pub这两个文件，如果有的话，直接跳过此如下命令；
      2). 如果没有的话，在这个目录下打开命令行，输入如下命令: 
 
-    ssh-keygen  -t rsa –C "youremail@example.com"
+    ssh-keygen  -t rsa –C（可以使用默认的设置，连续3次）
 
     然后该目录先生成两个文件: 
         id_rsa是私钥，不能泄露出去
         id_rsa.pub是公钥，可以放心地告诉任何人。
-
 
 
    第二步: 
@@ -688,7 +678,6 @@ $ git init ==&gt;这个目录变成git可以管理的仓库
 
     2). 项目创建完后会生成一个项目地址: 
         https://github.com/yanmuxiao/git-guide.git
-
 
     3). 如何将远程库和本地的库关联起来
         a). 在存放该项目的目录下建一个和远程库同名的项目目录: 
@@ -706,7 +695,6 @@ $ git init ==&gt;这个目录变成git可以管理的仓库
                 [master (root-commit) 0205aab] 添加 README.md 文件
                  1 file changed, 1 insertion(+)
                  create mode 100644 README.md
-
 
 
             # 提交到 Github
@@ -732,7 +720,6 @@ $ git init ==&gt;这个目录变成git可以管理的仓库
 
     默认情况下的clone会把所以分支的内容都clone下来，如何clone某一个分支呢？
         git clone -b 分支名(eg: dev) 项目地址url
-
 
 
 4. 如何删除远程库里面的目录==&gt;其实就是先删除local stage的目录再提交到远程
@@ -765,7 +752,6 @@ $ git init ==&gt;这个目录变成git可以管理的仓库
 合并某分支到当前分支：git merge name
 
 删除分支：git branch –d name
-
 
 
 1. 分支合并冲突（merge conflict):
@@ -900,7 +886,7 @@ $ git init ==&gt;这个目录变成git可以管理的仓库
 <br>
 <br>
     <div id="disqus_thread"></div>
-    <div class="footer">
+	<div class="footer">
 		<p>© Copyright 2014 by isnowfy, Designed by isnowfy</p>
 	</div>
 </div>
